@@ -38,11 +38,23 @@ var driveIds = new Set();
 //Array of metrics for graph4
 var qbMetrics = new Array(validPassers.size);
 
+//Map of QB to Team
+var qbToTeam = {};
+
+//Set of teams
+var teams = new Set();
+
+//WPA for Each Passer
+var passerWPA = new Array(validPassers.size).fill(0);
+
+//WPA for Team on Defense
+var defenseWPA = new Array(32).fill(0);
+
 //==============Data Parsing===================
 d3.csv("pbp_2017_wp.csv", function(data) {
 
   // =======Step 1: QB Pass Counts========
-  // console.log(data[100])
+  console.log(data[100]);
   for (var i = 0, len = data.length; i < len; i++) {
     var qb = data[i]['Passer'];
     var attempt = data[i]['PassAttempt'];
@@ -129,6 +141,18 @@ d3.csv("pbp_2017_wp.csv", function(data) {
     play['YardsGained'] = data[i]['Yards.Gained'];
     play['Time'] = data[i]['TimeSecs'];
     play['Penalty'] = data[i]['Accepted.Penalty'];
+    play['posTeam'] = data[i]['posteam'];
+    play['HomeTeam'] = data[i]['HomeTeam'];
+    play['AwayTeam'] = data[i]['AwayTeam'];
+    play['HomeWPA'] = data[i]['Home_WP_post'];
+    play['AwayWPA'] = data[i]['Away_WP_post'];
+
+    if (play['posTeam'] == play['HomeTeam']){
+      play['defTeam'] = play['HomeTeam'];
+    }
+    else {
+      play['defTeam'] = play['AwayTeam'];
+    }
 
     var drive = null;
     if (driveIds.has(overallId)){
@@ -152,10 +176,6 @@ d3.csv("pbp_2017_wp.csv", function(data) {
   }
 
   //==========Step 4: Map Drives to passers===========
-  //loop through drive Array
-    //keep track of passers
-    //if a passer is a validPasser
-      //add the drive to their entry in qbToDrive
 
   //init qbToDrive
   for (var i=0, len=validPassers.size; i < len; i++){
@@ -172,7 +192,6 @@ d3.csv("pbp_2017_wp.csv", function(data) {
     });
 
     //attribute drive to passer
-    // console.log(Object.keys(qbs))
     qbs.forEach(function(qb){
       if (validPassers.has(qb)){
         var setIndex = validPasserArr.indexOf(qb);
@@ -242,5 +261,72 @@ d3.csv("pbp_2017_wp.csv", function(data) {
   });
 
   // ==========Step 6: Compute Metrics for Graph 6 ===========
-  // TODO: 
+
+  //Map QBs to teams
+  validPassers.forEach(function(qb){
+    var setIndex = validPasserArr.indexOf(qb);
+    var team = qbToDrive[setIndex][0]['plays'][0]['posTeam'];
+    teams.add(team);
+    qbToTeam[qb] = team;
+  });
+
+  var teamsArr = Array.from(teams);
+
+  //Aggregate win prob for each Passer when on field
+  validPassers.forEach(function(qb){
+    var setIndex = validPasserArr.indexOf(qb);
+    var wpaCount = 0;
+    var playCount = 0;
+
+    var drives = qbToDrive[setIndex];
+    drives.forEach(function(drive){
+      drive['plays'].forEach(function(play){
+        playCount += 1;
+        if (qbToTeam[qb] == play['HomeTeam']){
+          if (!isNaN(parseFloat(play['HomeWPA']))){
+            wpaCount += parseFloat(play['HomeWPA']);
+          }
+        }
+        else {
+          if (!isNaN(parseFloat(play['AwayWPA']))){
+            wpaCount += parseFloat(play['AwayWPA']);
+          }
+        }
+      });
+    });
+    passerWPA[setIndex] = wpaCount/playCount;
+  });
+
+  //Aggregate win prob for each team while on defense
+  teams.forEach(function(team){
+    var playCount = 0;
+    var wpCount = 0.0;
+    var setIndex = Array.from(teams).indexOf(team);
+
+    //Look through each drive
+    driveList.forEach(function(drive){
+      drive['plays'].forEach(function(play){
+
+        //Only consider if team is on defense
+        if (play['defTeam'] == team){
+          playCount += 1;
+
+          //Add WP based on whether home or away
+          if (play['defTeam'] == play['HomeTeam']){
+            if (!isNaN(parseFloat(play['HomeWPA']))){
+              wpCount = wpCount + parseFloat(play['HomeWPA']);
+            }
+          }
+          else {
+            if (!isNaN(parseFloat(play['AwayWPA']))){
+              wpCount = wpCount + parseFloat(play['AwayWPA']);
+            }
+          }
+        }
+      });
+    });
+
+    //Compute average WP
+    defenseWPA[setIndex] = wpCount/(playCount+0.0);
+  });
 });
