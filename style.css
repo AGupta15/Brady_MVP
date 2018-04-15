@@ -1,0 +1,58 @@
+body {
+  
+}
+
+
+/* Graphs */
+#accuracy_by_distance {
+  display: inline-block;
+  margin-left: 50px;
+}
+
+
+/* D3 Elements */
+
+.tick {
+  stroke: #848484;
+}
+
+.axis line {
+  stroke: #848484;
+}
+
+.axis path {
+  stroke: none;
+}
+
+.axis text {
+  fill: #848484 !important;
+  stroke: #848484 !important;
+  stroke-width: 0.01px !important;
+  font-family: "Bree Serif";
+}
+
+.x .tick {
+  font-size: 16px;
+}
+
+.y .tick {
+  stroke: #ccc;
+  stroke-width: 0.2px;
+}
+
+.label {
+  font-family: 'Open Sans', sans-serif;
+  fill: #333;
+  font-size: 12px;
+  left: 0;
+}
+
+.arrow {
+  fill: #333;
+}
+
+.d3-tip {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+
+}
