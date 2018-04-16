@@ -12,6 +12,14 @@ body {
 
 /* D3 Elements */
 
+.title {
+  stroke: #848484;
+  stroke-width: 0.2px !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  text-anchor: start;
+}
+
 .tick {
   stroke: #848484;
 }

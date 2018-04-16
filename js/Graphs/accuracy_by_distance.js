@@ -95,7 +95,7 @@ function plotAccuracyByDistance(graphType, width, height) {
 
     data = data.filter( function(d) { return passers.has(parseInt(d.passer_id))});
 
-    margin = {top: 30, right: 20, bottom: 50, left: 50};
+    margin = {top: 50, right: 20, bottom: 50, left: 50};
     graphWidth = width - margin.left - margin.right;
     graphHeight = height - margin.top - margin.bottom;
 
@@ -130,6 +130,8 @@ function plotAccuracyByDistance(graphType, width, height) {
       .domain([0, 1])
       .range([graphHeight, 0]);
 
+    // setup x axis 
+
     svg
       .append("g")
       .attr("class", "x axis")
@@ -149,6 +151,8 @@ function plotAccuracyByDistance(graphType, width, height) {
           return bins[i-1] + "-" + d;
         }));
 
+    // setup y axis 
+
     svg.append("g")
       .attr("class", "y axis")
       .call(
@@ -162,7 +166,7 @@ function plotAccuracyByDistance(graphType, width, height) {
     svg.append("text")             
         .attr("transform",
               "translate(" + (graphWidth/2) + " ," + 
-                             (graphHeight + margin.top + 10) + ")")
+                             (graphHeight + margin.top - 10) + ")")
         .style("text-anchor", "middle")
         .attr("class","label")
         .text("Yardage");
@@ -176,6 +180,8 @@ function plotAccuracyByDistance(graphType, width, height) {
       .attr("dy", "12px")
       .style("text-anchor", "middle")
       .text("Pass Completion Percentage");  
+
+    // arrows 
 
     svg.append("g")
         .attr("transform", 
@@ -193,7 +199,16 @@ function plotAccuracyByDistance(graphType, width, height) {
         .append("path")
         .attr("d",arrowSVG());
 
+    // add title
+
+    svg.append("text")
+        .attr("x", 0)             
+        .attr("y", 0 - (margin.top / 2))
+        .classed("title", true)
+        .text("Quarterback Accuracy by Distance");
+
     // Plot points 
+
     bins.forEach(function(bin, i) {
       svg
         .selectAll(".bar"+ bin)
@@ -227,7 +242,7 @@ function replotAccuracyByDistance(graphType) {
   var data = graphType.data;
 
   console.assert(passers.size <= 3, "More than 3 passers");
-  
+
   var passer_array = Array.from(passers);
   data = data.filter( function(d) { return passers.has(parseInt(d.passer_id))});
 
@@ -279,13 +294,7 @@ function toolTipHtml(passer, i, bins) {
   "1 Interception"
 }
 
-// https://github.com/wbkd/d3-extended
-d3.selection.prototype.moveToFront = function() {  
-  return this.each(function(){
-    this.parentNode.appendChild(this);
-  });
-};
-
+// checks to see if object is empty (aka dict == {})
 function isEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
