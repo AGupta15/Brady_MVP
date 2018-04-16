@@ -1,40 +1,106 @@
- 
+var svg, x0, x1, y;
+var graphHeight, graphWidth, margin;
+var tooltip;
+var bins = [10,20,30,40,50];
+
+ function loadAccuracyByDistance(graphType, callback) {
+    d3.csv("Data/people.csv", function (error, data) {
+      if (error) { console.log(error); }
+
+      // for dummy data 
+      data = [
+        { "passer_name": "Tom Brady",
+          "passer_id": "1",
+          "passes": [
+            { "AirYards": "10",
+              "NE": "Complete"
+            },
+            { "AirYards": "0",
+              "NE": "Incomplete"
+            },
+            { "AirYards": "5",
+              "NE": "Incomplete"
+            },
+            { "AirYards": "20",
+              "NE": "Complete"
+            }
+          ],
+          "team": "Patriots"
+        }
+      ]
+
+      data = data.map(function(d) { 
+        var completionPercentages = {};
+        bins.forEach(function(b) {
+          completionPercentages[b] = {"completed": 0, "total": 0};
+        });
+        d.passes.forEach( function(p) {
+          var added = false;
+          for(var i = 0; i < bins.length - 1; i++) {
+            if(parseInt(p.AirYards) < bins[i+1]) {
+              addPass(completionPercentages,p,bins[i]);
+              added = true;
+              break;
+            }
+          }
+
+          if(!added) {
+            addPass(completionPercentages,p,bins[bins.length-1]);
+          }
+          
+        });
+        var percentages = [];
+        bins.forEach(function(bin) {
+          var percentage = 0;
+          if(completionPercentages[bin].total > 0) {
+            percentage = completionPercentages[bin].completed / completionPercentages[bin].total; 
+          }
+          percentages.push(percentage);
+        });
+
+        return {"passer_name": d.passer_name, 
+                "passer_id": d.passer_id,
+                "team": d.team,
+                "bins": percentages}
+    });
+
+    data.push.apply(data, JSON.parse(JSON.stringify(data)));
+    data[1].passer_id = "2";
+    data[1].bins = [0.12, 0.54, 0.11, 0.23, 0.11];
+    data.push(
+      {"passer_name": "Test", 
+              "passer_id": "3",
+              "team": "New England",
+              "bins": [0.12, 0.34, 0.11, 0.73, 0.01]});
+    callback(graphType, data);
+  });
+}
+
 // [id] div id to plot the graph in
 // [passers] set of passer ids to plot
-function plotAccuracyByDistance(id, width, height, passers) {
+function plotAccuracyByDistance(graphType, width, height) {
+    
+    
+    var id = graphType.viz_id;
+    var passers = graphType.passers;
+    var data = graphType.data;
 
-  d3.csv("Data/people.csv", function (error,data) {
-    if (error) { console.log(error); }
+    console.assert(passers.size <= 3, "More than 3 passers");
 
-    // for dummy data 
-    data = [
-      { "passer_name": "Tom Brady",
-        "passer_id": "1",
-        "passes": [
-          { "AirYards": "10",
-            "NE": "Complete"
-          },
-          { "AirYards": "0",
-            "NE": "Incomplete"
-          },
-          { "AirYards": "5",
-            "NE": "Incomplete"
-          },
-          { "AirYards": "20",
-            "NE": "Complete"
-          }
-        ],
-        "team": "Patriots"
-      }
-    ]
+    var passer_array = Array.from(passers);
 
-    data = data.filter( function(d) { return passers.has(parseInt(d.passer_id))})
-    var margin = {top: 30, right: 20, bottom: 50, left: 50};
-    var graphWidth = width - margin.left - margin.right;
-    var graphHeight = height - margin.top - margin.bottom;
+    setupPicker(graphType);
+    onSelect(graphType);
 
 
-    var svg = d3.select(id)
+    data = data.filter( function(d) { return passers.has(parseInt(d.passer_id))});
+
+    margin = {top: 30, right: 20, bottom: 50, left: 50};
+    graphWidth = width - margin.left - margin.right;
+    graphHeight = height - margin.top - margin.bottom;
+
+
+    svg = d3.select(id)
                   .append("svg")
                   .attr("width", width)
                   .attr("height", height)
@@ -42,27 +108,25 @@ function plotAccuracyByDistance(id, width, height, passers) {
                   .attr("transform", 
                         "translate(" + margin.left + "," + margin.top + ")");
 
-    var tooltip = d3.tip()
+    tooltip = d3.tip()
                   .attr('class', 'd3-tip')
                   .offset([-10, 0]);
 
     svg.call(tooltip);
-
-    var bins = [10,20,30,40,50]
     
     // add axi 
 
-    var x0 = d3.scaleBand()
+    x0 = d3.scaleBand()
       .domain(bins)
       .paddingInner(0.1)
       .range([0, graphWidth]);
 
-    var x1 = d3.scaleBand()
-      .domain(Array.from(passers))
+    x1 = d3.scaleBand()
+      .domain([0,1,2])
       .paddingInner(0.01)
       .range([0, x0.bandwidth()]);
 
-    var y = d3.scaleLinear()
+    y = d3.scaleLinear()
       .domain([0, 1])
       .range([graphHeight, 0]);
 
@@ -129,49 +193,6 @@ function plotAccuracyByDistance(id, width, height, passers) {
         .append("path")
         .attr("d",arrowSVG());
 
-    data = data.map(function(d) { 
-      var completionPercentages = {};
-      bins.forEach(function(b) {
-        completionPercentages[b] = {"completed": 0, "total": 0};
-      });
-      d.passes.forEach( function(p) {
-        var added = false;
-        for(var i = 0; i < bins.length - 1; i++) {
-          if(parseInt(p.AirYards) < bins[i+1]) {
-            addPass(completionPercentages,p,bins[i]);
-            added = true;
-            break;
-          }
-        }
-
-        if(!added) {
-          addPass(completionPercentages,p,bins[bins.length-1]);
-        }
-        
-      });
-      var percentages = [];
-      bins.forEach(function(bin) {
-        var percentage = 0;
-        if(completionPercentages[bin].total > 0) {
-          percentage = completionPercentages[bin].completed / completionPercentages[bin].total; 
-        }
-        percentages.push(percentage);
-      });
-
-      return {"passer_name": d.passer_name, 
-              "passer_id": d.passer_id,
-              "bins": percentages}
-    });
-
-    data.push.apply(data, JSON.parse(JSON.stringify(data)));
-    data[1].passer_id = "2";
-    data[1].bins = [0.12, 0.54, 0.11, 0.23, 0.11];
-    data.push(
-      {"passer_name": "Test", 
-              "passer_id": "3",
-              "bins": [0.12, 0.34, 0.11, 0.73, 0.01]});
-    
-
     // Plot points 
     bins.forEach(function(bin, i) {
       svg
@@ -185,7 +206,7 @@ function plotAccuracyByDistance(id, width, height, passers) {
         .attr("height",  function(d) { return graphHeight - y(d.bins[i])})
         .attr("y", function(d) { return y(d.bins[i])})
         .attr("x", function(d) { 
-          return x0(bin) + x1(d.passer_id) })
+          return x0(bin) + x1(passer_array.indexOf(parseInt(d.passer_id))) })
         .on('mouseover', function(d) {
           tooltip.html(function() {
             return toolTipHtml(d, i, bins)
@@ -196,14 +217,52 @@ function plotAccuracyByDistance(id, width, height, passers) {
        // })
         
     });
-  });
-  
 }
 
+/* replots the points on the graph and animates them .. assumes graph is already made */
+function replotAccuracyByDistance(graphType) {
+
+  var id = graphType.viz_id;
+  var passers = graphType.passers;
+  var data = graphType.data;
+
+  console.assert(passers.size <= 3, "More than 3 passers");
+  
+  var passer_array = Array.from(passers);
+  data = data.filter( function(d) { return passers.has(parseInt(d.passer_id))});
+
+  // add in data if we don't have enough passers
+  while(data.length < 3) {
+    data.push({});
+  }
+
+  // Plot points 
+    bins.forEach(function(bin, i) {
+      svg
+        .selectAll(".bar"+ bin)
+        .data(data)
+        .transition()
+        .duration(transitionDuration)
+        .attr("height",  function(d) { 
+          if(isEmpty(d)) {
+            return 0;
+          }
+          return graphHeight - y(d.bins[i])})
+        .attr("y", function(d) { 
+          if(isEmpty(d)) {
+            return graphHeight;
+          }
+          return y(d.bins[i])
+        });
+    });
+}
+
+/* return svg of the arrow */
 function arrowSVG() {
   return "m 240.33657,1028.6844 c 10.44229,0 20.88458,0 31.32687,0 l 0,-374.06893 24.85718,-0.0162 L 256,564.03998 l -40.52062,90.55929 24.85719,0.0162 z"
 }
 
+/* wrapper for adding padd to completionPercentages */
 function addPass(completionPercentages, passer, bin) {
   completionPercentages[bin].total += 1;
   if(passer.NE == "Complete") {
@@ -211,6 +270,7 @@ function addPass(completionPercentages, passer, bin) {
   }
 }
 
+/* tooltip html */
 function toolTipHtml(passer, i, bins) {
   return "<div style='text-decoration:underline;display:inline-block;'>" + passer.passer_name + "</div>  " + (i > 0 ? bins[i-1] : 0) + "-" + bins[i] + " yards<br><br>" + 
   "123 Total Attempts <br>" + 
@@ -226,3 +286,6 @@ d3.selection.prototype.moveToFront = function() {
   });
 };
 
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
