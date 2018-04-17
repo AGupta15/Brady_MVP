@@ -9,6 +9,13 @@ var GraphType = {
     "viz_id": "#accuracy_by_distance",
     "data": null,
     "passers": null
+  },
+  "accuracy_by_down": 
+  {
+    "id": 2,
+    "viz_id": "#accuracy_by_down",
+    "data": null,
+    "passers": null
   }
 }
 
@@ -19,6 +26,8 @@ function replot(graphType) {
   console.log("replotting " + graphType.viz_id);
   if (graphType == GraphType.accuracy_by_distance) {
     replotAccuracyByDistance(graphType);
+  } else if (graphType == GraphType.accuracy_by_down) {
+    // call replot function
   }
 }
 
@@ -28,6 +37,8 @@ function load(graphType) {
 
   if (graphType == GraphType.accuracy_by_distance) {
     GraphType.accuracy_by_distance.data = loadAccuracyByDistance(graphType, setData)
+  } else if (graphType == GraphType.accuracy_by_down) {
+    // load data for graph type 
   }
 }
 
@@ -45,6 +56,8 @@ function setData(graphType, data) {
 
   if (graphType == GraphType.accuracy_by_distance) {
     
+  } else if (graphType == GraphType.accuracy_by_down) {
+    // custom graph default players
   }
 
   plot(graphType);
@@ -56,5 +69,7 @@ function plot(graphType) {
 
   if (graphType == GraphType.accuracy_by_distance) {
     plotAccuracyByDistance(graphType, 500, 500);
+  } else if (graphType == GraphType.accuracy_by_down) {
+    // custom graph 
   }
 }

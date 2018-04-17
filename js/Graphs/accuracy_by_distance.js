@@ -1,7 +1,7 @@
 var svg, x0, x1, y, line;
 var graphHeight, graphWidth, margin;
 var tooltip;
-var bins = [10,20,30,40,50];
+var bins = [-1,0,10,20,30,40];
 
  function loadAccuracyByDistance(graphType, callback) {
     d3.csv("Data/graph1.csv", function (error, data) {
@@ -164,19 +164,17 @@ function plotAccuracyByDistance(graphType, width, height) {
       .domain(extent)
       .range([graphHeight, 0]);
 
-    // line for total passes 
-    line = function(data, bin, i, passer_array) {
-      return d3.svg.line()
-        .x(function(d) { 
-          return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) + x1.bandwidth() / 2 })
-        .y(function(d) { 
-          if (isEmpty(d)) {
-            return 0;
-          }
-          return y1(d.bins[i].total); 
-        })(data);
-    }
-     
+    // background image 
+
+    /*
+    var backgroundImage = svg
+                .append("svg:image")
+                .attr("xlink:href", "fb.png")
+                .attr("x", "0")
+                .attr("y", "0")
+                .attr("width", "500")
+                .attr("height", "500");
+    */
 
     // setup x axis 
 
@@ -191,7 +189,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .tickPadding(6)
         .tickFormat(function(d,i) {
           if (i == 0) {
-            return "0-" + d;
+            return "<0"
           }
           if(i == bins.length-1) {
             return d + "+";
@@ -213,7 +211,7 @@ function plotAccuracyByDistance(graphType, width, height) {
     svg.append("g")       
         .attr("class", "y axis")  
         .attr("transform", "translate(" + (graphWidth) + " ,0)")   
-        .call(d3.axisRight(y1).ticks(10).tickSize(0));
+        .call(d3.axisRight(y1).tickValues([]).tickSize(0));
 
     // text label for the x axis
     svg.append("text")             
@@ -242,27 +240,6 @@ function plotAccuracyByDistance(graphType, width, height) {
       .attr("dy", "12px")
       .style("text-anchor", "middle")
       .text("Total Pass Attempts");   
-
-    // arrows 
-
-    /*
-    svg.append("g")
-        .attr("transform", 
-          "translate(" + [0 - 70,-30] 
-          + ")scale(0.1)")
-        .attr("class","arrow")
-        .append("path")
-        .attr("d",arrowSVG());
-
-    svg.append("g")
-        .attr("transform", 
-          "translate(" + [graphWidth + 30, graphHeight + 12] 
-          + ")scale(0.1)rotate(-270)")
-        .attr("class","arrow")
-        .append("path")
-        .attr("d",arrowSVG());
-
-    */
     
     // add title
 
@@ -294,15 +271,22 @@ function plotAccuracyByDistance(graphType, width, height) {
           })
           tooltip.show()})
         .on('mouseout', tooltip.hide);
-    });
 
-    // plot total passes line 
-    bins.forEach(function(bin,i) {
-      svg.append("path")   
-        .attr("class","line" + bin) 
-        .style("stroke", "red")
-        .style("fill","none")
-        .attr("d", line(data, bin, i, passer_array));
+
+      svg.selectAll("circle" + bin)   
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("class", "circle" + bin)
+        .style("fill", "red")
+        .style("stroke", "#333")
+        .attr("cx", function(d) { 
+          return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) + x1.bandwidth() / 2
+        })
+        .attr("cy", function(d) { 
+          return y1(d.bins[i].total); 
+        })
+        .attr("r","2px");
     });
 }
 
@@ -356,11 +340,6 @@ function replotAccuracyByDistance(graphType) {
     });
 }
 
-/* return svg of the arrow */
-function arrowSVG() {
-  return "m 240.33657,1028.6844 c 10.44229,0 20.88458,0 31.32687,0 l 0,-374.06893 24.85718,-0.0162 L 256,564.03998 l -40.52062,90.55929 24.85719,0.0162 z"
-}
-
 /* wrapper for adding padd to completionPercentages */
 function addPass(completionPercentages, passer, bin) {
   completionPercentages[bin].total += 1;
@@ -372,8 +351,9 @@ function addPass(completionPercentages, passer, bin) {
 /* tooltip html */
 function toolTipHtml(passer, i, bins) {
   return "<div style='text-decoration:underline;display:inline-block;'>" + passer.passer + "</div>  " + (i > 0 ? bins[i-1] : 0) + "-" + bins[i] + " yards<br><br>" + 
-  passer.bins[i].total + " Total Attempts <br>" + 
+  d3.format(".1%")(passer.bins[i].percentage) + " Completion Percentage <br>" + 
   passer.bins[i].completed + " Total Completions <br>" + 
+  passer.bins[i].total + " Total Attempts <br>" + 
   passer.bins[i].td + " Touchdowns <br>" + 
   passer.bins[i].int + " Interceptions"
 }
