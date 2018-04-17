@@ -245,6 +245,7 @@ function plotAccuracyByDistance(graphType, width, height) {
 
     // arrows 
 
+    /*
     svg.append("g")
         .attr("transform", 
           "translate(" + [0 - 70,-30] 
@@ -261,6 +262,8 @@ function plotAccuracyByDistance(graphType, width, height) {
         .append("path")
         .attr("d",arrowSVG());
 
+    */
+    
     // add title
 
     svg.append("text")
