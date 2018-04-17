@@ -54,7 +54,7 @@ var defenseWPA = new Array(32).fill(0);
 d3.csv("pbp_2017_wp.csv", function(data) {
 
   // =======Step 1: QB Pass Counts========
-  console.log(data[100]);
+  // console.log(data[100]);
   for (var i = 0, len = data.length; i < len; i++) {
     var qb = data[i]['Passer'];
     var attempt = data[i]['PassAttempt'];
@@ -332,9 +332,6 @@ d3.csv("pbp_2017_wp.csv", function(data) {
 });
 
 //==============Step 7: Convert to CSV==========================
-//Dataset 1: Completion Percentage: passSet, qbToTeam
-//Dataset 2: Metrics per drives: qbMetrics, qbToTeam
-//Dataset 3: Passer v Defense WPA: passerWPA, defenseWPA, qbToTeam
 
 /**
 * Converts a value to a string appropriate for entry into a CSV table.  E.g., a string value will be surrounded by quotes.
@@ -409,40 +406,134 @@ function toCsv(objArray, sDelimiter, cDelimiter) {
 	return output;
 }
 
-//QB
-//team
-//Passes
+//Graph 1: Accuracy by Distance
 function download_csv1() {
-  var csv = 'passer,team,passes\n';
+  var csv = 'passer,team,passerid,airyards,completion,int,td\n';
   var counter = 0;
   validPassers.forEach(function(passer){
     setIndex = Array.from(validPassers).indexOf(passer);
     team = qbToTeam[passer];
-    passes = toCsv(passSet[setIndex][passer]);
-    // passes = passSet[setIndex][passer].join(',');
-    csv += passer+",";
-    csv += team+",";
-    csv += passes+"\n";
+    passes = passSet[setIndex][passer]
+    passes.forEach(function(pass){
+      csv += passer+",";
+      csv += team+",";
+      csv += setIndex+",";
+      csv += pass['AirYards']+","+pass['Completion']+",";
+      csv += pass['Interception']+","+pass['Touchdown']+"\n";
+    });
+    counter = counter + 1;
   });
 
   console.log(csv);
   var hiddenElement = document.createElement('a');
   hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
   hiddenElement.target = '_blank';
-  hiddenElement.download = 'people.csv';
+  hiddenElement.download = '../Desktop/people.csv';
   hiddenElement.click();
 }
 
-//QB
-//team
-//metric1
-//metric2
-//metric3
-//metric4
-//metric5
+//Graph 2: Accuracy by Down
+function download_csv2() {
+  var csv = 'passer,team,passerid,down,completion,int,td\n';
+  var counter = 0;
+  validPassers.forEach(function(passer){
+    setIndex = Array.from(validPassers).indexOf(passer);
+    team = qbToTeam[passer];
+    passes = passSet[setIndex][passer]
+    passes.forEach(function(pass){
+      csv += passer+",";
+      csv += team+",";
+      csv += setIndex+",";
+      csv += pass['Down']+","+pass['Completion']+",";
+      csv += pass['Interception']+","+pass['Touchdown']+"\n";
+    });
+    counter = counter + 1;
+  });
 
+  console.log(csv);
+  var hiddenElement = document.createElement('a');
+  hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+  hiddenElement.target = '_blank';
+  hiddenElement.download = '../Desktop/people.csv';
+  hiddenElement.click();
+}
 
+//Graph 3: Accuracy by Point Spread
+function download_csv3() {
+  var csv = 'passer,team,passerid,scorediff,completion,int,td\n';
+  var counter = 0;
+  validPassers.forEach(function(passer){
+    setIndex = Array.from(validPassers).indexOf(passer);
+    team = qbToTeam[passer];
+    passes = passSet[setIndex][passer]
+    passes.forEach(function(pass){
+      csv += passer+",";
+      csv += team+",";
+      csv += setIndex+",";
+      diff = parseInt(pass['offScore'])-parseInt(pass['defScore']);
+      csv += diff+",";
+      csv += pass['Completion']+",";
+      csv += pass['Interception']+","+pass['Touchdown']+"\n";
+    });
+    counter = counter + 1;
+  });
 
-//Item: QB or defense
-//team
-//WPA
+  console.log(csv);
+  var hiddenElement = document.createElement('a');
+  hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+  hiddenElement.target = '_blank';
+  hiddenElement.download = '../Desktop/people.csv';
+  hiddenElement.click();
+}
+
+//Graph 4: QB Effectiveness 4 metrics
+// qbMetrics[setIndex] = [driveCount, timeCount, yardCount, pointCount, playCount];
+function download_csv4() {
+  var csv = 'passer,team,passerid,driveCount,timeCount,yardCount,pointCount,playCount\n';
+  var counter = 0;
+  validPassers.forEach(function(passer){
+    setIndex = Array.from(validPassers).indexOf(passer);
+    team = qbToTeam[passer];
+    qbMetric = qbMetrics[setIndex];
+    csv += passer+",";
+    csv += team+",";
+    csv += setIndex+",";
+    csv += qbMetric[0]+",";
+    csv += qbMetric[1]+",";
+    csv += qbMetric[2]+",";
+    csv += qbMetric[3]+",";
+    csv += qbMetric[4]+"\n";
+    counter = counter + 1;
+  });
+
+  console.log(csv);
+  var hiddenElement = document.createElement('a');
+  hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+  hiddenElement.target = '_blank';
+  hiddenElement.download = '../Desktop/people.csv';
+  hiddenElement.click();
+}
+
+//Graph 5: WPA Difference
+function download_csv5() {
+  var csv = 'passer,team,passerid,passerWPA,defenseWPA\n';
+  var counter = 0;
+  validPassers.forEach(function(passer){
+    setIndex = Array.from(validPassers).indexOf(passer);
+    team = qbToTeam[passer];
+    csv += passer+",";
+    csv += team+",";
+    csv += setIndex+",";
+    csv += passerWPA[setIndex]+",";
+    defIndex = Array.from(teams).indexOf(team)
+    csv += defenseWPA[defIndex]+"\n";
+    counter = counter + 1;
+  });
+
+  console.log(csv);
+  var hiddenElement = document.createElement('a');
+  hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+  hiddenElement.target = '_blank';
+  hiddenElement.download = '../Desktop/people.csv';
+  hiddenElement.click();
+}
