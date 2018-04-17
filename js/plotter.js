@@ -37,9 +37,9 @@ function setData(graphType, data) {
   graphType.data = data;
   // dummy data 
   var passers_to_plot = new Set();
+  passers_to_plot.add(0)
   passers_to_plot.add(1)
   passers_to_plot.add(2)
-  passers_to_plot.add(3)
 
   graphType.passers = passers_to_plot;
 
