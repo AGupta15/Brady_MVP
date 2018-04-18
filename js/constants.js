@@ -13,8 +13,8 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/12/atlanta-falcons-logo-vector-400x400.png"
   },
   "BAL": {
-    "color": "https://www.seeklogo.net/wp-content/uploads/2012/05/baltimore-ravens-logo-vector-01.png",
-    "icon": ""
+    "color": "#24135F",
+    "icon": "https://www.seeklogo.net/wp-content/uploads/2012/05/baltimore-ravens-logo-vector-01.png"
   },
   "BUF": {
     "color": "#003087",
