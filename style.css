@@ -19,7 +19,6 @@ li span {
   font-size: 8px;
 }
 
-<<<<<<< HEAD
 /* Header */
 #header {
  position: fixed;
@@ -52,8 +51,13 @@ li span {
   font-weight: 900;
 }
 
-=======
->>>>>>> 7558b075e9a2df7d61a8a70c891bbd1227b6ee34
+#div-border {
+  border-bottom-width:2px;
+  border-bottom-color: #D3D3D3;
+  border-bottom-style: solid;
+  width: 100%;
+}
+
 /* Graphs */
 #accuracy_by_distance {
   display: inline-block;
@@ -116,13 +120,14 @@ li span {
   line-height: normal;
 }
 
-}
 .headerDiv{
   max-width: 750px;
+
 }
 
 .innerDiv{
-  max-width: 650px;
+  /* max-width: 650px; */
+  max-width: 750px;
 }
 
 #passer {

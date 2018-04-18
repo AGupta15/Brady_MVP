@@ -23,19 +23,19 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
 
       var averageBins = {};
 
-      data = data.map(function(d) { 
+      data = data.map(function(d) {
         var completionPercentages = {};
 
         bins.forEach(function(b,i) {
           completionPercentages[i] = {
-            "completed": 0, 
+            "completed": 0,
             "total": 0,
             "int": 0,
             "td": 0,
             "percentage": 0
             };
             averageBins[i] = {
-              "completed": 0, 
+              "completed": 0,
               "total": 0,
               "int": 0,
               "td": 0,
@@ -57,16 +57,16 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
           if(!added) {
             addPass(completionPercentages,p,bins.length-1);
           }
-          
+
         });
         bins.forEach(function(bin,i) {
           var percentage = 0;
           if(completionPercentages[i].total > 0) {
-            completionPercentages[i].percentage = completionPercentages[i].completed / completionPercentages[i].total; 
+            completionPercentages[i].percentage = completionPercentages[i].completed / completionPercentages[i].total;
           }
         });
 
-        return {"passer": d.passer, 
+        return {"passer": d.passer,
                 "passerid": d.passerid,
                 "team": d.team,
                 "bins": completionPercentages}
@@ -84,10 +84,10 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
       averageBins[i].td = d3.sum(data, function(d) {
         return d.bins[i].td;
       }) / data.length;
-      
 
 
-      
+
+
       averageBins[i].percentage = ((averageBins[i].total > 0) ?
             (averageBins[i].completed / averageBins[i].total) : 0);
 
@@ -97,7 +97,7 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
       averageBins[i].td = d3.round(averageBins[i].td);
     });
     data.push(
-      {"passer": "Average", 
+      {"passer": "Average",
         "passerid": data.length + 1,
         "team": "NFL",
         "bins": averageBins
@@ -110,13 +110,13 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
 // [id] div id to plot the graph in
 // [passers] set of passer ids to plot
 function plotAccuracyByDistance(graphType, width, height) {
-    
-    
+
+
     var id = graphType.viz_id;
     var passers = graphType.passers;
     var data = graphType.data;
     var max = d3.max(
-      data.filter(d => d.passerid != data.length), 
+      data.filter(d => d.passerid != data.length),
       function(d) {
         let arr = Object.values(d.bins);
         return d3.max(arr, b => b.total);
@@ -139,7 +139,7 @@ function plotAccuracyByDistance(graphType, width, height) {
                   .attr("width", width)
                   .attr("height", height)
                   .append("g")
-                  .attr("transform", 
+                  .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
 
     tooltip = d3.tip()
@@ -147,8 +147,8 @@ function plotAccuracyByDistance(graphType, width, height) {
                   .offset([-10, 0]);
 
     svg.call(tooltip);
-    
-    // add axi 
+
+    // add axi
 
     x0 = d3.scaleBand()
       .domain(bins)
@@ -164,12 +164,12 @@ function plotAccuracyByDistance(graphType, width, height) {
       .domain([0, 1])
       .range([graphHeight, 0]);
 
-    // line scale 
+    // line scale
     y1 = d3.scaleLinear()
       .domain([0,400])
       .range([graphHeight, 0]);
 
-    // background image 
+    // background image
 
     /*
     var backgroundImage = svg
@@ -181,7 +181,7 @@ function plotAccuracyByDistance(graphType, width, height) {
                 .attr("height", "500");
     */
 
-    // setup x axis 
+    // setup x axis
 
     svg
       .append("g")
@@ -196,7 +196,7 @@ function plotAccuracyByDistance(graphType, width, height) {
           return binTicks[i]
         }));
 
-    // setup y axis 
+    // setup y axis
     svg.append("g")
       .attr("class", "y axis")
       .call(
@@ -206,10 +206,10 @@ function plotAccuracyByDistance(graphType, width, height) {
         .tickSizeOuter(0)
         );
 
-    // total attempts y axis 
-    svg.append("g")       
-        .attr("class", "y axis")  
-        .attr("transform", "translate(" + (graphWidth) + " ,0)")   
+    // total attempts y axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + (graphWidth) + " ,0)")
         .call(
           d3.axisRight(y1)
           .tickValues(d3.range(0,440,40))
@@ -217,13 +217,13 @@ function plotAccuracyByDistance(graphType, width, height) {
           );
 
     // text label for the x axis
-    svg.append("text")             
+    svg.append("text")
         .attr("transform",
-              "translate(" + (graphWidth/2) + " ," + 
+              "translate(" + (graphWidth/2) + " ," +
                              (graphHeight + margin.top - 10) + ")")
         .style("text-anchor", "middle")
         .attr("class","label")
-        .text("Yardage");
+        .text("Pass Distance (Yards)");
 
     // text label for the y axis
     svg.append("text")
@@ -233,7 +233,7 @@ function plotAccuracyByDistance(graphType, width, height) {
       .attr("x",0 - (graphHeight / 2))
       .attr("dy", "12px")
       .style("text-anchor", "middle")
-      .text("Pass Completion Percentage"); 
+      .text("Pass Completion Percentage");
 
     svg.append("text")
       .attr("transform", "rotate(-270)")
@@ -242,17 +242,17 @@ function plotAccuracyByDistance(graphType, width, height) {
       .attr("x",(graphHeight / 2))
       .attr("dy", "12px")
       .style("text-anchor", "middle")
-      .text("Total Pass Attempts");   
-    
+      .text("Total Pass Attempts");
+
     // add title
 
     svg.append("text")
-        .attr("x", 0)             
+        .attr("x", 0)
         .attr("y", 0 - (margin.top / 2))
         .classed("title", true)
         .text("Quarterback Accuracy by Distance");
 
-    // Plot points 
+    // Plot points
 
     bins.forEach(function(bin, i) {
       svg
@@ -263,10 +263,10 @@ function plotAccuracyByDistance(graphType, width, height) {
         .attr("class", "bar" + bin)
         .style("fill", d => teamAttributes[d.team].color)
         .attr("width", x1.bandwidth())
-        .attr("height",  function(d) { 
+        .attr("height",  function(d) {
           return graphHeight - y(d.bins[i].percentage)})
         .attr("y", function(d) { return y(d.bins[i].percentage)})
-        .attr("x", function(d) { 
+        .attr("x", function(d) {
           return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) })
         .on('mouseover', function(d) {
           tooltip.html(function() {
@@ -276,18 +276,18 @@ function plotAccuracyByDistance(graphType, width, height) {
           .on('mouseout', tooltip.hide);
 
 
-      svg.selectAll("circle" + bin)   
+      svg.selectAll("circle" + bin)
         .data(data)
         .enter()
         .append("circle")
         .attr("class", "circle" + bin)
         .style("fill", "white")
         .style("stroke", "#333")
-        .attr("cx", function(d) { 
+        .attr("cx", function(d) {
           return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) + x1.bandwidth() / 2
         })
-        .attr("cy", function(d) { 
-          return y1(d.bins[i].total); 
+        .attr("cy", function(d) {
+          return y1(d.bins[i].total);
         })
         .attr("r","3px");
 
@@ -304,7 +304,7 @@ function replotAccuracyByDistance(graphType) {
 
   console.assert(passers.size <= 3, "More than 3 passers");
 
-  // sort array 
+  // sort array
   var passer_array = Array.from(passers);
   passer_array.sort(function(a, b){return a - b});
 
@@ -316,7 +316,7 @@ function replotAccuracyByDistance(graphType) {
     data.push({});
   }
 
-  // Plot points 
+  // Plot points
     bins.forEach(function(bin, i) {
       svg
         .selectAll(".bar"+ bin)
@@ -329,12 +329,12 @@ function replotAccuracyByDistance(graphType) {
           }
           return teamAttributes[d.team].color
         })
-        .attr("height",  function(d) { 
+        .attr("height",  function(d) {
           if(isEmpty(d)) {
             return 0;
           }
           return graphHeight - y(d.bins[i].percentage)})
-        .attr("y", function(d) { 
+        .attr("y", function(d) {
           if(isEmpty(d)) {
             return graphHeight;
           }
@@ -343,7 +343,7 @@ function replotAccuracyByDistance(graphType) {
 
 
         svg
-          .selectAll(".circle" + bin)   
+          .selectAll(".circle" + bin)
           .data(data)
           .transition()
           .duration(transitionDuration)
@@ -353,13 +353,13 @@ function replotAccuracyByDistance(graphType) {
             }
             return "3px"
           })
-          .attr("cy", function(d) { 
+          .attr("cy", function(d) {
             if(isEmpty(d)) {
               return graphHeight;
             }
-            return y1(d.bins[i].total); 
+            return y1(d.bins[i].total);
           });
-    });   
+    });
 }
 
 /* wrapper for adding padd to completionPercentages */
@@ -372,12 +372,12 @@ function addPass(completionPercentages, passer, bin) {
 
 /* tooltip html */
 function toolTipHtml(passer, i, bins) {
-  return "<img src=" + teamAttributes[passer.team].icon + ">" + 
-  "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + binTicks[i] + " yards<br><br>" + 
-  formatPercent(passer.bins[i].percentage) + " Completion Percentage <br>" + 
-  passer.bins[i].completed + " Total Completions <br>" + 
-  passer.bins[i].total + " Total Attempts <br>" + 
-  passer.bins[i].td + " Touchdowns <br>" + 
+  return "<img src=" + teamAttributes[passer.team].icon + ">" +
+  "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + binTicks[i] + " yards<br><br>" +
+  formatPercent(passer.bins[i].percentage) + " Completion Percentage <br>" +
+  passer.bins[i].completed + " Total Completions <br>" +
+  passer.bins[i].total + " Total Attempts <br>" +
+  passer.bins[i].td + " Touchdowns <br>" +
   passer.bins[i].int + " Interceptions"
 }
 
