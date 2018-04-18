@@ -3,8 +3,6 @@ function setupPicker(graphType) {
   var id = graphType.viz_id + "_selectpicker"; 
   data.forEach(function (d) {
     if(d.passerid != "0") { // remove Tom Brady as option
-      console.log(d);
-      console.log(teamAttributes[d.team])
       $(id).append("<option value='" + d.passerid + "'id='" + id + d.passerid + "' data-content='<img src=" + teamAttributes[d.team].icon + "> " + d.passer + " <span>" + d.team + "</span>' </option>'");
      $(id).selectpicker("refresh");
     }

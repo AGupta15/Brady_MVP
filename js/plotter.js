@@ -39,6 +39,7 @@ function load(graphType) {
     GraphType.accuracy_by_distance.data = loadAccuracyByDistance(graphType, setData)
   } else if (graphType == GraphType.accuracy_by_down) {
     // load data for graph type 
+    GraphType.accuracy_by_down.data = loadAccuracyByDown(graphType, setData)
   }
 }
 
@@ -75,6 +76,6 @@ function plot(graphType) {
   if (graphType == GraphType.accuracy_by_distance) {
     plotAccuracyByDistance(graphType, 500, 500);
   } else if (graphType == GraphType.accuracy_by_down) {
-    // custom graph 
+    plotAccuracyByDown(graphType, 500, 500)
   }
 }
