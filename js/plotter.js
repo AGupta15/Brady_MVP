@@ -56,10 +56,15 @@ function setData(graphType, data) {
 
   if (graphType == GraphType.accuracy_by_distance) {
     
+
+    
   } else if (graphType == GraphType.accuracy_by_down) {
     // custom graph default players
   }
 
+  // setup select picker
+  setupPicker(graphType);
+  onSelect(graphType, passers_to_plot);
   plot(graphType);
 }
 

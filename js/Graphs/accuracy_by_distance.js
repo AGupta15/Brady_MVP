@@ -2,6 +2,7 @@ var svg, x0, x1, y, line;
 var graphHeight, graphWidth, margin;
 var tooltip;
 var bins = [-1,0,10,20,30,40];
+var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
 
  function loadAccuracyByDistance(graphType, callback) {
     d3.csv("Data/graph1.csv", function (error, data) {
@@ -84,8 +85,16 @@ var bins = [-1,0,10,20,30,40];
         return d.bins[i].td;
       }) / data.length;
       
+
+
+      
       averageBins[i].percentage = ((averageBins[i].total > 0) ?
             (averageBins[i].completed / averageBins[i].total) : 0);
+
+      averageBins[i].total = d3.round(averageBins[i].total);
+      averageBins[i].completed = d3.round(averageBins[i].completed);
+      averageBins[i].int = d3.round(averageBins[i].int);
+      averageBins[i].td = d3.round(averageBins[i].td);
     });
     data.push(
       {"passer": "Average", 
@@ -117,10 +126,6 @@ function plotAccuracyByDistance(graphType, width, height) {
     console.assert(passers.size <= 3, "More than 3 passers");
 
     var passer_array = Array.from(passers).sort();
-
-    setupPicker(graphType);
-    onSelect(graphType);
-
 
     data = data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
@@ -161,8 +166,10 @@ function plotAccuracyByDistance(graphType, width, height) {
 
     // line scale 
     y1 = d3.scaleLinear()
-      .domain(extent)
+      .domain([0,400])
       .range([graphHeight, 0]);
+
+    console.log(extent)
 
     // background image 
 
@@ -188,13 +195,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .tickSize(0)
         .tickPadding(6)
         .tickFormat(function(d,i) {
-          if (i == 0) {
-            return "<0"
-          }
-          if(i == bins.length-1) {
-            return d + "+";
-          }
-          return bins[i-1] + "-" + d;
+          return binTicks[i]
         }));
 
     // setup y axis 
@@ -211,7 +212,11 @@ function plotAccuracyByDistance(graphType, width, height) {
     svg.append("g")       
         .attr("class", "y axis")  
         .attr("transform", "translate(" + (graphWidth) + " ,0)")   
-        .call(d3.axisRight(y1).tickValues([]).tickSize(0));
+        .call(
+          d3.axisRight(y1)
+          .tickValues(d3.range(0,440,40))
+          .tickSize(0)
+          );
 
     // text label for the x axis
     svg.append("text")             
@@ -235,7 +240,7 @@ function plotAccuracyByDistance(graphType, width, height) {
     svg.append("text")
       .attr("transform", "rotate(-270)")
       .attr("class","label")
-      .attr("y", - graphWidth - margin.right)
+      .attr("y", - graphWidth - margin.right - 1)
       .attr("x",(graphHeight / 2))
       .attr("dy", "12px")
       .style("text-anchor", "middle")
@@ -258,7 +263,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .enter()
         .append("rect")
         .attr("class", "bar" + bin)
-        .style("fill", "#333")
+        .style("fill", d => teamAttributes[d.team].color)
         .attr("width", x1.bandwidth())
         .attr("height",  function(d) { 
           return graphHeight - y(d.bins[i].percentage)})
@@ -278,7 +283,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .enter()
         .append("circle")
         .attr("class", "circle" + bin)
-        .style("fill", "red")
+        .style("fill", "white")
         .style("stroke", "#333")
         .attr("cx", function(d) { 
           return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) + x1.bandwidth() / 2
@@ -286,7 +291,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .attr("cy", function(d) { 
           return y1(d.bins[i].total); 
         })
-        .attr("r","2px");
+        .attr("r","3px");
     });
 }
 
@@ -318,6 +323,12 @@ function replotAccuracyByDistance(graphType) {
         .data(data)
         .transition()
         .duration(transitionDuration)
+        .style("fill", function(d) {
+          if(isEmpty(d)) {
+            return "none"
+          }
+          return teamAttributes[d.team].color
+        })
         .attr("height",  function(d) { 
           if(isEmpty(d)) {
             return 0;
@@ -329,15 +340,26 @@ function replotAccuracyByDistance(graphType) {
           }
           return y(d.bins[i].percentage)
         });
-    });
 
-    // animate total passes line
-    bins.forEach(function(bin,i) {
-      svg.selectAll("path.line" + bin)
-        .transition()    
-        .duration(transitionDuration)
-        .attr("d", line(data, bin, i, passer_array));
-    });
+
+        svg
+          .selectAll(".circle" + bin)   
+          .data(data)
+          .transition()
+          .duration(transitionDuration)
+          .attr("r", function(d) {
+            if(isEmpty(d)) {
+              return "0px";
+            }
+            return "3px"
+          })
+          .attr("cy", function(d) { 
+            if(isEmpty(d)) {
+              return graphHeight;
+            }
+            return y1(d.bins[i].total); 
+          });
+    });   
 }
 
 /* wrapper for adding padd to completionPercentages */
@@ -350,8 +372,8 @@ function addPass(completionPercentages, passer, bin) {
 
 /* tooltip html */
 function toolTipHtml(passer, i, bins) {
-  return "<div style='text-decoration:underline;display:inline-block;'>" + passer.passer + "</div>  " + (i > 0 ? bins[i-1] : 0) + "-" + bins[i] + " yards<br><br>" + 
-  d3.format(".1%")(passer.bins[i].percentage) + " Completion Percentage <br>" + 
+  return "<div style='text-decoration:underline;display:inline-block;'>" + passer.passer + "</div>  " + binTicks[i] + " yards<br><br>" + 
+  formatPercent(passer.bins[i].percentage) + " Completion Percentage <br>" + 
   passer.bins[i].completed + " Total Completions <br>" + 
   passer.bins[i].total + " Total Attempts <br>" + 
   passer.bins[i].td + " Touchdowns <br>" + 
@@ -361,4 +383,8 @@ function toolTipHtml(passer, i, bins) {
 // checks to see if object is empty (aka dict == {})
 function isEmpty(obj) {
   return Object.keys(obj).length === 0;
+}
+
+function formatPercent(p) {
+  return d3.format(".1%")(p);
 }

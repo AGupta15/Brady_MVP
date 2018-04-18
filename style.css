@@ -2,6 +2,10 @@ body {
   
 }
 
+button {
+  font-size: 12px !important;
+}
+
 
 /* Graphs */
 #accuracy_by_distance {
