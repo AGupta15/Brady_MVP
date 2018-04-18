@@ -273,7 +273,7 @@ function plotAccuracyByDistance(graphType, width, height) {
             return toolTipHtml(d, i, bins)
           })
           tooltip.show()})
-        .on('mouseout', tooltip.hide);
+          .on('mouseout', tooltip.hide);
 
 
       svg.selectAll("circle" + bin)   
@@ -372,7 +372,8 @@ function addPass(completionPercentages, passer, bin) {
 
 /* tooltip html */
 function toolTipHtml(passer, i, bins) {
-  return "<div style='text-decoration:underline;display:inline-block;'>" + passer.passer + "</div>  " + binTicks[i] + " yards<br><br>" + 
+  return "<img src=" + teamAttributes[passer.team].icon + ">" + 
+  "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + binTicks[i] + " yards<br><br>" + 
   formatPercent(passer.bins[i].percentage) + " Completion Percentage <br>" + 
   passer.bins[i].completed + " Total Completions <br>" + 
   passer.bins[i].total + " Total Attempts <br>" + 

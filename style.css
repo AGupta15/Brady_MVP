@@ -19,7 +19,6 @@ li span {
   font-size: 8px;
 }
 
-
 /* Graphs */
 #accuracy_by_distance {
   display: inline-block;
@@ -79,5 +78,16 @@ li span {
 .d3-tip {
   font-family: 'Open Sans', sans-serif;
   font-size: 10px;
+  line-height: normal;
+}
 
+#passer {
+  display: inline-block;
+  padding: 10px;
+  padding-right: 5px;
+  font-size: 12px;
+}
+
+#team {
+  display: inline-block;
 }
