@@ -72,7 +72,7 @@ var teamAttributes = {
     "color": "#FFB81C",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/10/san-diego-chargers-logo-vector-400x400.png"
   },
-  "LAR": {
+  "LA": {
     "color": "#041E42",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2015/08/st-louis-rams-vector-logo-400x400.png"
   },

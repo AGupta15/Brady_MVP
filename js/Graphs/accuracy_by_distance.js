@@ -169,8 +169,6 @@ function plotAccuracyByDistance(graphType, width, height) {
       .domain([0,400])
       .range([graphHeight, 0]);
 
-    console.log(extent)
-
     // background image 
 
     /*
@@ -292,6 +290,8 @@ function plotAccuracyByDistance(graphType, width, height) {
           return y1(d.bins[i].total); 
         })
         .attr("r","3px");
+
+      svg.selectAll("circle" + bin)
     });
 }
 

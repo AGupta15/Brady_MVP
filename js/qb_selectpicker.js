@@ -5,7 +5,7 @@ function setupPicker(graphType) {
     if(d.passerid != "0") { // remove Tom Brady as option
       console.log(d);
       console.log(teamAttributes[d.team])
-      $(id).append("<option value='" + d.passerid + "'id='" + id + d.passerid + "' data-icon='" + teamAttributes["NE"].icon + "' data-subtext='" + d.team + "'>" + d.passer +'</option>');
+      $(id).append("<option value='" + d.passerid + "'id='" + id + d.passerid + "' data-content='<img src=" + teamAttributes[d.team].icon + "> " + d.passer + " <span>" + d.team + "</span>' </option>'");
      $(id).selectpicker("refresh");
     }
   });

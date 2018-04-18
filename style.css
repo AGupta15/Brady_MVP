@@ -2,8 +2,21 @@ body {
   
 }
 
-button {
-  font-size: 12px !important;
+.dropdown-toggle {
+  font-size: 10px !important;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+}
+
+li {
+  font-size: 10px;
+}
+
+li span {
+  font-size: 8px;
 }
 
 
