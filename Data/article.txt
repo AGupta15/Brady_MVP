@@ -1,1 +1,9 @@
-Every NFL season, many players receive consideration as the best in the league. Given the length of the regular season schedule, 
+Every NFL season, many players receive consideration as the best in the league. Given the length of the regular season schedule,
+
+
+
+
+
+
+
+Acknowledgements: Charles Yu for doing all the CSS and HTML formatting.

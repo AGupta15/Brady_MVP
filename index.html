@@ -5,7 +5,10 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 <script src="js/d3-tip.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
 <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+
 <script src="js/preprocess.js"></script>
 <script src="js/qb_selectpicker.js"></script>
 <script src="js/constants.js"></script>
@@ -14,8 +17,8 @@
 <!-- Select picker -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/js/bootstrap-select.min.js"></script>
- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/css/bootstrap-select.min.css" rel="stylesheet"/>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.3/css/bootstrap-select.min.css" rel="stylesheet"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 
 
@@ -27,37 +30,84 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Muli|Nanum+Gothic|Open+Sans+Condensed:300|Open+Sans:300,400" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
 <html>
 <head>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brady's Game: the NFL MVP</title>
 </head>
 <body>
   <!-- <button onclick="download_csv1()">Download Graph CSV 1</button><br> -->
-  <!-- <button onclick="download_csv2()">Download Graph CSV 2</button><br> -->
-  <!-- <button onclick="download_csv3()">Download Graph CSV 3</button><br> -->
-  <!-- <button onclick="download_csv4()">Download Graph CSV 4</button><br> -->
-  <!-- <button onclick="download_csv5()">Download Graph CSV 5</button><br> -->
+
+  <nav class="navbar navbar-default navbar-fixed-top navbar-light" style="background-color: #cc0000;border:none;">
+    <div class="container-fluid">
+      <div class="navbar-header navbar-light" style="background-color: #cc0000;">
+        <a class="navbar-brand" href="#">
+          <img alt="Brand" src="img/lombardi.png">
+        </a>
+        <p class="navbar-text" style=" font-weight:900;color:white">Brady's Game: The NFL MVP</p>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER IMAGE -->
+  <div id="header-img"></div>
 
 
-  <!-- GRAPH 1 -->
-  <div>
-    <div id="accuracy_by_distance"></div>
-    <select class="selectpicker" 
-    id="accuracy_by_distance_selectpicker" 
-    multiple
-    multipleSeparator=" " 
-    data-live-search="true" 
-    data-max-options="2" 
-    title="Pick quarterbacks to compare" 
-    ></select>
-  </div>
+  <div id="container">
+    <!-- HEADER TEXT -->
+    <div class="headerDiv">
+    </br></br>
+    <h1 id="h1-title">
+      Brady's Game: The NFL MVP
+    </h1>
+  </br>
+  <h3>Tom Brady has the Patriots in position to win the Lombardi Trophy every
+    season. But did TB12 deserve the 2017 NFL Most Valuable Player Award?</h3>
+  </br>
+  <h4>by Abhi Gupta and Natasha Armbrust</h4>
+</br>
+<h4>April 24, 2018</h4>
+</div>
+
+
+<!-- INTRO PARAGRAPH -->
+
+<!-- GRAPH 1 -->
+<div class="innerDiv">
+  <div id="accuracy_by_distance"></div>
+  <select class="selectpicker"
+  id="accuracy_by_distance_selectpicker"
+  multiple
+  multipleSeparator=" "
+  data-live-search="true"
+  data-max-options="2"
+  title="Pick quarterbacks to compare"
+  ></select>
+</div>
+
+<!-- GRAPH 2 -->
+
+
+<!-- GRAPH 3 -->
+
+
+<!-- GRAPH 4 -->
+
+
+<!-- GRAPH 5 -->
+
+
+
+</div>
 
 </body>
 </html>
 
 
 <script>
-  /* main function */
-  load(GraphType.accuracy_by_distance);
+/* main function */
+load(GraphType.accuracy_by_distance);
 </script>

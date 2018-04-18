@@ -1,5 +1,5 @@
 body {
-  
+
 }
 
 .dropdown-toggle {
@@ -19,6 +19,37 @@ li span {
   font-size: 8px;
 }
 
+/* Header */
+#header {
+ position: fixed;
+ width: 100%;
+ height: 100px;
+ font-weight: bold;
+ text-align: center;
+ background: #7F6FF0;
+ -webkit-transition: .3s;
+ transition: .3s;
+ color: #fff;
+}
+
+#header-img {
+  width: 100%;
+  height: 752px;
+  background-image: url("img/header.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#container * {
+  margin: auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+#h1-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 55px;
+  font-weight: 900;
+}
 
 /* Graphs */
 #accuracy_by_distance {
@@ -80,4 +111,11 @@ li span {
   font-family: 'Open Sans', sans-serif;
   font-size: 10px;
 
+}
+.headerDiv{
+  max-width: 750px;
+}
+
+.innerDiv{
+  max-width: 650px;
 }
