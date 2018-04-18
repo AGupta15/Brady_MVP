@@ -19,6 +19,7 @@ li span {
   font-size: 8px;
 }
 
+<<<<<<< HEAD
 /* Header */
 #header {
  position: fixed;
@@ -51,6 +52,8 @@ li span {
   font-weight: 900;
 }
 
+=======
+>>>>>>> 7558b075e9a2df7d61a8a70c891bbd1227b6ee34
 /* Graphs */
 #accuracy_by_distance {
   display: inline-block;
@@ -110,6 +113,8 @@ li span {
 .d3-tip {
   font-family: 'Open Sans', sans-serif;
   font-size: 10px;
+  line-height: normal;
+}
 
 }
 .headerDiv{
@@ -118,4 +123,15 @@ li span {
 
 .innerDiv{
   max-width: 650px;
+}
+
+#passer {
+  display: inline-block;
+  padding: 10px;
+  padding-right: 5px;
+  font-size: 12px;
+}
+
+#team {
+  display: inline-block;
 }
