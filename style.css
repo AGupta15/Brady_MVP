@@ -58,14 +58,56 @@ li span {
   width: 100%;
 }
 
+.innerDivLeft {
+  display: inline-block;
+  position: absolute;
+}
+
+.innerDivCenter {
+  display: inline-block;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.innerDivRight {
+  display: inline-block;
+  vertical-align: top;
+  width: auto;
+}
+
 /* Graphs */
 #accuracy_by_distance {
   display: inline-block;
-  margin-left: 50px;
 }
 
 
 /* D3 Elements */
+#accuracy_by_distancekey {
+  display: inline-block;
+}
+
+.key {
+  border-radius: 0px;
+  border-width: 1px;
+  border-style: solid;
+  height: auto;
+  width: 120px;
+  background-color: white;
+  border-color: #ccc;
+  border-radius: 4px;
+}
+
+.key ul {
+  list-style: none;
+  padding: 5px;
+}
+
+.teamColorKey {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 4px;
+}
 
 .title {
   stroke: #848484;

@@ -5,9 +5,6 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 <script src="js/d3-tip.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
-<link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
 
 <script src="js/preprocess.js"></script>
 <script src="js/qb_selectpicker.js"></script>
@@ -24,7 +21,7 @@
 
 <!-- GRAPHS -->
 <script src="js/Graphs/accuracy_by_distance.js"></script>
-<script src="js/Graphs/accuracy_by_down.js"></script>
+<!-- <script src="js/Graphs/accuracy_by_down.js"></script> -->
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <!-- FONTS -->
@@ -160,18 +157,28 @@
      </p>
    </br>
 </div>
+
 <!-- GRAPH 1 -->
 <div class="innerDiv">
-  <div id="accuracy_by_distance"></div>
-  <select class="selectpicker"
-  id="accuracy_by_distance_selectpicker"
-  multiple
-  multipleSeparator=" "
-  data-live-search="true"
-  data-max-options="2"
-  title="Pick quarterbacks to compare"
-  ></select>
+  <div class="innerDivRight">
+    <div id='accuracy_by_distancekey'>
+    </div>
+  </div>
+  <div class="innerDivCenter">
+    <div id="accuracy_by_distance"></div>
+  </div>
+  <div class="innerDivLeft">
+    <select class="selectpicker"
+    id="accuracy_by_distance_selectpicker"
+    multiple
+    multipleSeparator=" "
+    data-live-search="true"
+    data-max-options="2"
+    title="Pick quarterbacks to compare"
+    ></select>
+  </div>
 </div>
+
 
 
 <div class="innerDiv">

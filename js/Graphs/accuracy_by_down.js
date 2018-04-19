@@ -201,7 +201,13 @@ function plotAccuracyByDown(graphType, width, height) {
         .style("stroke-width","2px")
         .attr("d", function(d) { 
           return line(d.passes) 
-        });
+        })
+        // .on('mouseover', function(b) {
+        //   tooltip.html(function() {
+        //     return toolTipHtml(b.passes, b.passes.key, b.passes.value)
+        //   })
+        //   tooltip.show()})
+        // .on('mouseout', tooltip.hide);
 
       svg.selectAll(".circle" + i)
         .data(passer.passes)
@@ -318,7 +324,6 @@ function suffix(i) {
 
 /* tooltip html */
 function toolTipHtml(passer, down, passes) {
-  console.log(passer);
   return "<img src=" + teamAttributes[passes.team].icon + ">" +
   "<div id='passer'>" + passes.passer + "</div><div id='team'>" + passes.team + "</div><br>" + suffix(parseInt(down)) + " down<br><br>" +
   formatPercent(passes.percentage) + " Completion Percentage <br>" +

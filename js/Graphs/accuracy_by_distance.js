@@ -252,6 +252,18 @@ function plotAccuracyByDistance(graphType, width, height) {
         .classed("title", true)
         .text("Quarterback Accuracy by Distance");
 
+
+    // add key
+
+  // svg.append("foreignObject")
+  //   .attr("x", graphHeight - 120 - 10)
+  //   .attr("y", 10)
+  //   .append("xhtml:body")
+  //   .html(keyHtml(data));
+
+    d3.selectAll(id + "key")
+      .html(keyHtml(data));
+
     // Plot points
 
     bins.forEach(function(bin, i) {
@@ -311,10 +323,15 @@ function replotAccuracyByDistance(graphType) {
 
   data = graphType.data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
+  d3.selectAll(id + "key")
+      .html(keyHtml(data));
+
   // add in data if we don't have enough passers
   while(data.length < 3) {
     data.push({});
   }
+
+
 
   // Plot points
     bins.forEach(function(bin, i) {
@@ -388,4 +405,13 @@ function isEmpty(obj) {
 
 function formatPercent(p) {
   return d3.format(".1%")(p);
+}
+
+function keyHtml(data) {
+  var divs = "<div class='key'><ul>" 
+  data.forEach(function(d) {
+    divs += "<li><img src='" + teamAttributes[d.team].icon + "'> " + d.passer + " <span>" + d.team + "</span><div class='teamColorKey' style='background-color:" + teamAttributes[d.team].color + "'></div></li>";
+  });
+  divs += "</ul></div>";
+  return divs
 }
