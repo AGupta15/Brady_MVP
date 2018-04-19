@@ -28,6 +28,7 @@ function replot(graphType) {
     replotAccuracyByDistance(graphType);
   } else if (graphType == GraphType.accuracy_by_down) {
     // call replot function
+    replotAccuracyByDown(graphType);
   }
 }
 
@@ -36,10 +37,10 @@ function load(graphType) {
   console.log("loading " + graphType.viz_id);
 
   if (graphType == GraphType.accuracy_by_distance) {
-    GraphType.accuracy_by_distance.data = loadAccuracyByDistance(graphType, setData)
+    loadAccuracyByDistance(graphType, setData)
   } else if (graphType == GraphType.accuracy_by_down) {
     // load data for graph type 
-    GraphType.accuracy_by_down.data = loadAccuracyByDown(graphType, setData)
+    loadAccuracyByDown(graphType, setData)
   }
 }
 

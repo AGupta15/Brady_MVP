@@ -72,7 +72,7 @@ li span {
   stroke-width: 0.2px !important;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  text-anchor: start;
+  text-anchor: middle;
 }
 
 .tick {

@@ -155,10 +155,10 @@ function plotAccuracyByDistance(graphType, width, height) {
       .paddingInner(0.1)
       .range([0, graphWidth]);
 
-    x1 = d3.scaleBand()
-      .domain([0,1,2])
-      .paddingInner(0.01)
-      .range([0, x0.bandwidth()]);
+     x1 = d3.scaleBand()
+       .domain([0,1,2])
+       .paddingInner(0.01)
+       .range([0, x0.bandwidth()]);
 
     y = d3.scaleLinear()
       .domain([0, 1])
@@ -247,7 +247,7 @@ function plotAccuracyByDistance(graphType, width, height) {
     // add title
 
     svg.append("text")
-        .attr("x", 0)
+        .attr("x", graphHeight / 2)
         .attr("y", 0 - (margin.top / 2))
         .classed("title", true)
         .text("Quarterback Accuracy by Distance");
