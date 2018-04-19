@@ -58,9 +58,10 @@ li span {
   width: 100%;
 }
 
-.innerDivLeft {
+.innerDivRight {
   display: inline-block;
   position: absolute;
+  margin-top: 50px !important;
 }
 
 .innerDivCenter {
@@ -69,22 +70,33 @@ li span {
   padding-right: 25px;
 }
 
-.innerDivRight {
+/*.innerDivLeft {
   display: inline-block;
   vertical-align: top;
   width: auto;
 }
+*/
 
 /* Graphs */
 #accuracy_by_distance {
   display: inline-block;
 }
 
+/* KEYS */
+
+#accuracy_by_downkey {
+  margin-top: 100px !important;
+  margin-left: 0px;
+}
+
+#accuracy_by_distancekey {
+  margin-top: 100px !important;
+  margin-left: 0px;
+}
+
 
 /* D3 Elements */
-#accuracy_by_distancekey {
-  display: inline-block;
-}
+
 
 .key {
   border-radius: 0px;

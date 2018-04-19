@@ -122,6 +122,10 @@ function plotAccuracyByDown(graphType, width, height) {
 
     svg.call(tooltip);
 
+    // key
+    d3.selectAll(id + "key")
+      .html(keyHtml(data));
+
     x = d3.scalePoint()
       .domain(downs)
       .range([innerGraphPadding,graphWidth - innerGraphPadding]);
@@ -246,6 +250,10 @@ function replotAccuracyByDown(graphType) {
 
 
   data = graphType.data.filter( function(d) { return passers.has(parseInt(d.passerid))});
+
+  // key
+    d3.selectAll(id + "key")
+      .html(keyHtml(data));
 
   // add in data if we don't have enough passers
   while(data.length < 3) {

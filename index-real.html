@@ -21,7 +21,7 @@
 
 <!-- GRAPHS -->
 <script src="js/Graphs/accuracy_by_distance.js"></script>
-<!-- <script src="js/Graphs/accuracy_by_down.js"></script> -->
+<script src="js/Graphs/accuracy_by_down.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <!-- FONTS -->
@@ -149,22 +149,24 @@
 
 <!-- GRAPH 1 -->
 <div class="innerDiv">
-  <div class="innerDivRight">
-    <div id='accuracy_by_distancekey'>
-    </div>
+  <div class="innerDivLeft">
+    
   </div>
   <div class="innerDivCenter">
-    <div id="accuracy_by_distance"></div>
+     <div id="accuracy_by_distance"></div>
   </div>
-  <div class="innerDivLeft">
+  <div class="innerDiVRight">
     <select class="selectpicker"
     id="accuracy_by_distance_selectpicker"
     multiple
+    data-size="15"
     multipleSeparator=" "
     data-live-search="true"
     data-max-options="2"
     title="Pick quarterbacks to compare"
     ></select>
+    <div id='accuracy_by_distancekey'>
+    </div>
   </div>
 </div>
 
@@ -216,18 +218,34 @@
    </br>
 </div>
 
-<!-- GRAPH 2 -->
+<!-- GRAPH 1 -->
 <div class="innerDiv">
-  <div id="accuracy_by_distance"></div>
-  <select class="selectpicker"
-  id="accuracy_by_distance_selectpicker"
-  multiple
-  multipleSeparator=" "
-  data-live-search="true"
-  data-max-options="2"
-  title="Pick quarterbacks to compare"
-  ></select>
+  <div class="innerDivLeft">
+    
+  </div>
+  <div class="innerDivCenter">
+     <div id="accuracy_by_down"></div>
+  </div>
+  <div class="innerDiVRight">
+    <select class="selectpicker"
+    id="accuracy_by_down_selectpicker"
+    multiple
+    data-size="15"
+    multipleSeparator=" "
+    data-live-search="true"
+    data-max-options="2"
+    title="Pick quarterbacks to compare"
+    ></select>
+    <div id='accuracy_by_downkey'>
+    </div>
+  </div>
 </div>
+
+ <!-- GRAPH 2 -->
+  <div>
+    <div id="accuracy_by_down"></div>
+
+  </div>
 
 <div class="innerDiv">
 </br></br>
@@ -394,41 +412,17 @@
    </br>
 </div>
 
-<!-- GRAPH 5 -->
-<div class="innerDiv">
-  <div id="accuracy_by_distance"></div>
-  <select class="selectpicker"
-  id="accuracy_by_distance_selectpicker"
-  multiple
-  multipleSeparator=" "
-  data-live-search="true"
-  data-max-options="2"
-  title="Pick quarterbacks to compare"
-  ></select>
-</div>
-
 
 
 </div>
 
-  <!-- GRAPH 2 -->
-  <div>
-    <div id="accuracy_by_down"></div>
-    <select class="selectpicker"
-    id="accuracy_by_down_selectpicker"
-    multiple
-    multipleSeparator=" "
-    data-live-search="true"
-    data-max-options="2"
-    title="Pick quarterbacks to compare"
-    ></select>
-  </div>
+ 
 </body>
 </html>
 
 
 <script>
   /* main function */
-  load(GraphType.accuracy_by_distance);
-  // load(GraphType.accuracy_by_down);
+    //load(GraphType.accuracy_by_distance);
+     load(GraphType.accuracy_by_down);
 </script>
