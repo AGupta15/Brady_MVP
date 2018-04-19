@@ -4,6 +4,7 @@ body {
 
 .dropdown-toggle {
   font-size: 10px !important;
+  font-family: initial !important;
 }
 
 img {
