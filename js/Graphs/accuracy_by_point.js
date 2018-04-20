@@ -1,7 +1,9 @@
 var svg, y, x, line, area;
 var graphHeight, graphWidth, margin, extent;
 var tooltip;
-var minTotal = 5
+var minTotal = 3
+var pointBins = [3, 7, 10, 14, 17, 21]
+// 3, 7, 10, 14, 17, 21+
 
 function loadAccuracyByPoint(graphType, callback) {
     d3.csv("Data/graph3.csv", function (error, data) {
@@ -93,7 +95,7 @@ function plotAccuracyByPoint(graphType, width, height) {
     var passers = graphType.passers;
     var data = graphType.data;
 
-    extent = [-20,20];
+    extent = [-21,21];
     
     console.assert(passers.size <= 3, "More than 3 passers");
 

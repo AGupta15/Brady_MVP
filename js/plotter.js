@@ -96,6 +96,20 @@ function plot(graphType) {
     plotAccuracyByDown(graphType, 500, 500)
   }  else if (graphType == GraphType.accuracy_by_point) {
     // call replot function
-    plotAccuracyByPoint(graphType, 800, 250);
+    plotAccuracyByPoint(graphType, 800, 350);
   }
+}
+
+// checks to see if object is empty (aka dict == {})
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+
+function keyHtml(data) {
+  var divs = "<div class='key'><ul>" 
+  data.forEach(function(d) {
+    divs += "<li><img src='" + teamAttributes[d.team].icon + "'> " + d.passer + " <span>" + d.team + "</span><div class='teamColorKey' style='background-color:" + teamAttributes[d.team].color + "'></div></li>";
+  });
+  divs += "</ul></div>";
+  return divs
 }

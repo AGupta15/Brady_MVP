@@ -398,20 +398,8 @@ function toolTipHtml(passer, i, bins) {
   passer.bins[i].int + " Interceptions"
 }
 
-// checks to see if object is empty (aka dict == {})
-function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
+
 
 function formatPercent(p) {
   return d3.format(".1%")(p);
-}
-
-function keyHtml(data) {
-  var divs = "<div class='key'><ul>" 
-  data.forEach(function(d) {
-    divs += "<li><img src='" + teamAttributes[d.team].icon + "'> " + d.passer + " <span>" + d.team + "</span><div class='teamColorKey' style='background-color:" + teamAttributes[d.team].color + "'></div></li>";
-  });
-  divs += "</ul></div>";
-  return divs
 }
