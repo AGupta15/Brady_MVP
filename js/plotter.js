@@ -16,6 +16,13 @@ var GraphType = {
     "viz_id": "#accuracy_by_down",
     "data": null,
     "passers": null
+  },
+  "accuracy_by_point": 
+  {
+    "id": 3,
+    "viz_id": "#accuracy_by_point",
+    "data": null,
+    "passers": null
   }
 }
 
@@ -29,6 +36,9 @@ function replot(graphType) {
   } else if (graphType == GraphType.accuracy_by_down) {
     // call replot function
     replotAccuracyByDown(graphType);
+  } else if (graphType == GraphType.accuracy_by_point) {
+    // call replot function
+    replotAccuracyByPoint(graphType);
   }
 }
 
@@ -41,6 +51,9 @@ function load(graphType) {
   } else if (graphType == GraphType.accuracy_by_down) {
     // load data for graph type 
     loadAccuracyByDown(graphType, setData)
+  } else if (graphType == GraphType.accuracy_by_point) {
+    // call replot function
+    loadAccuracyByPoint(graphType, setData);
   }
 }
 
@@ -62,6 +75,9 @@ function setData(graphType, data) {
     
   } else if (graphType == GraphType.accuracy_by_down) {
     // custom graph default players
+  
+  }  else if (graphType == GraphType.accuracy_by_point) {
+
   }
 
   // setup select picker
@@ -78,5 +94,8 @@ function plot(graphType) {
     plotAccuracyByDistance(graphType, 500, 500);
   } else if (graphType == GraphType.accuracy_by_down) {
     plotAccuracyByDown(graphType, 500, 500)
+  }  else if (graphType == GraphType.accuracy_by_point) {
+    // call replot function
+    plotAccuracyByPoint(graphType, 800, 250);
   }
 }

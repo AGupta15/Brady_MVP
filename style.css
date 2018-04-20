@@ -95,6 +95,11 @@ li span {
   margin-left: 0px;
 }
 
+#accuracy_by_pointkey {
+  margin-top: 100px !important;
+  margin-left: 0px;
+}
+
 
 /* D3 Elements */
 
@@ -105,6 +110,7 @@ li span {
   border-style: solid;
   height: auto;
   width: 120px;
+  /*max-width: 130px;*/
   background-color: white;
   border-color: #ccc;
   border-radius: 4px;
@@ -140,6 +146,10 @@ li span {
 
 .axis path {
   stroke: none;
+}
+
+.pointSpreadAxis path {
+  stroke: #848484 !important;
 }
 
 .axis text {
