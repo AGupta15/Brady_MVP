@@ -65,6 +65,14 @@ li span {
   font-family: 'Raleway', sans-serif;
   font-size: 40px;
   font-weight: 900;
+  text-align: center;
+}
+
+#h3-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 35px;
+  font-weight: 900;
+  text-align: center;
 }
 
 #div-border {
@@ -101,22 +109,26 @@ li span {
 /* KEYS */
 
 #accuracy_by_downkey {
-  margin-top: 100px !important;
+  /* margin-top: 100px !important; */
   margin-left: 0px;
 }
 
 #accuracy_by_distancekey {
-  margin-top: 100px !important;
+  /* margin-top: 100px !important; */
   margin-left: 0px;
 }
 
 #accuracy_by_pointkey {
+<<<<<<< Updated upstream
   margin-top: 25px !important;
   margin-left: 0px;
 }
 
 #qb_effectivenesskey {
   margin-top: 25px !important;
+=======
+  /* margin-top: 100px !important; */
+>>>>>>> Stashed changes
   margin-left: 0px;
 }
 

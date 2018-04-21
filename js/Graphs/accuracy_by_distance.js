@@ -246,11 +246,11 @@ function plotAccuracyByDistance(graphType, width, height) {
 
     // add title
 
-    svg.append("text")
-        .attr("x", graphHeight / 2)
-        .attr("y", 0 - (margin.top / 2))
-        .classed("title", true)
-        .text("Quarterback Accuracy by Distance");
+    // svg.append("text")
+    //     .attr("x", graphHeight / 2)
+    //     .attr("y", 0 - (margin.top / 2))
+    //     .classed("title", true)
+    //     .text("Quarterback Accuracy by Distance");
 
 
     // add key

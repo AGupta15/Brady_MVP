@@ -92,7 +92,7 @@
         </h1>
       </br>
       <h3>Tom Brady has the Patriots in position to win the Lombardi Trophy every
-        season. But did TB12 deserve the 2017 NFL Most Valuable Player Award?</h3>
+        season, but was he truly the 2017 NFL Most Valuable Player?</h3>
       </br>
       <h4 style="font-weight:bolder;">by <a href="#">Abhi Gupta</a> and <a href="http://www.natashaarmbrust.com/" target="_blank">Natasha Armbrust</a></h4>
     </br>
@@ -125,15 +125,17 @@
   </p>
 </div>
 
-<!-- GRAPH 1 -->
+<!--=========== GRAPH 1 =====================================================-->
 <div class="innerDiv">
-  </br>
+</br></br>
+<h3 id="h3-title">Quarterback Accuracy by Pass Distance</h3>
 </br>
-<!-- <h2 id="h2-title">Graph 1</h2> -->
 <div class="innerDivCenter">
   <div id="accuracy_by_distance"></div>
 </div>
 <div class="innerDiVRight">
+  <div id='accuracy_by_distancekey'>
+  </div></br></br></br>
   <select class="selectpicker"
   id="accuracy_by_distance_selectpicker"
   multiple
@@ -143,8 +145,6 @@
   data-max-options="2"
   title="Pick quarterbacks to compare"
   ></select>
-  <div id='accuracy_by_distancekey'>
-  </div>
 </div>
 </div>
 
@@ -172,14 +172,17 @@
 </p>
 </div>
 
-<!-- GRAPH 2 -->
+<!--====================== GRAPH 2 ==========================================-->
 <div class="innerDiv">
 </br></br>
-<!-- <h2 id="h2-title">Graph 2</h2> -->
+<h3 id="h3-title">Quarterback Accuracy by Passing Down</h3>
+</br>
 <div class="innerDivCenter">
   <div id="accuracy_by_down"></div>
 </div>
 <div class="innerDiVRight">
+  <div id='accuracy_by_downkey'>
+  </div> </br></br></br>
   <select class="selectpicker"
   id="accuracy_by_down_selectpicker"
   multiple
@@ -189,8 +192,6 @@
   data-max-options="2"
   title="Pick quarterbacks to compare"
   ></select>
-  <div id='accuracy_by_downkey'>
-  </div>
 </div>
 </div>
 
@@ -218,18 +219,36 @@
 </p>
 </div>
 
-<!-- GRAPH 3 -->
-<div class="innerDiv">
-  <h2 id="h2-title">Graph 3</h2>
-  <div id="accuracy_by_point"></div>
-  <select class="selectpicker"
-  id="accuracy_by_point_selectpicker"
-  multiple
-  multipleSeparator=" "
-  data-live-search="true"
-  data-max-options="2"
-  title="Pick quarterbacks to compare"
-  ></select>
+<!--================================= GRAPH 3 ===============================-->
+<div class=innerDiv>
+  <div class="innerDivAccuracyByPointSpread">
+</br></br>
+  <h3 id="h3-title">Quarterback Accuracy by Point Spread</h3>
+  </br>
+  <div class="innerDivCenter">
+     <div id="accuracy_by_point"></div>
+  </div>
+  <div class="innerDiVRight">
+    <!-- <select class="selectpicker"
+    id="accuracy_by_point_selectpicker"
+    multiple
+    data-size="15"
+    multipleSeparator=" "
+    data-live-search="true"
+    data-max-options="2"
+    title="Pick quarterbacks to compare"
+    ></select>
+    <select class="selectpicker"
+    id="point_spread_selectpicker"
+    data-size="15"
+    data-width="auto"
+    data-max-options="1"
+    title="Pick a point spread ..."
+    ></select> -->
+    <div id='accuracy_by_pointkey'>
+    </div>
+  </div>
+</div>
 </div>
 
 <div class="innerDiv">

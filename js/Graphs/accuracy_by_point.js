@@ -198,12 +198,12 @@ function plotAccuracyByPoint(graphType, width, height) {
         .text("Point Spread");
 
     // add title
-
-    svg.append("text")
-        .attr("x", graphWidth/2)
-        .attr("y", 0 - (margin.top / 2))
-        .classed("title", true)
-        .text("Quarterback Accuracy by Point Spread");
+    // 
+    // svg.append("text")
+    //     .attr("x", graphWidth/2)
+    //     .attr("y", 0 - (margin.top / 2))
+    //     .classed("title", true)
+    //     .text("Quarterback Accuracy by Point Spread");
 
 
     data.forEach(function(passer,i) {

@@ -185,11 +185,11 @@ function plotAccuracyByDown(graphType, width, height) {
 
     // add title
 
-    svg1.append("text")
-        .attr("x", graphWidth1/2)
-        .attr("y", 0 - (margin1.top / 2))
-        .classed("title", true)
-        .text("Quarterback Accuracy by Down");
+    // svg1.append("text")
+    //     .attr("x", graphWidth1/2)
+    //     .attr("y", 0 - (margin1.top / 2))
+    //     .classed("title", true)
+    //     .text("Quarterback Accuracy by Down");
 
 
     // plot points
