@@ -1,7 +1,7 @@
 var downs = [1,2,3,4];
 var svg1, y, line;
 var graphHeight1, graphWidth1, margin1;
-var tooltip;
+var tooltip2;
 var downTicks = ["1st","2nd","3rd","4th"]
 
 function loadAccuracyByDown(graphType, callback) {
@@ -116,11 +116,11 @@ function plotAccuracyByDown(graphType, width, height) {
                   .attr("transform",
                         "translate(" + margin1.left + "," + margin1.top + ")");
 
-    tooltip = d3.tip()
+    tooltip2 = d3.tip()
                   .attr('class', 'd3-tip')
                   .offset([-10, 0]);
 
-    svg1.call(tooltip);
+    svg1.call(tooltip2);
 
     // key
     d3.selectAll(id + "key")
@@ -206,11 +206,11 @@ function plotAccuracyByDown(graphType, width, height) {
           return line(d.passes)
         })
         // .on('mouseover', function(b) {
-        //   tooltip.html(function() {
-        //     return toolTipHtml(b.passes, b.passes.key, b.passes.value)
+        //   tooltip2.html(function() {
+        //     return tooltip2Html(b.passes, b.passes.key, b.passes.value)
         //   })
-        //   tooltip.show()})
-        // .on('mouseout', tooltip.hide);
+        //   tooltip2.show()})
+        // .on('mouseout', tooltip2.hide);
 
       svg1.selectAll(".circle" + i)
         .data(passer.passes)
@@ -225,11 +225,11 @@ function plotAccuracyByDown(graphType, width, height) {
           return x(b.key);
         })
         .on('mouseover', function(b) {
-          tooltip.html(function() {
+          tooltip2.html(function() {
             return toolTipHtml2(b.value, b.key, b.value)
           })
-          tooltip.show()})
-        .on('mouseout', tooltip.hide);
+          tooltip2.show()})
+        .on('mouseout', tooltip2.hide);
     });
 }
 
