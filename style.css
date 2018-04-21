@@ -47,12 +47,21 @@ li span {
 
 #container * {
   margin: auto;
+}
+
+#para {
   font-family: 'Roboto', sans-serif;
 }
 
 #h1-title {
   font-family: 'Raleway', sans-serif;
   font-size: 55px;
+  font-weight: 900;
+}
+
+#h2-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 40px;
   font-weight: 900;
 }
 
