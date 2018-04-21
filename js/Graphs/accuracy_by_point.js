@@ -85,6 +85,7 @@ function loadAccuracyByPoint(graphType, callback) {
         "passerid": data.length,
         "passes": averagePasses})
 
+      setupPointSpreadPicker(pointBins);
       callback(graphType, data);
     });  
 }
@@ -146,15 +147,15 @@ function plotAccuracyByPoint(graphType, width, height) {
     area = d3.area()
     .x(function(d) { 
       return x(parseInt(d.key)); })
-    .y0(function(d) { return y(0) })
+    .y0(function(d,i) { 
+      return y(0) })
     .y1(function(d) { return y(d.value.percentage); });
 
-    var stack = d3.stack()
     // setup x axis
 
     svg
       .append("g")
-      .attr("class", "pointSpreadAxis axis")
+      .attr("class", "xAxis pointSpreadAxis axis")
       .attr("transform", "translate(" + [0,graphHeight] + ")")
       .call(
         d3.axisBottom(x)
@@ -205,27 +206,57 @@ function plotAccuracyByPoint(graphType, width, height) {
         .text("Quarterback Accuracy by Point Spread");
 
 
-    // plot points
-
     data.forEach(function(passer,i) {
+      console.log(passer);
+      var passes = filterPasses(passer);
+      console.log(passer);
+      console.log(data);
+
+      svg.append("path")
+        .data([passer])
+        .attr("class", "area" + i)
+        .style("opacity",0.15)
+        .style("fill", teamAttributes[passer.team].color)
+        .attr("d", area(passes));
+
       svg.append("path")
         .data([passer])
         .attr("class", "line" + i)
-        .style("opacity",0.5)
+        .style("opacity",1)
+        .style("stroke", teamAttributes[passer.team].color)
+        .style("stroke-width",".25px")
+        .style("fill","none")
+        .attr("d", line(passes));
+
+      svg.selectAll(".circle" + i)
+        .data(passes)
+        .enter()
+        .append("circle")
+        .attr("class", "circle" + i)
+        .style("opacity",1)
         .style("fill", teamAttributes[passer.team].color)
-        .attr("d", function(d) { 
-          var passes = d.passes.filter(function(p) { 
-            return parseInt(p.key) <= extent[1] && parseInt(p.key) >= extent[0] && p.value.total > minTotal
-          });
-          console.log(passes);
-          return area(passes);
-        });
+        .style("r","1px")
+        .style("stroke-width", "15px")
+        .style("stroke", "white")
+        .style("stroke-opacity","0")
+        .attr("cx", function(d) {
+          return x(parseInt(d.key));
+        })
+        .attr("cy", function(d) {
+          return y(d.value.percentage);
+        })
+        .on('mouseover', function(b) {
+          tooltip.html(function() {
+            return toolTipHtml(b.value, b.key, b.value)
+          })
+          tooltip.show()})
+        .on('mouseout', tooltip.hide);
     });
 }
 
 
 /* replots the points on the graph and animates them .. assumes graph is already made */
-function replotAccuracyByPoint(graphType) {
+function replotAccuracyByPoint(graphType, spread=null) {
 
   var id = graphType.viz_id;
   var passers = graphType.passers;
@@ -237,6 +268,9 @@ function replotAccuracyByPoint(graphType) {
   var passer_array = Array.from(passers);
   passer_array.sort(function(a, b){return a - b});
 
+  if (spread != null) {
+    changeXAxis(spread);
+  }
 
   data = graphType.data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
@@ -260,12 +294,12 @@ function replotAccuracyByPoint(graphType) {
     })
   }
 
-  console.log(data);
-
   // plot points
 
   data.forEach(function(passer,i) {
-    svg.selectAll(".line" + i)
+    passes = filterPasses(passer);
+
+    svg.selectAll(".area" + i)
         .data([passer])
         .transition()
         .duration(transitionDuration)
@@ -278,40 +312,98 @@ function replotAccuracyByPoint(graphType) {
           if(passer.passer == "fake") {
             return 0
           }
-          return 0.5
+          return 0.15
         })
-        .attr("d", function(d) { 
-          var passes = d.passes.filter(function(p) { 
-            return parseInt(p.key) <= extent[1] && parseInt(p.key) >= extent[0] && p.value.total > minTotal
-          });
-          console.log(passes);
-          return area(passes); 
-    });
+        .attr("d", area(passes)); 
+
+      svg.selectAll(".line" + i)
+        .data([passer])
+        .transition()
+        .duration(0)
+        .style("opacity","0")
+        .style("stroke", function () {
+          return (passer.passer == "fake") ? "none" : teamAttributes[passer.team].color})
+        .attr("d", line(passes));
+
+      svg.selectAll(".line" + i)
+        .data([passer])
+        .transition()
+        .delay(.75 * transitionDuration)
+        .duration(.25 * transitionDuration)
+        .style("opacity", function () {
+          return (passer.passer == "fake") ? 0 : 1 });
+      
+      svg.selectAll(".circle" + i).remove()
+
+      svg.selectAll(".circle" + i)
+        .data(passes)
+        .enter()
+        .append("circle")
+        .attr("class", "circle" + i)
+        .style("opacity", 0)
+        .style("fill", function () {
+          return (passer.passer == "fake") ? "none" : teamAttributes[passer.team].color})
+        .style("r","1px")
+        .style("stroke-width", "15px")
+        .style("stroke", "white")
+        .style("stroke-opacity","0")
+        .attr("cx", function(d) {
+          return x(parseInt(d.key));
+        })
+        .attr("cy", function(d) {
+          return y(d.value.percentage);
+        })
+        .on('mouseover', function(b) {
+          tooltip.html(function() {
+            return toolTipHtml(b.value, b.key, b.value)
+          })
+          tooltip.show()})
+        .on('mouseout', tooltip.hide);
+
+      svg.selectAll(".circle" + i)
+        .transition()
+        .delay(.75 * transitionDuration)
+        .duration(.25 * transitionDuration)
+        .style("opacity", 1);
   });
-
-
 }
 
-/* taken from https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number */
-function suffix(i) {
-    var j = i % 10,
-        k = i % 100;
-    if (j == 1 && k != 11) {
-        return i + "st";
-    }
-    if (j == 2 && k != 12) {
-        return i + "nd";
-    }
-    if (j == 3 && k != 13) {
-        return i + "rd";
-    }
-    return i + "th";
+function changeXAxis(spread) {
+  extent = spread
+  x.domain(extent)
+
+  svg.select(".xAxis")
+      .transition()
+      .duration(transitionDuration)
+      .call(
+        d3.axisBottom(x)
+        .tickPadding(6)
+        .tickSize(2)
+        .tickFormat(function(d,i) {
+          return d
+  }));
+}
+
+function filterPasses(passer) {
+  return passer.passes.slice().filter(function(p) { 
+            return parseInt(p.key) <= extent[1] && parseInt(p.key) >= extent[0] && p.value.total >= minTotal
+  });
+}
+
+function formatPointSpread(pointSpread) {
+  if (pointSpread < 0) {
+    return "Down by " + Math.abs(pointSpread)
+  } else if (pointSpread > 0) {
+    return "Ahead by " + pointSpread
+  } else {
+    return "Tied"
+  }
 }
 
 /* tooltip html */
-function toolTipHtml(passer, down, passes) {
+function toolTipHtml(passer, pointSpread, passes) {
   return "<img src=" + teamAttributes[passes.team].icon + ">" +
-  "<div id='passer'>" + passes.passer + "</div><div id='team'>" + passes.team + "</div><br>" + suffix(parseInt(down)) + " down<br><br>" +
+  "<div id='passer'>" + passes.passer + "</div><div id='team'>" + passes.team + "</div><br>" + formatPointSpread(pointSpread) + "<br><br>" +
   formatPercent(passes.percentage) + " Completion Percentage <br>" +
   passes.completed + " Total Completions <br>" +
   passes.total + " Total Attempts <br>" +

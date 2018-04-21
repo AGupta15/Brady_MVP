@@ -2,7 +2,7 @@ var downs = [1,2,3,4];
 var svg, x0, x1, y, line;
 var graphHeight, graphWidth, margin;
 var tooltip;
-var downTicks = ["1","2","3","4"]
+var downTicks = ["1st","2nd","3rd","4th"]
 
 function loadAccuracyByDown(graphType, callback) {
     d3.csv("Data/graph2.csv", function (error, data) {

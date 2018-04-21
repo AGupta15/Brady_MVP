@@ -29,3 +29,25 @@ function onSelect(graphType, passers_to_select=null) {
     replot(graphType);
   });
 }
+
+function setupPointSpreadPicker(spread) {
+  var id = "#point_spread_selectpicker"; 
+  spread.forEach(function (s,i) {
+    $(id).append("<option value='" + s + "' id='" + id + s + "'> +/- " + s + " points</option>'");
+    $(id).selectpicker("refresh");
+    if (i == spread.length - 1) {
+      $(id).selectpicker('val',s);
+    }
+  });
+
+  $(id).on('hidden.bs.select', function () {
+    var extent = null
+    $(id + " option").each(function(i) {
+      var optionId = this.id.slice(id.length);
+      if(this.selected) {
+        extent = [-1 * parseInt(optionId), parseInt(optionId)]
+      } 
+    });
+    replotAccuracyByPoint(GraphType.accuracy_by_point, spread=extent)
+  });
+}
