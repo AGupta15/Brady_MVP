@@ -1,6 +1,6 @@
 var svg, y, x, line, area;
 var graphHeight, graphWidth, margin, extent = [-21,21];
-var tooltip;
+var tooltip3;
 var minTotal = 3
 var pointBins = [3, 7, 10, 14, 17, 21]
 var ticks = [6, 14, 5, 10, 10, 8]
@@ -118,11 +118,11 @@ function plotAccuracyByPoint(graphType, width, height) {
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
 
-    tooltip = d3.tip()
+    tooltip3 = d3.tip()
                   .attr('class', 'd3-tip')
                   .offset([-10, 0]);
 
-    svg.call(tooltip);
+    svg.call(tooltip3);
 
     // key
     d3.selectAll(id + "key")
@@ -243,11 +243,11 @@ function plotAccuracyByPoint(graphType, width, height) {
           return y(d.value.percentage);
         })
         .on('mouseover', function(b) {
-          tooltip.html(function() {
-            return toolTipHtml(b.value, b.key, b.value)
+          tooltip3.html(function() {
+            return tooltip3Html(b.value, b.key, b.value)
           })
-          tooltip.show()})
-        .on('mouseout', tooltip.hide);
+          tooltip3.show()})
+        .on('mouseout', tooltip3.hide);
     });
 }
 
@@ -352,11 +352,11 @@ function replotAccuracyByPoint(graphType, spread=null) {
         })
         .on('mouseover', function(b) {
           if(passer.passer == "fake") { return }
-          tooltip.html(function() {
-            return toolTipHtml(b.value, b.key, b.value)
+          tooltip3.html(function() {
+            return tooltip3Html(b.value, b.key, b.value)
           })
-          tooltip.show()})
-        .on('mouseout', tooltip.hide);
+          tooltip3.show()})
+        .on('mouseout', tooltip3.hide);
 
       svg.selectAll(".circle" + i)
         .transition()
@@ -399,8 +399,8 @@ function formatPointSpread(pointSpread) {
   }
 }
 
-/* tooltip html */
-function toolTipHtml(passer, pointSpread, passes) {
+/* tooltip3 html */
+function tooltip3Html(passer, pointSpread, passes) {
   return "<img src=" + teamAttributes[passes.team].icon + ">" +
   "<div id='passer'>" + passes.passer + "</div><div id='team'>" + passes.team + "</div><br>" + formatPointSpread(pointSpread) + "<br><br>" +
   formatPercent(passes.percentage) + " Completion Percentage <br>" +
