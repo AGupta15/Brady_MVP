@@ -8,7 +8,7 @@ var pointBins = [3, 7, 10, 14, 17, 21]
 function loadAccuracyByPoint(graphType, callback) {
     d3.csv("Data/graph3.csv", function (error, data) {
       if (error) { console.log(error); }
-      
+
 
       data = d3.nest()
         .key(function(d) { return d.passerid; })
@@ -19,7 +19,7 @@ function loadAccuracyByPoint(graphType, callback) {
       data = data.map(function(d) {
         var passes = d3.nest()
             .key(function(v) { return v.scorediff; })
-            .rollup(function(v) { 
+            .rollup(function(v) {
               var d = v[0].scorediff;
               var ints = d3.sum(v, function(p) { return p.int; });
               var tds = d3.sum(v, function(p) { return p.td; });
@@ -33,7 +33,7 @@ function loadAccuracyByPoint(graphType, callback) {
                 averageBins[d].tds += tds;
               } else {
                 averageBins[d] = {
-                  "completed": 0, 
+                  "completed": 0,
                   "total": 0,
                   "ints": 0,
                   "tds": 0,
@@ -55,8 +55,8 @@ function loadAccuracyByPoint(graphType, callback) {
               };
             })
             .entries(d.values);
-        
-        passes.sort(function(a, b){ 
+
+        passes.sort(function(a, b){
           return parseInt(a.key) - parseInt(b.key)});
 
         return {
@@ -76,9 +76,9 @@ function loadAccuracyByPoint(graphType, callback) {
         });
       });
 
-      averagePasses.sort(function(a, b){ 
+      averagePasses.sort(function(a, b){
           return parseInt(a.key) - parseInt(b.key)});
-      
+
       data.push({
         passer: "Average",
         team: "NFL",
@@ -87,17 +87,17 @@ function loadAccuracyByPoint(graphType, callback) {
 
       setupPointSpreadPicker(pointBins);
       callback(graphType, data);
-    });  
+    });
 }
 
 function plotAccuracyByPoint(graphType, width, height) {
-  
+
     var id = graphType.viz_id;
     var passers = graphType.passers;
     var data = graphType.data;
 
     extent = [-21,21];
-    
+
     console.assert(passers.size <= 3, "More than 3 passers");
 
     var passer_array = Array.from(passers);
@@ -116,7 +116,7 @@ function plotAccuracyByPoint(graphType, width, height) {
                   .attr("width", width)
                   .attr("height", height)
                   .append("g")
-                  .attr("transform", 
+                  .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
 
     tooltip = d3.tip()
@@ -138,16 +138,16 @@ function plotAccuracyByPoint(graphType, width, height) {
       .range([graphHeight, 0]);
 
     line = d3.line()
-      .x(function(d) { 
+      .x(function(d) {
         return x(parseInt(d.key)); })
-      .y(function(d) { 
+      .y(function(d) {
         return y(d.value.percentage); })
       .curve(d3.curveLinear) // apply smoothing to the line
 
     area = d3.area()
-    .x(function(d) { 
+    .x(function(d) {
       return x(parseInt(d.key)); })
-    .y0(function(d,i) { 
+    .y0(function(d,i) {
       return y(0) })
     .y1(function(d) { return y(d.value.percentage); });
 
@@ -283,12 +283,12 @@ function replotAccuracyByPoint(graphType, spread=null) {
     data.push(
     { passer: "fake",
       passes: d3.range(extent[0],extent[1]).map(function(p) {
-        return { 
-          key: p, 
-          value: { 
+        return {
+          key: p,
+          value: {
             percentage: 0,
             total: minTotal + 1
-           } 
+           }
         }
       })
     })
@@ -314,7 +314,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
           }
           return 0.15
         })
-        .attr("d", area(passes)); 
+        .attr("d", area(passes));
 
       svg.selectAll(".line" + i)
         .data([passer])
@@ -332,7 +332,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
         .duration(.25 * transitionDuration)
         .style("opacity", function () {
           return (passer.passer == "fake") ? 0 : 1 });
-      
+
       svg.selectAll(".circle" + i).remove()
 
       svg.selectAll(".circle" + i)
@@ -385,7 +385,7 @@ function changeXAxis(spread) {
 }
 
 function filterPasses(passer) {
-  return passer.passes.slice().filter(function(p) { 
+  return passer.passes.slice().filter(function(p) {
             return parseInt(p.key) <= extent[1] && parseInt(p.key) >= extent[0] && p.value.total >= minTotal
   });
 }

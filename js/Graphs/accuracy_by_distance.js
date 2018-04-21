@@ -1,4 +1,4 @@
-var svg, x0, x1, y, line;
+var svg, x0, x1, y;
 var graphHeight, graphWidth, margin;
 var tooltip;
 var bins = [-1,0,10,20,30,40];
@@ -282,7 +282,7 @@ function plotAccuracyByDistance(graphType, width, height) {
           return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) })
         .on('mouseover', function(d) {
           tooltip.html(function() {
-            return toolTipHtml(d, i, bins)
+            return toolTipHtml1(d, i, bins)
           })
           tooltip.show()})
           .on('mouseout', tooltip.hide);
@@ -388,7 +388,7 @@ function addPass(completionPercentages, passer, bin) {
 }
 
 /* tooltip html */
-function toolTipHtml(passer, i, bins) {
+function toolTipHtml1(passer, i, bins) {
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + binTicks[i] + " yards<br><br>" +
   formatPercent(passer.bins[i].percentage) + " Completion Percentage <br>" +

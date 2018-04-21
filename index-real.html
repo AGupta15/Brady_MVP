@@ -20,8 +20,9 @@
 
 
 <!-- GRAPHS -->
-<!-- <script src="js/Graphs/accuracy_by_distance.js"></script> -->
+<script src="js/Graphs/accuracy_by_distance.js"></script>
 <script src="js/Graphs/accuracy_by_down.js"></script>
+<script src="js/Graphs/accuracy_by_point.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <!-- FONTS -->
@@ -55,7 +56,6 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-  <!-- <button onclick="download_csv1()">Download Graph CSV 1</button><br> -->
 
   <nav class="navbar navbar-default navbar-fixed-top navbar-light" style="background-color: #1b1d4b;border:none;">
     <div class="container-fluid">
@@ -126,8 +126,9 @@
 
 <!-- GRAPH 1 -->
 <div class="innerDiv">
+  </br>
 </br>
-<h2 id="h2-title">Graph 1</h2>
+<!-- <h2 id="h2-title">Graph 1</h2> -->
 <div class="innerDivCenter">
   <div id="accuracy_by_distance"></div>
 </div>
@@ -145,8 +146,6 @@
   </div>
 </div>
 </div>
-
-
 
 <div class="innerDiv">
 </br></br>
@@ -174,7 +173,8 @@
 
 <!-- GRAPH 2 -->
 <div class="innerDiv">
-<h2 id="h2-title">Graph 2</h2>
+</br></br>
+<!-- <h2 id="h2-title">Graph 2</h2> -->
 <div class="innerDivCenter">
   <div id="accuracy_by_down"></div>
 </div>
@@ -220,9 +220,9 @@
 <!-- GRAPH 3 -->
 <div class="innerDiv">
   <h2 id="h2-title">Graph 3</h2>
-  <div id="accuracy_by_down"></div>
+  <div id="accuracy_by_point"></div>
   <select class="selectpicker"
-  id="accuracy_by_down_selectpicker"
+  id="accuracy_by_point_selectpicker"
   multiple
   multipleSeparator=" "
   data-live-search="true"
@@ -344,5 +344,6 @@
 <script>
 /* main function */
 load(GraphType.accuracy_by_distance);
-//load(GraphType.accuracy_by_down);
+load(GraphType.accuracy_by_down);
+load(GraphType.accuracy_by_point);
 </script>
