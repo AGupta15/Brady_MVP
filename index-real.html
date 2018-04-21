@@ -23,6 +23,7 @@
 <script src="js/Graphs/accuracy_by_distance.js"></script>
 <script src="js/Graphs/accuracy_by_down.js"></script>
 <script src="js/Graphs/accuracy_by_point.js"></script>
+<script src="js/Graphs/qb_effectiveness.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <!-- FONTS -->
@@ -257,16 +258,33 @@
 
 <!-- GRAPH 4 -->
 <div class="innerDiv">
-  <h2 id="h2-title">Graph 4</h2>
-  <div id="accuracy_by_distance"></div>
-  <select class="selectpicker"
-  id="accuracy_by_distance_selectpicker"
-  multiple
-  multipleSeparator=" "
-  data-live-search="true"
-  data-max-options="2"
-  title="Pick quarterbacks to compare"
-  ></select>
+  <div class="innerDivLeft">
+    
+  </div>
+  <div class="innerDivCenter">
+     <div id="qb_effectiveness"></div>
+  </div>
+  <div class="innerDiVRight">
+    <select class="selectpicker"
+    id="qb_effectiveness_selectpicker"
+    multiple
+    data-size="15"
+    multipleSeparator=" "
+    data-live-search="true"
+    title="Pick quarterbacks to compare"
+    ></select>
+    <select class="selectpicker"
+    id="qb_effectiveness_metrics_selectpicker_y"
+    data-max-options="2"
+    title="Pick a point spread ..."
+    ></select>
+    <select class="selectpicker"
+    id="qb_effectiveness_metrics_selectpicker_x"
+    data-max-options="2"
+    title="Pick a point spread ..."
+    ></select>
+    <div id='qb_effectivenesskey'>
+  </div>
 </div>
 
 
@@ -346,4 +364,5 @@
 load(GraphType.accuracy_by_distance);
 load(GraphType.accuracy_by_down);
 load(GraphType.accuracy_by_point);
+load(GraphType.qb_effectiveness);
 </script>

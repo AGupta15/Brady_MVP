@@ -136,7 +136,6 @@ function plotAccuracyByDown(graphType, width, height) {
 
     line = d3.svg.line()
     .x(function(d) {
-      console.log(d);
       return x(d.key); })
     .y(function(d) {
       return y(d.value.percentage); });
@@ -306,7 +305,6 @@ function replotAccuracyByDown(graphType) {
           }
           return 1})
         .attr("d", function(d) {
-          console.log(d);
           return line(d.passes)
     });
   });
