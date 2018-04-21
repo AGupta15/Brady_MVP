@@ -1,13 +1,13 @@
 var downs = [1,2,3,4];
-var svg, x0, x1, y, line;
-var graphHeight, graphWidth, margin;
+var svg1, y, line;
+var graphHeight1, graphWidth1, margin1;
 var tooltip;
 var downTicks = ["1st","2nd","3rd","4th"]
 
 function loadAccuracyByDown(graphType, callback) {
     d3.csv("Data/graph2.csv", function (error, data) {
       if (error) { console.log(error); }
-      
+
 
       data = d3.nest()
         .key(function(d) { return d.passerid; })
@@ -21,9 +21,9 @@ function loadAccuracyByDown(graphType, callback) {
         "4": null
       }
 
-      Object.keys(averageBins).forEach(function(d,i) { 
+      Object.keys(averageBins).forEach(function(d,i) {
         averageBins[d] = {
-            "completed": 0, 
+            "completed": 0,
             "total": 0,
             "ints": 0,
             "tds": 0,
@@ -37,7 +37,7 @@ function loadAccuracyByDown(graphType, callback) {
       data = data.map(function(d) {
         var passes = d3.nest()
             .key(function(v) { return v.down; })
-            .rollup(function(v) { 
+            .rollup(function(v) {
               var ints = d3.sum(v, function(p) { return p.int; });
               var tds = d3.sum(v, function(p) { return p.td; });
               var total = v.length;
@@ -59,7 +59,7 @@ function loadAccuracyByDown(graphType, callback) {
             })
             .entries(d.values)
             .filter(pass => pass.key != "NA");
-        passes.sort(function(a, b){ 
+        passes.sort(function(a, b){
           return parseInt(a.key) - parseInt(b.key)});
         return {
           "passer": d.values[0].passer,
@@ -79,7 +79,7 @@ function loadAccuracyByDown(graphType, callback) {
           });
         }
       });
-      
+
       data.push({
         passer: "Average",
         team: "NFL",
@@ -87,40 +87,40 @@ function loadAccuracyByDown(graphType, callback) {
         "passes": averagePasses})
 
       callback(graphType, data);
-    });  
+    });
 }
 
 function plotAccuracyByDown(graphType, width, height) {
-  
+
     var id = graphType.viz_id;
     var passers = graphType.passers;
     var data = graphType.data;
-    
+
     console.assert(passers.size <= 3, "More than 3 passers");
 
     var passer_array = Array.from(passers).sort();
 
     data = data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
-    margin = {top: 50, right: 50, bottom: 50, left: 50};
-    graphWidth = width - margin.left - margin.right;
-    graphHeight = height - margin.top - margin.bottom;
+    margin1 = {top: 50, right: 50, bottom: 50, left: 50};
+    graphWidth1 = width - margin1.left - margin1.right;
+    graphHeight1 = height - margin1.top - margin1.bottom;
 
     var innerGraphPadding = 30;
 
-    svg = d3.select(id)
+    svg1 = d3.select(id)
                   .append("svg")
                   .attr("width", width)
                   .attr("height", height)
                   .append("g")
-                  .attr("transform", 
-                        "translate(" + margin.left + "," + margin.top + ")");
+                  .attr("transform",
+                        "translate(" + margin1.left + "," + margin1.top + ")");
 
     tooltip = d3.tip()
                   .attr('class', 'd3-tip')
                   .offset([-10, 0]);
 
-    svg.call(tooltip);
+    svg1.call(tooltip);
 
     // key
     d3.selectAll(id + "key")
@@ -128,25 +128,25 @@ function plotAccuracyByDown(graphType, width, height) {
 
     x = d3.scalePoint()
       .domain(downs)
-      .range([innerGraphPadding,graphWidth - innerGraphPadding]);
+      .range([innerGraphPadding,graphWidth1 - innerGraphPadding]);
 
     y = d3.scaleLinear()
       .domain([0, 1])
-      .range([graphHeight, 0]);
+      .range([graphHeight1, 0]);
 
     line = d3.svg.line()
-    .x(function(d) { 
+    .x(function(d) {
       console.log(d);
       return x(d.key); })
-    .y(function(d) { 
+    .y(function(d) {
       return y(d.value.percentage); });
 
     // setup x axis
 
-    svg
+    svg1
       .append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(" + [0,graphHeight] + ")")
+      .attr("transform", "translate(" + [0,graphHeight1] + ")")
       .call(
         d3.axisBottom(x)
         .ticks(downs)
@@ -156,39 +156,39 @@ function plotAccuracyByDown(graphType, width, height) {
         }));
 
     // setup y axis
-    svg.append("g")
+    svg1.append("g")
       .attr("class", "y axis")
       .call(
         d3.axisLeft(y)
         .ticks(10, "%")
-        .tickSizeInner(-graphWidth)
+        .tickSizeInner(-graphWidth1)
         .tickSizeOuter(0)
       );
 
     // text label for the y axis
-    svg.append("text")
+    svg1.append("text")
       .attr("transform", "rotate(-90)")
       .attr("class","label")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (graphHeight / 2))
+      .attr("y", 0 - margin1.left)
+      .attr("x",0 - (graphHeight1 / 2))
       .attr("dy", "12px")
       .style("text-anchor", "middle")
       .text("Pass Completion Percentage");
 
     // text label for the x axis
-    svg.append("text")
+    svg1.append("text")
         .attr("transform",
-              "translate(" + (graphWidth/2) + " ," +
-                             (graphHeight + margin.top - 10) + ")")
+              "translate(" + (graphWidth1/2) + " ," +
+                             (graphHeight1 + margin1.top - 10) + ")")
         .style("text-anchor", "middle")
         .attr("class","label")
         .text("Pass Down");
 
     // add title
 
-    svg.append("text")
-        .attr("x", graphWidth/2)
-        .attr("y", 0 - (margin.top / 2))
+    svg1.append("text")
+        .attr("x", graphWidth1/2)
+        .attr("y", 0 - (margin1.top / 2))
         .classed("title", true)
         .text("Quarterback Accuracy by Down");
 
@@ -196,15 +196,15 @@ function plotAccuracyByDown(graphType, width, height) {
     // plot points
 
     data.forEach(function(passer,i) {
-      svg.append("path")
+      svg1.append("path")
         .data([passer])
         .attr("class", "line" + i)
         .style("fill","none")
         .style("opacity",".5")
         .style("stroke", teamAttributes[passer.team].color)
         .style("stroke-width","2px")
-        .attr("d", function(d) { 
-          return line(d.passes) 
+        .attr("d", function(d) {
+          return line(d.passes)
         })
         // .on('mouseover', function(b) {
         //   tooltip.html(function() {
@@ -213,21 +213,21 @@ function plotAccuracyByDown(graphType, width, height) {
         //   tooltip.show()})
         // .on('mouseout', tooltip.hide);
 
-      svg.selectAll(".circle" + i)
+      svg1.selectAll(".circle" + i)
         .data(passer.passes)
         .enter()
         .append("circle")
         .attr("class", "circle" + i)
         .attr("r","4px")
         .style("fill", teamAttributes[passer.team].color)
-        .attr("cy", function(b) { 
+        .attr("cy", function(b) {
           return y(b.value.percentage); })
-        .attr("cx", function(b) { 
-          return x(b.key); 
+        .attr("cx", function(b) {
+          return x(b.key);
         })
         .on('mouseover', function(b) {
           tooltip.html(function() {
-            return toolTipHtml(b.value, b.key, b.value)
+            return toolTipHtml2(b.value, b.key, b.value)
           })
           tooltip.show()})
         .on('mouseout', tooltip.hide);
@@ -260,9 +260,9 @@ function replotAccuracyByDown(graphType) {
     data.push(
     { passer: "fake",
       passes: data[0].passes.map(function(p) {
-        return { 
-          key: p.key, 
-          value: { percentage: 0 } 
+        return {
+          key: p.key,
+          value: { percentage: 0 }
         }
       })
     })
@@ -272,26 +272,26 @@ function replotAccuracyByDown(graphType) {
 
   data.forEach(function(passer,i) {
     if (passer.passer == "fake") {
-      svg.selectAll(".circle" + i)
+      svg1.selectAll(".circle" + i)
       .data(passer.passes)
       .transition()
       .duration(transitionDuration)
       .attr("r","0px")
-      .attr("cy", function(b) { 
-        return graphHeight
+      .attr("cy", function(b) {
+        return graphHeight1
       });
     } else {
-      svg.selectAll(".circle" + i)
+      svg1.selectAll(".circle" + i)
         .data(passer.passes)
         .transition()
         .duration(transitionDuration)
         .attr("r","4px")
         .style("fill", teamAttributes[passer.team].color)
-        .attr("cy", function(b) { 
+        .attr("cy", function(b) {
           return y(b.value.percentage);
         });
     }
-    svg.selectAll(".line" + i)
+    svg1.selectAll(".line" + i)
         .data([passer])
         .transition()
         .duration(transitionDuration)
@@ -305,9 +305,9 @@ function replotAccuracyByDown(graphType) {
             return 0
           }
           return 1})
-        .attr("d", function(d) { 
+        .attr("d", function(d) {
           console.log(d);
-          return line(d.passes) 
+          return line(d.passes)
     });
   });
 
@@ -331,8 +331,8 @@ function suffix(i) {
 }
 
 /* tooltip html */
-function toolTipHtml(passer, down, passes) {
-  return "<img src=" + teamAttributes[passes.team].icon + ">" +
+function toolTipHtml2(passer, down, passes) {
+  return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passes.passer + "</div><div id='team'>" + passes.team + "</div><br>" + suffix(parseInt(down)) + " down<br><br>" +
   formatPercent(passes.percentage) + " Completion Percentage <br>" +
   passes.completed + " Total Completions <br>" +
