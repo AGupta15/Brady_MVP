@@ -23,6 +23,13 @@ var GraphType = {
     "viz_id": "#accuracy_by_point",
     "data": null,
     "passers": null
+  },
+  "qb_effectiveness":
+  {
+    "id": 4,
+    "viz_id": "#qb_effectiveness",
+    "data": null,
+    "passers": null
   }
 }
 
@@ -39,6 +46,8 @@ function replot(graphType) {
   } else if (graphType == GraphType.accuracy_by_point) {
     // call replot function
     replotAccuracyByPoint(graphType);
+  } else if (graphType == GraphType.qb_effectiveness) {
+    replotQBEffectiveness(graphType);
   }
 }
 
@@ -54,6 +63,8 @@ function load(graphType) {
   } else if (graphType == GraphType.accuracy_by_point) {
     // call replot function
     loadAccuracyByPoint(graphType, setData);
+  } else if (graphType == GraphType.qb_effectiveness) {
+    loadQBEffectiveness(graphType, setData);
   }
 }
 
@@ -78,6 +89,8 @@ function setData(graphType, data) {
   
   }  else if (graphType == GraphType.accuracy_by_point) {
 
+  } else if (graphType == GraphType.qb_effectiveness) {
+
   }
 
   // setup select picker
@@ -97,6 +110,8 @@ function plot(graphType) {
   }  else if (graphType == GraphType.accuracy_by_point) {
     // call replot function
     plotAccuracyByPoint(graphType, 800, 350);
+  } else if (graphType == GraphType.qb_effectiveness) {
+    plotQBEffectiveness(graphType, 500, 500);
   }
 }
 
@@ -112,4 +127,11 @@ function keyHtml(data) {
   });
   divs += "</ul></div>";
   return divs
+}
+
+
+
+
+function formatPercent(p) {
+  return d3.format(".1%")(p);
 }

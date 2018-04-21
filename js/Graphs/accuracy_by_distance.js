@@ -398,8 +398,3 @@ function toolTipHtml(passer, i, bins) {
   passer.bins[i].int + " Interceptions"
 }
 
-
-
-function formatPercent(p) {
-  return d3.format(".1%")(p);
-}

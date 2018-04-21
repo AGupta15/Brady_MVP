@@ -51,3 +51,27 @@ function setupPointSpreadPicker(spread) {
     replotAccuracyByPoint(GraphType.accuracy_by_point, spread=extent)
   });
 }
+
+function setupQBEffectiveness(metrics) {
+  selectedMetrics.forEach(function(axis,index) {
+    var id = "#qb_effectiveness_metrics_selectpicker" + axis.id; 
+    metrics.forEach(function (s,i) {
+      $(id).append("<option value='" + s + "' title='" + axis.title + "-axis: " + metricNames[i] + "' ' id='" + id + s + "'>" + metricNames[i]  + "</option>'");
+      $(id).selectpicker("refresh");
+      if (s == selectedMetrics[index].value) { 
+        $(id).selectpicker('val',s); // set default value
+      }
+    });
+
+    $(id).on('hidden.bs.select', function () {
+      $(id + " option").each(function(i) {
+        var metricId = this.id.slice(id.length);
+        if(this.selected) {
+          selectedMetrics[index].value = metricId
+        } 
+      });
+      replotQBEffectiveness(GraphType.qb_effectiveness, true)
+    })
+  })
+    
+}

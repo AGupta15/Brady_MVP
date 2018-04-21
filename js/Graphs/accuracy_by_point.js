@@ -1,8 +1,9 @@
 var svg, y, x, line, area;
-var graphHeight, graphWidth, margin, extent;
+var graphHeight, graphWidth, margin, extent = [-21,21];
 var tooltip;
 var minTotal = 3
 var pointBins = [3, 7, 10, 14, 17, 21]
+var ticks = [6, 14, 5, 10, 10, 8]
 // 3, 7, 10, 14, 17, 21+
 
 function loadAccuracyByPoint(graphType, callback) {
@@ -95,8 +96,6 @@ function plotAccuracyByPoint(graphType, width, height) {
     var id = graphType.viz_id;
     var passers = graphType.passers;
     var data = graphType.data;
-
-    extent = [-21,21];
     
     console.assert(passers.size <= 3, "More than 3 passers");
 
@@ -160,6 +159,7 @@ function plotAccuracyByPoint(graphType, width, height) {
       .call(
         d3.axisBottom(x)
         .tickPadding(6)
+        .ticks(ticks[pointBins.indexOf(extent[1])])
         .tickSize(2)
         .tickFormat(function(d,i) {
           return d
@@ -207,10 +207,7 @@ function plotAccuracyByPoint(graphType, width, height) {
 
 
     data.forEach(function(passer,i) {
-      console.log(passer);
       var passes = filterPasses(passer);
-      console.log(passer);
-      console.log(data);
 
       svg.append("path")
         .data([passer])
@@ -354,6 +351,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
           return y(d.value.percentage);
         })
         .on('mouseover', function(b) {
+          if(passer.passer == "fake") { return }
           tooltip.html(function() {
             return toolTipHtml(b.value, b.key, b.value)
           })
@@ -377,6 +375,7 @@ function changeXAxis(spread) {
       .duration(transitionDuration)
       .call(
         d3.axisBottom(x)
+        .ticks(ticks[pointBins.indexOf(spread[1])])
         .tickPadding(6)
         .tickSize(2)
         .tickFormat(function(d,i) {
