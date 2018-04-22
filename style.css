@@ -94,12 +94,11 @@ li span {
   padding-right: 25px;
 }
 
-/*.innerDivLeft {
+.innerDivSide {
+  position: absolute;
   display: inline-block;
-  vertical-align: top;
-  width: auto;
+  /* vertical-align: top; */
 }
-*/
 
 /* Graphs */
 #accuracy_by_distance {
@@ -119,24 +118,19 @@ li span {
 }
 
 #accuracy_by_pointkey {
-<<<<<<< Updated upstream
-  margin-top: 25px !important;
-  margin-left: 0px;
+  /* margin-top: 25px !important; */
+  margin-left: 500px;
 }
 
 #qb_effectivenesskey {
-  margin-top: 25px !important;
-=======
+  /* margin-top: 25px !important; */
   /* margin-top: 100px !important; */
->>>>>>> Stashed changes
   margin-left: 0px;
 }
 
 #accuracy_by_pointkey .key {
   margin-left: 0px !important;
 }
-
-
 
 /* D3 Elements */
 

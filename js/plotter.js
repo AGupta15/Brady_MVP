@@ -1,23 +1,23 @@
 /* PLOTS ALL GRAPHS */
 
 
-// add graphs here 
+// add graphs here
 var GraphType = {
-"accuracy_by_distance": 
+"accuracy_by_distance":
   {
     "id": 1,
     "viz_id": "#accuracy_by_distance",
     "data": null,
     "passers": null
   },
-  "accuracy_by_down": 
+  "accuracy_by_down":
   {
     "id": 2,
     "viz_id": "#accuracy_by_down",
     "data": null,
     "passers": null
   },
-  "accuracy_by_point": 
+  "accuracy_by_point":
   {
     "id": 3,
     "viz_id": "#accuracy_by_point",
@@ -58,7 +58,7 @@ function load(graphType) {
   if (graphType == GraphType.accuracy_by_distance) {
     loadAccuracyByDistance(graphType, setData)
   } else if (graphType == GraphType.accuracy_by_down) {
-    // load data for graph type 
+    // load data for graph type
     loadAccuracyByDown(graphType, setData)
   } else if (graphType == GraphType.accuracy_by_point) {
     // call replot function
@@ -72,7 +72,7 @@ function load(graphType) {
 /* callback after loading graph to plot it */
 function setData(graphType, data) {
   graphType.data = data;
-  // dummy data 
+  // dummy data
   var passers_to_plot = new Set();
   passers_to_plot.add(0)
   passers_to_plot.add(1)
@@ -81,12 +81,12 @@ function setData(graphType, data) {
   graphType.passers = passers_to_plot;
 
   if (graphType == GraphType.accuracy_by_distance) {
-    
 
-    
+
+
   } else if (graphType == GraphType.accuracy_by_down) {
     // custom graph default players
-  
+
   }  else if (graphType == GraphType.accuracy_by_point) {
 
   } else if (graphType == GraphType.qb_effectiveness) {
@@ -121,17 +121,10 @@ function isEmpty(obj) {
 }
 
 function keyHtml(data) {
-  var divs = "<div class='key'><ul>" 
+  var divs = "<div class='key'><ul>"
   data.forEach(function(d) {
     divs += "<li><img src='" + teamAttributes[d.team].icon + "'> " + d.passer + " <span>" + d.team + "</span><div class='teamColorKey' style='background-color:" + teamAttributes[d.team].color + "'></div></li>";
   });
   divs += "</ul></div>";
   return divs
-}
-
-
-
-
-function formatPercent(p) {
-  return d3.format(".1%")(p);
 }

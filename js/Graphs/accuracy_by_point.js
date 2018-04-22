@@ -1,10 +1,9 @@
-var svg, y, x, line, area;
-var graphHeight, graphWidth, margin, extent = [-21,21];
+var svg2, y3, x2, line3, area3;
+var graphHeight3, graphWidth3, margin3, extent3 = [-21,21];
 var tooltip3;
 var minTotal = 3
 var pointBins = [3, 7, 10, 14, 17, 21]
-var ticks = [6, 14, 5, 10, 10, 8]
-// 3, 7, 10, 14, 17, 21+
+var ticks3 = [6, 14, 5, 10, 10, 8]
 
 function loadAccuracyByPoint(graphType, callback) {
     d3.csv("Data/graph3.csv", function (error, data) {
@@ -96,7 +95,7 @@ function plotAccuracyByPoint(graphType, width, height) {
     var id = graphType.viz_id;
     var passers = graphType.passers;
     var data = graphType.data;
-    
+
     console.assert(passers.size <= 3, "More than 3 passers");
 
     var passer_array = Array.from(passers);
@@ -104,73 +103,73 @@ function plotAccuracyByPoint(graphType, width, height) {
 
     data = data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
-    margin = {top: 50, right: 50, bottom: 50, left: 50};
-    graphWidth = width - margin.left - margin.right;
-    graphHeight = height - margin.top - margin.bottom;
+    margin3 = {top: 50, right: 50, bottom: 50, left: 50};
+    graphWidth3 = width - margin3.left - margin3.right;
+    graphHeight3 = height - margin3.top - margin3.bottom;
 
     var innerGraphPadding = 30;
 
-    svg = d3.select(id)
+    svg2 = d3.select(id)
                   .append("svg")
                   .attr("width", width)
                   .attr("height", height)
                   .append("g")
                   .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
+                        "translate(" + margin3.left + "," + margin3.top + ")");
 
     tooltip3 = d3.tip()
                   .attr('class', 'd3-tip')
                   .offset([-10, 0]);
 
-    svg.call(tooltip3);
+    svg2.call(tooltip3);
 
     // key
     d3.selectAll(id + "key")
       .html(keyHtml(data));
 
-    x = d3.scaleLinear()
-      .domain(extent)
-      .range([0,graphWidth]);
+    x2 = d3.scaleLinear()
+      .domain(extent3)
+      .range([0,graphWidth3]);
 
-    y = d3.scaleLinear()
+    y3 = d3.scaleLinear()
       .domain([0, 1])
-      .range([graphHeight, 0]);
+      .range([graphHeight3, 0]);
 
-    line = d3.line()
+    line3 = d3.line()
       .x(function(d) {
-        return x(parseInt(d.key)); })
+        return x2(parseInt(d.key)); })
       .y(function(d) {
-        return y(d.value.percentage); })
+        return y3(d.value.percentage); })
       .curve(d3.curveLinear) // apply smoothing to the line
 
-    area = d3.area()
+    area3 = d3.area()
     .x(function(d) {
-      return x(parseInt(d.key)); })
+      return x2(parseInt(d.key)); })
     .y0(function(d,i) {
-      return y(0) })
-    .y1(function(d) { return y(d.value.percentage); });
+      return y3(0) })
+    .y1(function(d) { return y3(d.value.percentage); });
 
     // setup x axis
 
-    svg
+    svg2
       .append("g")
       .attr("class", "xAxis pointSpreadAxis axis")
-      .attr("transform", "translate(" + [0,graphHeight] + ")")
+      .attr("transform", "translate(" + [0,graphHeight3] + ")")
       .call(
-        d3.axisBottom(x)
+        d3.axisBottom(x2)
         .tickPadding(6)
-        .ticks(ticks[pointBins.indexOf(extent[1])])
+        .ticks(ticks3[pointBins.indexOf(extent3[1])])
         .tickSize(2)
         .tickFormat(function(d,i) {
           return d
         }));
 
     // setup y axis
-    svg.append("g")
+    svg2.append("g")
       .attr("class", "pointSpreadAxis axis")
-      .attr("transform", "translate(" + [graphWidth/2,0] + ")")
+      .attr("transform", "translate(" + [graphWidth3/2,0] + ")")
       .call(
-        d3.axisLeft(y)
+        d3.axisLeft(y3)
         .ticks(5, "%")
         .tickSize(2)
         .tickFormat(function(d,i) {
@@ -179,29 +178,29 @@ function plotAccuracyByPoint(graphType, width, height) {
       );
 
     // text label for the y axis
-    svg.append("text")
+    svg2.append("text")
       .attr("transform", "rotate(-90)")
       .attr("class","label")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (graphHeight / 2))
+      .attr("y", 0 - margin3.left)
+      .attr("x",0 - (graphHeight3 / 2))
       .attr("dy", "12px")
       .style("text-anchor", "middle")
       .text("Pass Completion Percentage");
 
     // text label for the x axis
-    svg.append("text")
+    svg2.append("text")
         .attr("transform",
-              "translate(" + (graphWidth/2) + " ," +
-                             (graphHeight + margin.top - 10) + ")")
+              "translate(" + (graphWidth3/2) + " ," +
+                             (graphHeight3 + margin3.top - 10) + ")")
         .style("text-anchor", "middle")
         .attr("class","label")
         .text("Point Spread");
 
     // add title
-    // 
-    // svg.append("text")
-    //     .attr("x", graphWidth/2)
-    //     .attr("y", 0 - (margin.top / 2))
+    //
+    // svg2.append("text")
+    //     .attr("x", graphWidth3/2)
+    //     .attr("y", 0 - (margin3.top / 2))
     //     .classed("title", true)
     //     .text("Quarterback Accuracy by Point Spread");
 
@@ -209,23 +208,23 @@ function plotAccuracyByPoint(graphType, width, height) {
     data.forEach(function(passer,i) {
       var passes = filterPasses(passer);
 
-      svg.append("path")
+      svg2.append("path")
         .data([passer])
         .attr("class", "area" + i)
         .style("opacity",0.15)
         .style("fill", teamAttributes[passer.team].color)
-        .attr("d", area(passes));
+        .attr("d", area3(passes));
 
-      svg.append("path")
+      svg2.append("path")
         .data([passer])
         .attr("class", "line" + i)
         .style("opacity",1)
         .style("stroke", teamAttributes[passer.team].color)
         .style("stroke-width",".25px")
         .style("fill","none")
-        .attr("d", line(passes));
+        .attr("d", line3(passes));
 
-      svg.selectAll(".circle" + i)
+      svg2.selectAll(".circle" + i)
         .data(passes)
         .enter()
         .append("circle")
@@ -237,10 +236,10 @@ function plotAccuracyByPoint(graphType, width, height) {
         .style("stroke", "white")
         .style("stroke-opacity","0")
         .attr("cx", function(d) {
-          return x(parseInt(d.key));
+          return x2(parseInt(d.key));
         })
         .attr("cy", function(d) {
-          return y(d.value.percentage);
+          return y3(d.value.percentage);
         })
         .on('mouseover', function(b) {
           tooltip3.html(function() {
@@ -279,7 +278,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
   while(data.length < 3) {
     data.push(
     { passer: "fake",
-      passes: d3.range(extent[0],extent[1]).map(function(p) {
+      passes: d3.range(extent3[0],extent3[1]).map(function(p) {
         return {
           key: p,
           value: {
@@ -296,7 +295,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
   data.forEach(function(passer,i) {
     passes = filterPasses(passer);
 
-    svg.selectAll(".area" + i)
+    svg2.selectAll(".area" + i)
         .data([passer])
         .transition()
         .duration(transitionDuration)
@@ -311,18 +310,18 @@ function replotAccuracyByPoint(graphType, spread=null) {
           }
           return 0.15
         })
-        .attr("d", area(passes));
+        .attr("d", area3(passes));
 
-      svg.selectAll(".line" + i)
+      svg2.selectAll(".line" + i)
         .data([passer])
         .transition()
         .duration(0)
         .style("opacity","0")
         .style("stroke", function () {
           return (passer.passer == "fake") ? "none" : teamAttributes[passer.team].color})
-        .attr("d", line(passes));
+        .attr("d", line3(passes));
 
-      svg.selectAll(".line" + i)
+      svg2.selectAll(".line" + i)
         .data([passer])
         .transition()
         .delay(.75 * transitionDuration)
@@ -330,9 +329,9 @@ function replotAccuracyByPoint(graphType, spread=null) {
         .style("opacity", function () {
           return (passer.passer == "fake") ? 0 : 1 });
 
-      svg.selectAll(".circle" + i).remove()
+      svg2.selectAll(".circle" + i).remove()
 
-      svg.selectAll(".circle" + i)
+      svg2.selectAll(".circle" + i)
         .data(passes)
         .enter()
         .append("circle")
@@ -345,10 +344,10 @@ function replotAccuracyByPoint(graphType, spread=null) {
         .style("stroke", "white")
         .style("stroke-opacity","0")
         .attr("cx", function(d) {
-          return x(parseInt(d.key));
+          return x2(parseInt(d.key));
         })
         .attr("cy", function(d) {
-          return y(d.value.percentage);
+          return y3(d.value.percentage);
         })
         .on('mouseover', function(b) {
           if(passer.passer == "fake") { return }
@@ -358,7 +357,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
           tooltip3.show()})
         .on('mouseout', tooltip3.hide);
 
-      svg.selectAll(".circle" + i)
+      svg2.selectAll(".circle" + i)
         .transition()
         .delay(.75 * transitionDuration)
         .duration(.25 * transitionDuration)
@@ -367,15 +366,15 @@ function replotAccuracyByPoint(graphType, spread=null) {
 }
 
 function changeXAxis(spread) {
-  extent = spread
-  x.domain(extent)
+  extent3 = spread
+  x2.domain(extent3)
 
-  svg.select(".xAxis")
+  svg2.select(".xAxis")
       .transition()
       .duration(transitionDuration)
       .call(
-        d3.axisBottom(x)
-        .ticks(ticks[pointBins.indexOf(spread[1])])
+        d3.axisBottom(x2)
+        .ticks(ticks3[pointBins.indexOf(spread[1])])
         .tickPadding(6)
         .tickSize(2)
         .tickFormat(function(d,i) {
@@ -385,7 +384,7 @@ function changeXAxis(spread) {
 
 function filterPasses(passer) {
   return passer.passes.slice().filter(function(p) {
-            return parseInt(p.key) <= extent[1] && parseInt(p.key) >= extent[0] && p.value.total >= minTotal
+            return parseInt(p.key) <= extent3[1] && parseInt(p.key) >= extent3[0] && p.value.total >= minTotal
   });
 }
 

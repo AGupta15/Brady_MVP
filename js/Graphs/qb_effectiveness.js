@@ -4,12 +4,12 @@ var tooltip;
 
 var metrics = ["yardCount", "timeCount", "pointCount", "playCount"]
 var selectedMetrics = [
-    { 
+    {
       value: metrics[0], // default values
       id: "_x",
       title: "X"
     },
-    { 
+    {
       value: metrics[1], // default values
       id: "_y",
       title: "Y"
@@ -21,8 +21,8 @@ var metricNames = ["Yards Per Drive", "Time Per Drive (Seconds)", "Points Per Dr
 function loadQBEffectiveness(graphType, callback) {
     d3.csv("Data/graph4.csv", function (error, data) {
       if (error) { console.log(error); }
-      
-      
+
+
 
       data = data.map(function(d) {
         d.driveCount = parseInt(d.driveCount)
@@ -33,7 +33,7 @@ function loadQBEffectiveness(graphType, callback) {
         return d
       })
 
-      
+
       var average = {
         passer: "Average",
         team: "NFL",
@@ -42,14 +42,14 @@ function loadQBEffectiveness(graphType, callback) {
         playCount: (d3.sum(data, d => d.playCount) / data.length),
         pointCount: (d3.sum(data, d => d.pointCount) / data.length),
         timeCount: (d3.sum(data, d => d.timeCount) / data.length),
-        yardCount: (d3.sum(data, d => d.yardCount) / data.length)     
+        yardCount: (d3.sum(data, d => d.yardCount) / data.length)
       };
 
       data.push(average)
 
       setupQBEffectiveness(metrics)
       callback(graphType, data);
-    });  
+    });
 }
 
 function plotQBEffectiveness(graphType, width, height) {
@@ -66,7 +66,7 @@ function plotQBEffectiveness(graphType, width, height) {
                   .attr("width", width)
                   .attr("height", height)
                   .append("g")
-                  .attr("transform", 
+                  .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
 
     tooltip = d3.tip()
@@ -130,11 +130,11 @@ function plotQBEffectiveness(graphType, width, height) {
 
     // add titles
 
-    svg.append("text")
-        .attr("x", graphWidth/2)
-        .attr("y", 0 - (margin.top / 2))
-        .classed("title", true)
-        .text("Quarterback Effectiveness");
+    // svg.append("text")
+    //     .attr("x", graphWidth/2)
+    //     .attr("y", 0 - (margin.top / 2))
+    //     .classed("title", true)
+    //     .text("Quarterback Effectiveness");
 
 
     // plot points
@@ -172,7 +172,7 @@ function replotQBEffectiveness(graphType, metricChanged=false) {
     if (metricChanged) {
       changeAxis(graphType)
     }
-    
+
     // key
     d3.selectAll(id + "key")
       .html(keyHtml(data.filter( function(d) { return passers.has(parseInt(d.passerid))})));

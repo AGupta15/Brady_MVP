@@ -1,5 +1,5 @@
 var downs = [1,2,3,4];
-var svg1, y, line;
+var svg1, y2, line;
 var graphHeight1, graphWidth1, margin1;
 var tooltip2;
 var downTicks = ["1st","2nd","3rd","4th"]
@@ -130,7 +130,7 @@ function plotAccuracyByDown(graphType, width, height) {
       .domain(downs)
       .range([innerGraphPadding,graphWidth1 - innerGraphPadding]);
 
-    y = d3.scaleLinear()
+    y2 = d3.scaleLinear()
       .domain([0, 1])
       .range([graphHeight1, 0]);
 
@@ -337,4 +337,8 @@ function toolTipHtml2(passer, down, passes) {
   passes.total + " Total Attempts <br>" +
   passes.td + " Touchdowns <br>" +
   passes.int + " Interceptions"
+}
+
+function formatPercent(p) {
+  return d3.format(".1%")(p);
 }

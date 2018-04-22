@@ -1,4 +1,4 @@
-var svg, x0, x1, y;
+var svg, x0, x1, y, y1;
 var graphHeight, graphWidth, margin;
 var tooltip;
 var bins = [-1,0,10,20,30,40];
@@ -398,3 +398,6 @@ function toolTipHtml1(passer, i, bins) {
   passer.bins[i].int + " Interceptions"
 }
 
+function formatPercent(p) {
+  return d3.format(".1%")(p);
+}
