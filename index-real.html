@@ -230,7 +230,8 @@
   <div id="accuracy_by_point"></div>
 </div>
 </br>
-<div class="innerDiVCenter">
+<div class="row">
+  <div class="col">
   <select class="selectpicker"
   id="accuracy_by_point_selectpicker"
   multiple
@@ -239,15 +240,18 @@
   data-live-search="true"
   data-max-options="2"
   title="Pick quarterbacks to compare"
-  ></select> </br>
-<select class="selectpicker"
-id="point_spread_selectpicker"
-data-size="15"
-data-width="auto"
-data-max-options="1"
-title="Pick a point spread ..."
-></select>
-<div id='accuracy_by_pointkey'></div>
+  ></select> 
+  </br>
+  <select class="selectpicker"
+  id="point_spread_selectpicker"
+  data-size="15"
+  data-max-options="1"
+  title="Pick a point spread ..."
+  ></select>
+  </div>
+  <div class="col">
+    <div id='accuracy_by_pointkey'></div>
+  </div>
 </div>
 </div>
 </div>

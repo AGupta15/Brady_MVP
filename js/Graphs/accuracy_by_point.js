@@ -125,7 +125,7 @@ function plotAccuracyByPoint(graphType, width, height) {
 
     // key
     d3.selectAll(id + "key")
-      .html(keyHtml(data));
+      .html(pointKeyHtml(data));
 
     x2 = d3.scaleLinear()
       .domain(extent3)
@@ -272,7 +272,7 @@ function replotAccuracyByPoint(graphType, spread=null) {
 
   // key
     d3.selectAll(id + "key")
-      .html(keyHtml(data));
+      .html(pointKeyHtml(data));
 
   // add in data if we don't have enough passers
   while(data.length < 3) {

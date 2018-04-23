@@ -20,10 +20,23 @@ li span {
   font-size: 8px;
 }
 
+.row {
+  display: flex;
+}
+
+.col {
+  display: grid;
+  margin-top: 0px !important;
+}
+
 /* SELECT PICKERS */
 
 .padding {
   padding-top: 25px;
+}
+
+.filter-option {
+  font-family: "Helvetica Neue","Helvetica", "Arial" ,sans-serif;
 }
 
 /* Header */
@@ -119,7 +132,6 @@ li span {
 
 #accuracy_by_pointkey {
   /* margin-top: 25px !important; */
-  margin-left: 500px;
 }
 
 #qb_effectivenesskey {
@@ -150,6 +162,42 @@ li span {
 .key ul {
   list-style: none;
   padding: 5px;
+}
+
+.pointKey {
+  border-radius: 0px;
+  border-width: 1px;
+  border-style: solid;
+  height: auto;
+  max-width: 400px;
+  /*max-width: 130px;*/
+  background-color: white;
+  border-color: #ccc;
+  border-radius: 4px;
+}
+
+.pointKey li {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.pointKey ul {
+  display: flex;
+  list-style: none;
+  padding: 3px;
+  height: 40px;
+}
+
+.pointTeamColorKey {
+  width: 20px;
+  height: 20px;
+  padding: 0px !important;
+  background-color: #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 0px !important;
+  margin-left: 8px !important;
+  vertical-align: middle;
 }
 
 .teamColorKey {
@@ -254,7 +302,7 @@ li span {
 }
 
 .innerDivAccuracyByPointSpread {
-  width: 1200px;
+  max-width: 750px;
 }
 
 #passer {
