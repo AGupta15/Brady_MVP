@@ -46,7 +46,7 @@ function plotWPA(graphType, width, height) {
 
   // key
   d3.selectAll(id + "key")
-  .html(pointKeyHtml(data));
+  .html(keyHtml(data.filter(function(d){return passers.has(parseInt(d.passerid))})));
 
   // Scales and positioning
   var slope = d3.scale.linear()
@@ -148,27 +148,25 @@ function plotWPA(graphType, width, height) {
   // ** Left column
   data.forEach(function(passer,i) {
 
-    // svg5.selectAll("g.passer")
-    // .data([passer])
-    // .enter()
-    // .append("g")
-    // .attr("class", "passer" + i)
-
     //Left Column
-    svg5.append("text")
-    .attr("x", 10)
-    .attr("y", passer.startY)
-    .attr("xml:space", "preserve")
-    .style("font-size", font_size)
-    .text(passer.team)
+    // svg5.append("text")
+    // .attr("x", 10)
+    // .attr("y", passer.startY)
+    // .attr("xml:space", "preserve")
+    // .attr("class", "textL"+i)
+    // .style("font-size", font_size)
+    // .text(passer.team)
+    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
 
     //Right column
-    svg5.append("text")
-    .attr("x", graphWidth5-100)
-    .attr("y", passer.endY)
-    .attr("xml:space", "preserve")
-    .style("font-size", font_size)
-    .text(passer.passer)
+    // svg5.append("text")
+    // .attr("x", graphWidth5-100)
+    // .attr("y", passer.endY)
+    // .attr("xml:space", "preserve")
+    // .attr("class", "textR"+i)
+    // .style("font-size", font_size)
+    // .text(passer.passer)
+    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
 
     // ** Slope lines
     svg5.append("line")
@@ -176,15 +174,24 @@ function plotWPA(graphType, width, height) {
     .attr("x2", graphWidth5-110)
     .attr("y1", passer.startY)
     .attr("y2", passer.endY)
+    .attr("class", "line"+i)
     .style("stroke", teamAttributes[passer['team']]['color'])
+    .style("stroke-width", passers.has(parseInt(passer.passerid)) ? 1.5 : 1)
+    .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
+    // .style("border", )
     .on('mouseover', function() {
+      d3.select(this).style("opacity", 1)
       tooltip5.html(function() {
         return tooltip5Html(passer)
       })
       tooltip5.show()
+      // tooltip5.style("left", d3.event.pageX + "px")
+//       tooltip5.style("top", d3.event.pageY + "px")
     })
-    .on('mouseout', tooltip5.hide);
-    return svg5;
+    .on('mouseout', function() {
+      d3.select(this).style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
+      tooltip5.hide();
+    })
   });
 }
 
@@ -229,18 +236,42 @@ function loadWPA(graphType, callback) {
 
 /*==========Replot===========*/
 function replotWPA(graphType){
-  data.forEach(function(passer,i) {
-    svg5.selectAll(".line" + i).remove();
-    svg5.selectAll(".text").remove();
+  var id = graphType.viz_id;
+  var passers = graphType.passers;
+  var data = graphType.data;
+
+  data.forEach(function(passer, i){
+    svg5.selectAll(".line"+i)
+    .transition()
+    .duration(transitionDuration)
+    .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
+
+    // svg5.selectAll(".textL"+i)
+    // .transition()
+    // .duration(transitionDuration)
+    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
+    //
+    // svg5.selectAll(".textR"+i)
+    // .transition()
+    // .duration(transitionDuration)
+    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
+
+    d3.selectAll(id + "key")
+    .html(keyHtml(data.filter(function(d){return passers.has(parseInt(d.passerid))})));
+
   });
 }
 
 /* tooltip3 html */
 function tooltip5Html(passer) {
-  // console.log(passer)
+  var neg = "";
+  if (passer.defenseWPA > passer.passerWPA){
+    neg = "-";
+  } else neg = "";
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passer.passer +
   "</div><div id='team'>" + passer.team + "</div><br>" + "<br><br>" +
   formatPercent(passer.defenseWPA) + " Defense WPA <br>" +
-  formatPercent(passer.passerWPA) + " Passer WPA";
+  formatPercent(passer.passerWPA) + " Passer WPA <br>" + neg +
+  formatPercent(passer.defenseWPA - passer.passerWPA) + " QB WPA Impact";
 }

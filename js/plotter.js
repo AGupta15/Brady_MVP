@@ -124,7 +124,7 @@ function plot(graphType) {
   } else if (graphType == GraphType.qb_effectiveness) {
     plotQBEffectiveness(graphType, 500, 500);
   } else if (graphType == GraphType.wpa) {
-    plotWPA(graphType, 800, 600);
+    plotWPA(graphType, 600, 600);
   }
 }
 
