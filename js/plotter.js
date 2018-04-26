@@ -30,10 +30,15 @@ var GraphType = {
     "viz_id": "#qb_effectiveness",
     "data": null,
     "passers": null
+  },
+  "wpa":
+  {
+    "id":5,
+    "viz_id": "#wpa",
+    "data": null,
+    "passers": null
   }
 }
-
-
 
 /* Replots the graphs */
 function replot(graphType) {
@@ -48,6 +53,8 @@ function replot(graphType) {
     replotAccuracyByPoint(graphType);
   } else if (graphType == GraphType.qb_effectiveness) {
     replotQBEffectiveness(graphType);
+  } else if (graphType == GraphType.wpa) {
+    replotWPA(graphType);
   }
 }
 
@@ -65,6 +72,8 @@ function load(graphType) {
     loadAccuracyByPoint(graphType, setData);
   } else if (graphType == GraphType.qb_effectiveness) {
     loadQBEffectiveness(graphType, setData);
+  } else if (graphType == GraphType.wpa) {
+    loadWPA(graphType, setData);
   }
 }
 
@@ -91,6 +100,8 @@ function setData(graphType, data) {
 
   } else if (graphType == GraphType.qb_effectiveness) {
 
+  } else if (graphType == GraphType.wpa) {
+
   }
 
   // setup select picker
@@ -112,6 +123,8 @@ function plot(graphType) {
     plotAccuracyByPoint(graphType, 800, 350);
   } else if (graphType == GraphType.qb_effectiveness) {
     plotQBEffectiveness(graphType, 500, 500);
+  } else if (graphType == GraphType.wpa) {
+    plotWPA(graphType, 800, 600);
   }
 }
 

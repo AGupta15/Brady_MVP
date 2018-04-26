@@ -24,6 +24,7 @@
 <script src="js/Graphs/accuracy_by_down.js"></script>
 <script src="js/Graphs/accuracy_by_point.js"></script>
 <script src="js/Graphs/qb_effectiveness.js"></script>
+<script src="js/Graphs/wpaSlope.js"></script>
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
@@ -240,7 +241,7 @@
   data-live-search="true"
   data-max-options="2"
   title="Pick quarterbacks to compare"
-  ></select> 
+  ></select>
   </br>
   <select class="selectpicker"
   id="point_spread_selectpicker"
@@ -282,13 +283,13 @@
 
 <!-- GRAPH 4 -->
 <div class="innerDiv">
-</br></br>
+</br>
 <h3 id="h3-title">Quarterback Effectiveness by Drive</h3>
   <div class="innerDivCenter">
      <div id="qb_effectiveness"></div>
   </div>
   <div class="innerDiVRight">
-    </br></br></br>
+    </br></br>
     <select class="selectpicker"
     id="qb_effectiveness_selectpicker"
     multiple
@@ -342,10 +343,11 @@
 
 <!-- GRAPH 5 -->
 <div class="innerDiv">
-  <h2 id="h2-title">Graph 5</h2>
-  <div id="accuracy_by_distance"></div>
+  <h3 id="h2-title">Win Probability Change by Quarterback</h3>
+  <div id="wpa"></div>
+  <!-- <div id='wpakey'></div> -->
   <select class="selectpicker"
-  id="accuracy_by_distance_selectpicker"
+  id="wpa_selectpicker"
   multiple
   multipleSeparator=" "
   data-live-search="true"
@@ -391,4 +393,5 @@ load(GraphType.accuracy_by_distance);
 load(GraphType.accuracy_by_down);
 load(GraphType.accuracy_by_point);
 load(GraphType.qb_effectiveness);
+load(GraphType.wpa);
 </script>

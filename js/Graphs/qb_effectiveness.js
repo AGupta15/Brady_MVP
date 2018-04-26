@@ -1,6 +1,6 @@
-var svg, x, y;
-var graphHeight, graphWidth, margin;
-var tooltip;
+var svg4, x4, y4;
+var graphHeight4, graphWidth4, margin4;
+var tooltip4;
 
 var metrics = ["yardCount", "timeCount", "pointCount", "playCount"]
 var selectedMetrics = [
@@ -45,8 +45,10 @@ function loadQBEffectiveness(graphType, callback) {
         yardCount: (d3.sum(data, d => d.yardCount) / data.length)
       };
 
+      data.reverse()
       data.push(average)
-
+      data.reverse()
+      
       setupQBEffectiveness(metrics)
       callback(graphType, data);
     });
@@ -57,89 +59,89 @@ function plotQBEffectiveness(graphType, width, height) {
     var id = graphType.viz_id;
     var data = graphType.data;
 
-    margin = {top: 50, right: 50, bottom: 50, left: 50};
-    graphWidth = width - margin.left - margin.right;
-    graphHeight = height - margin.top - margin.bottom;
+    margin4 = {top: 50, right: 50, bottom: 50, left: 50};
+    graphWidth4 = width - margin4.left - margin4.right;
+    graphHeight4 = height - margin4.top - margin4.bottom;
 
-    svg = d3.select(id)
+    svg4 = d3.select(id)
                   .append("svg")
                   .attr("width", width)
                   .attr("height", height)
                   .append("g")
                   .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
+                        "translate(" + margin4.left + "," + margin4.top + ")");
 
-    tooltip = d3.tip()
+    tooltip4 = d3.tip()
                   .attr('class', 'd3-tip')
                   .offset([-10, 0]);
 
-    svg.call(tooltip);
+    svg4.call(tooltip4);
 
     // key
     d3.selectAll(id + "key")
       .html(keyHtml(data.filter(function(d) { return passers.has(parseInt(d.passerid))})));
 
-    x = d3.scaleLinear()
+    x4 = d3.scaleLinear()
       .domain(d3.extent(data, d => d[selectedMetrics[0].value]))
-      .range([0,graphWidth]);
+      .range([0,graphWidth4]);
 
-    y = d3.scaleLinear()
+    y4 = d3.scaleLinear()
       .domain(d3.extent(data, d => d[selectedMetrics[1].value]))
-      .range([graphHeight, 0]);
+      .range([graphHeight4, 0]);
 
     // setup x axis
 
-    svg
+    svg4
       .append("g")
       .attr("class", "xAxis pointSpreadAxis axis")
-      .attr("transform", "translate(" + [0,graphHeight] + ")")
+      .attr("transform", "translate(" + [0,graphHeight4] + ")")
       .call(
-        d3.axisBottom(x)
+        d3.axisBottom(x4)
         .ticks(6)
         .tickSizeOuter(0)
         .tickPadding(6));
 
     // setup y axis
-    svg.append("g")
+    svg4.append("g")
       .attr("class", "yAxis y axis")
       .call(
-        d3.axisLeft(y)
+        d3.axisLeft(y4)
         .ticks(5)
-        .tickSizeInner(-graphWidth)
+        .tickSizeInner(-graphWidth4)
         .tickSizeOuter(0)
       );
 
     // text label for the y axis
-    svg.append("text")
+    svg4.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (graphHeight / 2))
+      .attr("y", 0 - margin4.left)
+      .attr("x",0 - (graphHeight4 / 2))
       .attr("dy", "12px")
       .attr("class","ylabel label")
       .style("text-anchor", "middle")
       .text(metricNames[metrics.indexOf(selectedMetrics[1].value)]);
 
     // text label for the x axis
-    svg.append("text")
+    svg4.append("text")
         .attr("transform",
-              "translate(" + (graphWidth/2) + " ," +
-                             (graphHeight + margin.top - 10) + ")")
+              "translate(" + (graphWidth4/2) + " ," +
+                             (graphHeight4 + margin4.top - 10) + ")")
         .style("text-anchor", "middle")
         .attr("class","xlabel label")
         .text(metricNames[metrics.indexOf(selectedMetrics[0].value)]);
 
     // add titles
 
-    // svg.append("text")
-    //     .attr("x", graphWidth/2)
-    //     .attr("y", 0 - (margin.top / 2))
+    // svg4.append("text")
+    //     .attr("x", graphWidth4/2)
+    //     .attr("y", 0 - (margin4.top / 2))
     //     .classed("title", true)
     //     .text("Quarterback Effectiveness");
 
 
     // plot points
 
-    svg.selectAll(".circle")
+    svg4.selectAll(".circle")
       .data(data)
       .enter()
       .append("circle")
@@ -147,18 +149,18 @@ function plotQBEffectiveness(graphType, width, height) {
       .attr("r","4px")
       .style("opacity",d => opacity(d, passers))
       .style("fill", d => teamAttributes[d.team].color)
-      .attr("cy", d => y(d[selectedMetrics[1].value]))
-      .attr("cx", d => x(d[selectedMetrics[0].value]))
+      .attr("cy", d => y4(d[selectedMetrics[1].value]))
+      .attr("cx", d => x4(d[selectedMetrics[0].value]))
       .on('mouseover', function(b) {
-        tooltip.html(function() {
+        tooltip4.html(function() {
           return toolTipHtml(b)
         })
-        tooltip.show()
+        tooltip4.show()
         d3.select(this).style("opacity", 1)
       })
       .on('mouseout', function(d) {
         d3.select(this).style("opacity", opacity(d, graphType.passers))
-        tooltip.hide();
+        tooltip4.hide();
       });
 }
 
@@ -179,14 +181,14 @@ function replotQBEffectiveness(graphType, metricChanged=false) {
 
     // plot points
 
-    svg.selectAll(".circle")
+    svg4.selectAll(".circle")
       .data(data)
       .transition()
       .duration(transitionDuration)
       .style("opacity", d => opacity(d, passers))
       .style("fill", d => teamAttributes[d.team].color)
-      .attr("cy", d => y(d[selectedMetrics[1].value]))
-      .attr("cx", d => x(d[selectedMetrics[0].value]));
+      .attr("cy", d => y4(d[selectedMetrics[1].value]))
+      .attr("cx", d => x4(d[selectedMetrics[0].value]));
 
 
 }
@@ -197,32 +199,32 @@ function opacity(d, passers) {
 
 function changeAxis(graphType) {
 
-  x.domain(d3.extent(graphType.data, d => d[selectedMetrics[0].value]));
-  y.domain(d3.extent(graphType.data, d => d[selectedMetrics[1].value]));
+  x4.domain(d3.extent(graphType.data, d => d[selectedMetrics[0].value]));
+  y4.domain(d3.extent(graphType.data, d => d[selectedMetrics[1].value]));
 
-  svg.select(".xAxis")
+  svg4.select(".xAxis")
       .transition()
       .duration(transitionDuration)
       .call(
-        d3.axisBottom(x)
+        d3.axisBottom(x4)
         .ticks(6)
         .tickSizeOuter(0)
         .tickPadding(6));
 
-  svg.select(".yAxis")
+  svg4.select(".yAxis")
       .transition()
       .duration(transitionDuration)
       .call(
-        d3.axisLeft(y)
+        d3.axisLeft(y4)
         .ticks(5)
-        .tickSizeInner(-graphWidth)
+        .tickSizeInner(-graphWidth4)
         .tickSizeOuter(0)
       );
 
-  svg.select(".xlabel")
+  svg4.select(".xlabel")
       .text(metricNames[metrics.indexOf(selectedMetrics[0].value)])
 
-  svg.select(".ylabel")
+  svg4.select(".ylabel")
       .text(metricNames[metrics.indexOf(selectedMetrics[1].value)])
 }
 
@@ -230,7 +232,7 @@ function format(n) {
   return d3.format(".2r")(n)
 }
 
-/* tooltip html */
+/* tooltip4 html */
 function toolTipHtml(passer) {
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + passer.driveCount + " Total Drives<br><br>" +

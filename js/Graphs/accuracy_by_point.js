@@ -79,11 +79,13 @@ function loadAccuracyByPoint(graphType, callback) {
       averagePasses.sort(function(a, b){
           return parseInt(a.key) - parseInt(b.key)});
 
+      data.reverse()
       data.push({
         passer: "Average",
         team: "NFL",
         "passerid": data.length,
         "passes": averagePasses})
+      data.reverse()
 
       setupPointSpreadPicker(pointBins);
       callback(graphType, data);

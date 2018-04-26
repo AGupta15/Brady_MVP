@@ -96,6 +96,7 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
       averageBins[i].int = d3.round(averageBins[i].int);
       averageBins[i].td = d3.round(averageBins[i].td);
     });
+    data.reverse()
     data.push(
       {"passer": "Average",
         "passerid": data.length + 1,
@@ -103,6 +104,7 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
         "bins": averageBins
       }
     );
+    data.reverse()
     callback(graphType, data);
   });
 }

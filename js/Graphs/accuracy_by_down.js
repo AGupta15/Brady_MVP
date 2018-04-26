@@ -80,11 +80,13 @@ function loadAccuracyByDown(graphType, callback) {
         }
       });
 
+      data.reverse()
       data.push({
         passer: "Average",
         team: "NFL",
         "passerid": data.length,
         "passes": averagePasses})
+      data.reverse()
 
       callback(graphType, data);
     });
