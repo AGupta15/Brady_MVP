@@ -146,6 +146,14 @@ li span {
 
 /* D3 Elements */
 
+.passAttempts {
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 5px !important;
+}
 
 .key {
   border-radius: 0px;

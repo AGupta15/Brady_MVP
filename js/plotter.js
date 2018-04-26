@@ -142,6 +142,17 @@ function pointKeyHtml(data) {
   return divs
 }
 
+function distanceKeyHtml(data) {
+  var divs = "<div class='key'><ul>"
+  data.forEach(function(d) {
+    divs += "<li><img src='" + teamAttributes[d.team].icon + "'> " + d.passer + " <span>" + d.team + "</span><div class='teamColorKey' style='background-color:" + teamAttributes[d.team].color + "'></div></li>";
+  });
+  divs += "<br><li><div class='passAttempts'></div> Total Pass Attempts</li>"
+  divs += "</ul></div>"
+
+  return divs
+}
+
 function keyHtml(data) {
   var divs = "<div class='key'><ul>"
   data.forEach(function(d) {

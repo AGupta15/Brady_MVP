@@ -264,7 +264,7 @@ function plotAccuracyByDistance(graphType, width, height) {
   //   .html(keyHtml(data));
 
     d3.selectAll(id + "key")
-      .html(keyHtml(data));
+      .html(distanceKeyHtml(data));
 
     // Plot points
 
@@ -275,6 +275,10 @@ function plotAccuracyByDistance(graphType, width, height) {
         .enter()
         .append("rect")
         .attr("class", "bar" + bin)
+        .style("fill-opacity", 0.5)
+        .style("stroke-opacity", 1)
+        .style("stroke-width", 1)
+        .style("stroke", d => teamAttributes[d.team].color)
         .style("fill", d => teamAttributes[d.team].color)
         .attr("width", x1.bandwidth())
         .attr("height",  function(d) {
@@ -295,8 +299,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .enter()
         .append("circle")
         .attr("class", "circle" + bin)
-        .style("fill", "white")
-        .style("stroke", "#333")
+        .style("fill", d => teamAttributes[d.team].color)
         .attr("cx", function(d) {
           return x0(bin) + x1(passer_array.indexOf(parseInt(d.passerid))) + x1.bandwidth() / 2
         })
@@ -326,7 +329,7 @@ function replotAccuracyByDistance(graphType) {
   data = graphType.data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
   d3.selectAll(id + "key")
-      .html(keyHtml(data));
+      .html(distanceKeyHtml(data));
 
   // add in data if we don't have enough passers
   while(data.length < 3) {
@@ -344,7 +347,13 @@ function replotAccuracyByDistance(graphType) {
         .duration(transitionDuration)
         .style("fill", function(d) {
           if(isEmpty(d)) {
-            return "none"
+            return "white"
+          }
+          return teamAttributes[d.team].color
+        })
+        .style("stroke", function(d) {
+          if(isEmpty(d)) {
+            return "white"
           }
           return teamAttributes[d.team].color
         })
@@ -372,6 +381,12 @@ function replotAccuracyByDistance(graphType) {
             }
             return "3px"
           })
+          .style("fill", function(d) {
+          if(isEmpty(d)) {
+            return "none"
+          }
+          return teamAttributes[d.team].color
+        })
           .attr("cy", function(d) {
             if(isEmpty(d)) {
               return graphHeight;
