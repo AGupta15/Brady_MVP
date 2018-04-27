@@ -53,61 +53,12 @@ function plotWPA(graphType, width, height) {
   .domain([minWPA, maxWPA])
   .range([20, graphHeight5-20]);
 
-  //Go through the list of countries in order, adding additional space as necessary.
-  var min_h_spacing = 1.2 * font_size, // 1.2 is standard font height:line space ratio
-  previousY = 0,
-  thisY,
-  additionalSpacing;
   //Preset the Y positions (necessary only for the lower side)
   //These are used as suggested positions.
   data.forEach(function(d) {
     d.startY = graphHeight5 - slope(d.defenseWPA);
     d.endY = graphHeight5 - slope(d.passerWPA);
   });
-  //Loop over the higher side (right) values, adding space to both sides if there's a collision
-  data.sort(function(a,b) {
-    if (a.end == b.end) return 0;
-    return (a.end < b.end) ? -1 : +1;
-  })
-  .forEach(function(d) {
-    thisY = d.endY; //position "suggestion"
-    additionalSpacing = 0;
-    //Adjust all Y positions lower than this end's original Y position by the delta offset to preserve slopes:
-    data.forEach(function(dd) {
-      if (dd.startY >= d.endY) dd.startY += additionalSpacing;
-      if (dd.endY >= d.endY) dd.endY += additionalSpacing;
-    });
-
-    previousY = thisY;
-  });
-
-  previousY = 0;
-  data.sort(function(a,b) {
-    if (a.startY == b.startY) return 0;
-    return (a.startY < b.startY) ? -1 : +1;
-  })
-  .forEach(function(d) {
-    thisY = d.startY; //position "suggestion"
-    additionalSpacing = 0;
-
-    //Adjust all Y positions lower than this start's original Y position by the delta offset to preserve slopes:
-    data.forEach(function(dd) {
-      if (dd.endY >= d.startY) dd.endY += additionalSpacing;
-      if (dd.label != d.label && dd.startY >= d.startY) dd.startY += additionalSpacing;
-    });
-    previousY = thisY;
-  });
-
-  // Passer
-  // var passer = svg5.selectAll("g.passer")
-  // .data( data )
-  // .enter()
-  // .append("g")
-  // .attr("class", "passer")
-  // .classed("missing", function(d) { return missing(d); });
-
-  // passer.on("mouseover", function(d,i) { return d3.select(this).classed("over", true); })
-  // .on("mouseout", function(d,i) { return d3.select(this).classed("over", false); });
 
   y5 = d3.scaleLinear()
   .domain([minWPA, maxWPA])
@@ -115,21 +66,42 @@ function plotWPA(graphType, width, height) {
 
   svg5.append("g")
   .attr("class", "wpaAxis axis")
-  .attr("transform", "translate(" + [graphWidth5/2,0] + ")")
+  // graphWidth5/2
+  .attr("transform", "translate(" + [margin5.left + 15,0] + ")")
   .call(
     d3.axisLeft(y5)
     .ticks(5, "%")
-    .tickSize(2)
+    .tickSize(5)
     .tickFormat(function(d,i) {
       return d == 0 ? "" : d3.format(".0%")(d)
     })
   );
 
+  svg5.append("line")
+  .attr("x1", 69)
+  .attr("x2", 69)
+  .attr("y1", 0)
+  .attr("y2", graphHeight5)
+  .style("stroke", "grey")
+  .style("stroke-width", 1)
+  .style("opacity", 0.5)
+
+  svg5.append("line")
+  .attr("x1", graphWidth5-69)
+  .attr("x2", graphWidth5-69)
+  .attr("y1", 0)
+  .attr("y2", graphHeight5)
+  .style("stroke", "grey")
+  .style("stroke-width", 1)
+  .style("opacity", 0.5)
+
+
+
   // text label 1 for the y axis
   svg5.append("text")
   .attr("transform", "rotate(-90)")
   .attr("class","label")
-  .attr("y", 0 - margin5.left)
+  .attr("y", 0 - margin5.left+40)
   .attr("x",0 - (graphHeight5 / 2))
   .attr("dy", "12px")
   .style("text-anchor", "middle")
@@ -139,7 +111,7 @@ function plotWPA(graphType, width, height) {
   svg5.append("text")
   .attr("transform", "rotate(+90)")
   .attr("class","label")
-  .attr("y", - graphWidth5-margin5.right/2)
+  .attr("y", - graphWidth5-margin5.right/2+45)
   .attr("x", (graphHeight5 / 2))
   .attr("dy", "12px")
   .style("text-anchor", "middle")
@@ -170,8 +142,8 @@ function plotWPA(graphType, width, height) {
 
     // ** Slope lines
     svg5.append("line")
-    .attr("x1", 110)
-    .attr("x2", graphWidth5-110)
+    .attr("x1", 70)
+    .attr("x2", graphWidth5-70)
     .attr("y1", passer.startY)
     .attr("y2", passer.endY)
     .attr("class", "line"+i)
@@ -185,8 +157,6 @@ function plotWPA(graphType, width, height) {
         return tooltip5Html(passer)
       })
       tooltip5.show()
-      // tooltip5.style("left", d3.event.pageX + "px")
-//       tooltip5.style("top", d3.event.pageY + "px")
     })
     .on('mouseout', function() {
       d3.select(this).style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
@@ -218,7 +188,6 @@ function loadWPA(graphType, callback) {
       "defenseWPA": d3.sum(data, d => d.defenseWPA) / data.length
     })
     data.reverse()
-    // console.log(data);
 
     var max1 = d3.max(data, d => d.passerWPA);
     var max2 = d3.max(data, d => d.defenseWPA);
@@ -228,7 +197,6 @@ function loadWPA(graphType, callback) {
     var min2 = d3.min(data, d => d.defenseWPA);
     minWPA = Math.min(min1, min2);
 
-    // setupPointSpreadPicker(pointBins);
     callback(graphType, data);
   });
 
@@ -246,32 +214,18 @@ function replotWPA(graphType){
     .duration(transitionDuration)
     .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
 
-    // svg5.selectAll(".textL"+i)
-    // .transition()
-    // .duration(transitionDuration)
-    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
-    //
-    // svg5.selectAll(".textR"+i)
-    // .transition()
-    // .duration(transitionDuration)
-    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
-
     d3.selectAll(id + "key")
     .html(keyHtml(data.filter(function(d){return passers.has(parseInt(d.passerid))})));
 
   });
 }
 
-/* tooltip3 html */
+/* tooltip5 html */
 function tooltip5Html(passer) {
-  var neg = "";
-  if (passer.defenseWPA > passer.passerWPA){
-    neg = "-";
-  } else neg = "";
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passer.passer +
   "</div><div id='team'>" + passer.team + "</div><br>" + "<br><br>" +
   formatPercent(passer.defenseWPA) + " Defense WPA <br>" +
-  formatPercent(passer.passerWPA) + " Passer WPA <br>" + neg +
-  formatPercent(passer.defenseWPA - passer.passerWPA) + " QB WPA Impact";
+  formatPercent(passer.passerWPA) + " Passer WPA <br>" +
+  formatPercent(passer.passerWPA - passer.defenseWPA) + " QB WPA Impact";
 }
