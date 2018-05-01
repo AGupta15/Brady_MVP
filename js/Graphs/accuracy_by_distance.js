@@ -93,8 +93,8 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
 
       averageBins[i].total = d3.round(averageBins[i].total);
       averageBins[i].completed = d3.round(averageBins[i].completed);
-      averageBins[i].int = d3.round(averageBins[i].int);
-      averageBins[i].td = d3.round(averageBins[i].td);
+      averageBins[i].int = d3.round(averageBins[i].int, 1);
+      averageBins[i].td = d3.round(averageBins[i].td, 1);
     });
     data.reverse()
     data.push(
@@ -105,6 +105,11 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
       }
     );
     data.reverse()
+
+    // swap brady + nfl average
+    var tmp = data[1]
+    data[1] = data[0]
+    data[0] = tmp
     callback(graphType, data);
   });
 }
@@ -203,7 +208,7 @@ function plotAccuracyByDistance(graphType, width, height) {
       .attr("class", "y axis")
       .call(
         d3.axisLeft(y)
-        .ticks(10, "%")
+        .ticks(5, "%")
         .tickSizeInner(-graphWidth)
         .tickSizeOuter(0)
         );

@@ -122,7 +122,7 @@ function plotWPA(graphType, width, height) {
   svg5.append("text")
   .attr("transform", "rotate(+90)")
   .attr("class","label")
-  .attr("y", - graphWidth5-margin5.right/2+45)
+  .attr("y", - graphWidth5-margin5.right/2+20)
   .attr("x", (graphHeight5 / 2))
   .attr("dy", "12px")
   .style("text-anchor", "middle")
@@ -180,6 +180,11 @@ function loadWPA(graphType, callback) {
     })
     data.reverse()
 
+      // swap brady + nfl average
+      var tmp = data[1]
+      data[1] = data[0]
+      data[0] = tmp
+
     var max1 = d3.max(data, d => d.passerWPA);
     var max2 = d3.max(data, d => d.defenseWPA);
     maxWPA = Math.max(max1, max2);
@@ -230,5 +235,5 @@ function tooltip5Html(passer) {
   formatPercent(passer.passerWPA - passer.defenseWPA) + " &Delta; in WPA" +
   "<br><br>" +
   formatPercent(passer.defenseWPA) + " Defense WPA <br>" +
-  formatPercent(passer.passerWPA) + " Passer WPA <br>";
+  formatPercent(passer.passerWPA) + " Quarterback WPA <br>";
 }

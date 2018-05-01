@@ -115,16 +115,16 @@ function plot(graphType) {
   console.log("plotting " + graphType.viz_id);
 
   if (graphType == GraphType.accuracy_by_distance) {
-    plotAccuracyByDistance(graphType, 500, 500);
+    plotAccuracyByDistance(graphType, 500, 400);
   } else if (graphType == GraphType.accuracy_by_down) {
-    plotAccuracyByDown(graphType, 500, 500)
+    plotAccuracyByDown(graphType, 500, 400)
   }  else if (graphType == GraphType.accuracy_by_point) {
     // call replot function
-    plotAccuracyByPoint(graphType, 800, 350);
+    plotAccuracyByPoint(graphType, 800, 300);
   } else if (graphType == GraphType.qb_effectiveness) {
     plotQBEffectiveness(graphType, 500, 500);
   } else if (graphType == GraphType.wpa) {
-    plotWPA(graphType, 500, 650);
+    plotWPA(graphType, 500, 550);
   }
 }
 

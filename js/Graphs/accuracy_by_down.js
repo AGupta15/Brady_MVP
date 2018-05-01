@@ -25,8 +25,8 @@ function loadAccuracyByDown(graphType, callback) {
         averageBins[d] = {
             "completed": 0,
             "total": 0,
-            "ints": 0,
-            "tds": 0,
+            "int": 0,
+            "td": 0,
             "percentage": 0,
             passer: "Average",
             team: "NFL",
@@ -44,8 +44,8 @@ function loadAccuracyByDown(graphType, callback) {
               var completions = d3.sum(v, function(p) { return p.completion == "Complete"; });
               averageBins[v[0].down].completed += completions;
               averageBins[v[0].down].total += total;
-              averageBins[v[0].down].ints += ints;
-              averageBins[v[0].down].tds += tds;
+              averageBins[v[0].down].int += ints;
+              averageBins[v[0].down].td += tds;
               return {
                   int: ints,
                   td: tds,
@@ -72,6 +72,8 @@ function loadAccuracyByDown(graphType, callback) {
       var averagePasses = []
       Object.keys(averageBins).forEach(function(d) {
         averageBins[d].percentage = averageBins[d].completed / averageBins[d].total;
+        averageBins[d].td = d3.round(averageBins[d].td / data.length, 1)
+        averageBins[d].int = d3.round(averageBins[d].int / data.length, 1)
         if(d != "NA") {
           averagePasses.push({
             key: d,
@@ -87,6 +89,11 @@ function loadAccuracyByDown(graphType, callback) {
         "passerid": data.length,
         "passes": averagePasses})
       data.reverse()
+
+      // swap brady + nfl average
+      var tmp = data[1]
+      data[1] = data[0]
+      data[0] = tmp
 
       callback(graphType, data);
     });
@@ -140,7 +147,7 @@ function plotAccuracyByDown(graphType, width, height) {
     .x(function(d) {
       return x(d.key); })
     .y(function(d) {
-      return y(d.value.percentage); });
+      return y2(d.value.percentage); });
 
     // setup x axis
 
@@ -160,8 +167,8 @@ function plotAccuracyByDown(graphType, width, height) {
     svg1.append("g")
       .attr("class", "y axis")
       .call(
-        d3.axisLeft(y)
-        .ticks(10, "%")
+        d3.axisLeft(y2)
+        .ticks(5, "%")
         .tickSizeInner(-graphWidth1)
         .tickSizeOuter(0)
       );
@@ -222,7 +229,7 @@ function plotAccuracyByDown(graphType, width, height) {
         .attr("r","4px")
         .style("fill", teamAttributes[passer.team].color)
         .attr("cy", function(b) {
-          return y(b.value.percentage); })
+          return y2(b.value.percentage); })
         .attr("cx", function(b) {
           return x(b.key);
         })
@@ -248,7 +255,6 @@ function replotAccuracyByDown(graphType) {
   // sort array
   var passer_array = Array.from(passers);
   passer_array.sort(function(a, b){return a - b});
-
 
   data = graphType.data.filter( function(d) { return passers.has(parseInt(d.passerid))});
 
@@ -289,7 +295,7 @@ function replotAccuracyByDown(graphType) {
         .attr("r","4px")
         .style("fill", teamAttributes[passer.team].color)
         .attr("cy", function(b) {
-          return y(b.value.percentage);
+          return y2(b.value.percentage);
         });
     }
     svg1.selectAll(".line" + i)

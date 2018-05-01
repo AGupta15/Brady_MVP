@@ -29,14 +29,14 @@ function loadAccuracyByPoint(graphType, callback) {
               if(d in averageBins) {
                 averageBins[d].completed += completions;
                 averageBins[d].total += total;
-                averageBins[d].ints += ints;
-                averageBins[d].tds += tds;
+                averageBins[d].int += ints;
+                averageBins[d].td += tds;
               } else {
                 averageBins[d] = {
                   "completed": 0,
                   "total": 0,
-                  "ints": 0,
-                  "tds": 0,
+                  "int": 0,
+                  "td": 0,
                   "percentage": 0,
                   passer: "Average",
                   team: "NFL",
@@ -86,6 +86,11 @@ function loadAccuracyByPoint(graphType, callback) {
         "passerid": data.length,
         "passes": averagePasses})
       data.reverse()
+
+      // swap brady + nfl average
+      var tmp = data[1]
+      data[1] = data[0]
+      data[0] = tmp
 
       setupPointSpreadPicker(pointBins);
       callback(graphType, data);
@@ -407,6 +412,6 @@ function tooltip3Html(passer, pointSpread, passes) {
   formatPercent(passes.percentage) + " Completion Percentage <br>" +
   passes.completed + " Total Completions <br>" +
   passes.total + " Total Attempts <br>" +
-  passes.td + " Touchdowns <br>" +
-  passes.int + " Interceptions"
+  passes.td + (passes.passer == "Average" ? " Total" : "") + " Touchdowns <br>" +
+  passes.int + (passes.passer == "Average" ? " Total" : "") + " Interceptions"
 }

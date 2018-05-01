@@ -48,6 +48,11 @@ function loadQBEffectiveness(graphType, callback) {
       data.reverse()
       data.push(average)
       data.reverse()
+
+      // swap brady + nfl average
+      var tmp = data[1]
+      data[1] = data[0]
+      data[0] = tmp
       
       setupQBEffectiveness(metrics)
       callback(graphType, data);
@@ -235,7 +240,7 @@ function format(n) {
 /* tooltip4 html */
 function toolTipHtml(passer) {
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
-  "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + passer.driveCount + " Total Drives<br><br>" +
+  "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + d3.round(passer.driveCount) + " Total Drives<br><br>" +
   format(passer.timeCount) + " Seconds Per Drive <br>" +
   format(passer.yardCount) + " Yards Per Drive <br>" +
   format(passer.playCount) + " Plays Per Drive <br>" +
