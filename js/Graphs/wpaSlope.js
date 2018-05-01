@@ -67,11 +67,24 @@ function plotWPA(graphType, width, height) {
   svg5.append("g")
   .attr("class", "wpaAxis axis")
   // graphWidth5/2
-  .attr("transform", "translate(" + [margin5.left + 15,0] + ")")
+  .attr("transform", "translate(" + [margin5.left + 19,0] + ")")
   .call(
     d3.axisLeft(y5)
-    .ticks(5, "%")
-    .tickSize(5)
+    .ticks(10, "%")
+    .tickSize(7)
+    .tickFormat(function(d,i) {
+      return d == 0 ? "" : d3.format(".0%")(d)
+    })
+  );
+
+  svg5.append("g")
+  .attr("class", "wpaAxis axis")
+  // graphWidth5/2
+  .attr("transform", "translate(" + [graphWidth5-margin5.right-19,0] + ")")
+  .call(
+    d3.axisRight(y5)
+    .ticks(10, "%")
+    .tickSize(7)
     .tickFormat(function(d,i) {
       return d == 0 ? "" : d3.format(".0%")(d)
     })
@@ -94,8 +107,6 @@ function plotWPA(graphType, width, height) {
   .style("stroke", "grey")
   .style("stroke-width", 1)
   .style("opacity", 0.5)
-
-
 
   // text label 1 for the y axis
   svg5.append("text")
@@ -120,26 +131,6 @@ function plotWPA(graphType, width, height) {
   // ** Left column
   data.forEach(function(passer,i) {
 
-    //Left Column
-    // svg5.append("text")
-    // .attr("x", 10)
-    // .attr("y", passer.startY)
-    // .attr("xml:space", "preserve")
-    // .attr("class", "textL"+i)
-    // .style("font-size", font_size)
-    // .text(passer.team)
-    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
-
-    //Right column
-    // svg5.append("text")
-    // .attr("x", graphWidth5-100)
-    // .attr("y", passer.endY)
-    // .attr("xml:space", "preserve")
-    // .attr("class", "textR"+i)
-    // .style("font-size", font_size)
-    // .text(passer.passer)
-    // .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0)
-
     // ** Slope lines
     svg5.append("line")
     .attr("x1", 70)
@@ -150,7 +141,6 @@ function plotWPA(graphType, width, height) {
     .style("stroke", teamAttributes[passer['team']]['color'])
     .style("stroke-width", passers.has(parseInt(passer.passerid)) ? 1.5 : 1)
     .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
-    // .style("border", )
     .on('mouseover', function() {
       d3.select(this).style("opacity", 1)
       tooltip5.html(function() {
@@ -159,7 +149,8 @@ function plotWPA(graphType, width, height) {
       tooltip5.show()
     })
     .on('mouseout', function() {
-      d3.select(this).style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
+      d3.select(this)
+      .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
       tooltip5.hide();
     })
   });
@@ -213,6 +204,17 @@ function replotWPA(graphType){
     .transition()
     .duration(transitionDuration)
     .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
+    .style("stroke-width", passers.has(parseInt(passer.passerid)) ? 1.5 : 1)
+
+    svg5.selectAll(".line"+i)
+    .on('mouseout', function() {
+      d3.select(this)
+      .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
+      console.log(passers);
+      tooltip5.hide();
+    })
+
+
 
     d3.selectAll(id + "key")
     .html(keyHtml(data.filter(function(d){return passers.has(parseInt(d.passerid))})));
@@ -224,8 +226,9 @@ function replotWPA(graphType){
 function tooltip5Html(passer) {
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passer.passer +
-  "</div><div id='team'>" + passer.team + "</div><br>" + "<br><br>" +
+  "</div><div id='team'>" + passer.team + "</div><br>" +
+  formatPercent(passer.passerWPA - passer.defenseWPA) + " &Delta; in WPA" +
+  "<br><br>" +
   formatPercent(passer.defenseWPA) + " Defense WPA <br>" +
-  formatPercent(passer.passerWPA) + " Passer WPA <br>" +
-  formatPercent(passer.passerWPA - passer.defenseWPA) + " QB WPA Impact";
+  formatPercent(passer.passerWPA) + " Passer WPA <br>";
 }

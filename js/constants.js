@@ -5,7 +5,7 @@ var transitionDuration = 1000;
 //Logos from https://www.seeklogo.net/
 var teamAttributes = {
   "ARI": {
-    "color": "#9B2743",
+    "color": "#820E2A",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2014/12/Arizona-Cardinals-logo-vector.jpg"
   },
   "ATL": {
@@ -13,7 +13,7 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/12/atlanta-falcons-logo-vector-400x400.png"
   },
   "BAL": {
-    "color": "#24135F",
+    "color": "#3E2D79",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/05/baltimore-ravens-logo-vector-01.png"
   },
   "BUF": {
@@ -85,11 +85,11 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/10/minnesota-vikings-logo-vector-400x400.png"
   },
   "NE": {
-    "color": "#0C2340",
+    "color": "#263D5A",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2014/10/new-england-patriots-logo-preview-400x400.png"
   },
   "NO": {
-    "color": "#D3BC8D",
+    "color": "#BAA374",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/12/new-orleans-saints-logo-vector-400x400.png"
   },
   "NYG": {
@@ -97,7 +97,7 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2011/05/new-york-giants-logo-vector-400x400.png"
   },
   "NYJ": {
-    "color": "#2A433A",
+    "color": "#445D54",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2011/05/new-york-jets-logo-vector-01.png"
   },
   "OAK": {
@@ -105,7 +105,7 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/10/oakland-raiders-logo-vector-400x400.png"
   },
   "PHI": {
-    "color": "#004851",
+    "color": "#1A626B",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2014/10/philadelphia-eagles-logo-400x400.png"
   },
   "PIT": {
@@ -133,7 +133,7 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2011/05/washington-redskins-logo-vector-400x400.png"
   },
   "NFL": {
-    "color": "#ccc",
+    "color": "#8A8A8A",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2014/10/nfl-logo-National-Football-League-400x400.png"
   }
 }
