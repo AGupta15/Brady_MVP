@@ -3,6 +3,7 @@ var svg1, y2, line;
 var graphHeight1, graphWidth1, margin1;
 var tooltip2;
 var downTicks = ["1st","2nd","3rd","4th"]
+var minTotalForDowns = 2
 
 function loadAccuracyByDown(graphType, callback) {
     d3.csv("Data/graph2.csv", function (error, data) {
@@ -30,6 +31,7 @@ function loadAccuracyByDown(graphType, callback) {
             "percentage": 0,
             passer: "Average",
             team: "NFL",
+            "show": true,
             "passerid": data.length,
         };
       });
@@ -55,10 +57,13 @@ function loadAccuracyByDown(graphType, callback) {
                   passer: d.values[0].passer,
                   team: d.values[0].team,
                   passerid: d.key,
+                  show: total >= minTotalForDowns
               };
             })
             .entries(d.values)
-            .filter(pass => pass.key != "NA");
+            .filter(pass => {
+              return pass.key != "NA"});
+
         passes.sort(function(a, b){
           return parseInt(a.key) - parseInt(b.key)});
         return {
@@ -212,7 +217,7 @@ function plotAccuracyByDown(graphType, width, height) {
         .style("stroke", teamAttributes[passer.team].color)
         .style("stroke-width","2px")
         .attr("d", function(d) {
-          return line(d.passes)
+          return line(d.passes.filter(p => p.value.show))
         })
         // .on('mouseover', function(b) {
         //   tooltip2.html(function() {
@@ -227,6 +232,7 @@ function plotAccuracyByDown(graphType, width, height) {
         .append("circle")
         .attr("class", "circle" + i)
         .attr("r","4px")
+        .style("opacity", b => b.value.show ? 1 : 0)
         .style("fill", teamAttributes[passer.team].color)
         .attr("cy", function(b) {
           return y2(b.value.percentage); })
@@ -269,7 +275,8 @@ function replotAccuracyByDown(graphType) {
       passes: data[0].passes.map(function(p) {
         return {
           key: p.key,
-          value: { percentage: 0 }
+          value: { percentage: 0 },
+          show: false
         }
       })
     })
@@ -284,6 +291,7 @@ function replotAccuracyByDown(graphType) {
       .transition()
       .duration(transitionDuration)
       .attr("r","0px")
+      .style("opacity", b => b.value.show ? 1 : 0)
       .attr("cy", function(b) {
         return graphHeight1
       });
@@ -293,6 +301,7 @@ function replotAccuracyByDown(graphType) {
         .transition()
         .duration(transitionDuration)
         .attr("r","4px")
+        .style("opacity", b => b.value.show ? 1 : 0)
         .style("fill", teamAttributes[passer.team].color)
         .attr("cy", function(b) {
           return y2(b.value.percentage);
@@ -313,7 +322,7 @@ function replotAccuracyByDown(graphType) {
           }
           return 1})
         .attr("d", function(d) {
-          return line(d.passes)
+          return line(d.passes.filter(p => p.value.show))
     });
   });
 
