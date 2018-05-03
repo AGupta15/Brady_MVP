@@ -102,7 +102,8 @@
   </div>
 
 
-  <!-- INTRO PARAGRAPH -->
+  <!--================================= INTRO ===============================-->
+  <div class="no-bg">
   <div class="innerDiv">
   </br></br>
   <p id="para">Every NFL regular season, teams fight through a 16 game slate
@@ -113,92 +114,107 @@
     of each season to honor the player who is perceived to have contributed the
     most to his team. In 2017, the New England Patriots finished with a league
     best 13-3 record, and their Quarterback, Tom Brady, was awarded the MVP honor.
-This award is voted on by members of the media, who may be providing a relatively
- arbitrary selection that can be easily biased by personal opinion, group thinking
-  and player exposure due to the market they play in (consider New York vs Kansas
-   City). Throughout the season, many players emerged as candidates for the MVP when
+    This award is voted on by members of the media, who may be providing a relatively
+    arbitrary selection that can be easily biased by personal opinion, group thinking
+    and player exposure due to the market they play in (consider New York vs Kansas
+    City). Throughout the season, many players emerged as candidates for the MVP when
     their teams entered hot streaks, and thus, we pose the question: Did Tom Brady
-     deserve the 2017 NFL MVP?
+    deserve the 2017 NFL MVP?
   </p>
 
   <p id="para">
     To answer this question, we aim to statistically break down a set of quarterbacks
-     who we consider MVP candidates in the 2017 NFL Season, and gauge their value
-      on these metrics. It is important to note that in our methodology, we selected
-       metrics for analysis *before* looking at the dataset, and thus aim to reduce
-        any biases we may exhibit. Furthermore, we make this analysis available to
-         *you* the reader, such that you can perform your own analysis. In each
-          section, we will explain our methodology, including how we processed the
-           data. For those who are not as familiar with football but are fans of
-            numerical arguments, we will provide notes like *this* to supplement
-             your knowledge of football as you read this analysis.</p>
-
-  <p id="para"> We picked our set of NFL MVP candidates to only include Quarterbacks.
-     This is because QBs inherently have more value in today’s NFL as passing has
-      taken over offensive play calling. Quarterbacks touch the ball on every play,
-       and make the most important decisions that influence his team’s success
-       (audibles, checking the defense and modifying the play, getting the ball
-       from the center to the running back or receiver). Furthermore, 22.5 of the last 30
-       MVP Awards have gone to QBs (0.5 being attributed to Co-MVPs).
-       Those who were fans of Todd Gurley of the
-       LA Rams may contest this statement, but in order to complete a fair assessment
-        of Brady, we will compare him against players who have metrics relevant to Brady,
-        which will only include QBs.
-         Our NFL MVP candidate set includes 12 QBs who were selected by either
-          1) Being initially selected to the Pro Bowl or
-          2) Leading a pass heavy offense. This includes every QB who received votes for the MVP,
-          and thus covers a wide swath of players. We compare (in no particular order):
-        </br></br>
-          1.Tom Brady, NE</br>
-          2. Carson Wentz, PHI</br>
-          3. Roethlisberger, PIT</br>
-          4. Philip Rivers, SD</br>
-          5. Russell Wilson, SEA</br>
-          6. Drew Brees, NO</br>
-          7. Matt Ryan, ATL</br>
-          8. Case Keenum, MIN</br>
-          9. Cam Newton, CAR</br>
-          10. Jared Goff, LAR</br>
-          11. Alex Smith, KC</br>
-          12. Matt Stafford, DET</br>
-        </br>
-        We will compare Brady to each of the other 11 QBs and gauge his level of
-        effectiveness on 3 metrics:</br></br>
-        <b>1.Effectiveness in Passing the Ball Downfield</b></br>
-        This dimension analyzes QB accuracy by looking at completion percentage.
-        We look at effectiveness by pass distance, accuracy by down, and accuracy
-         by point spread in the game. Each of these graphs highlight the QB’s
-         effectiveness based on difficulty of pass (distance), difficulty of
-         situation (down), and overall pressure (point spread).</br></br>
-
-        <b>2.Effectiveness by Drive Efficiency</b></br>
-        This metric looks at the efficiency of a QB based on a series of metrics
-         including time per possession, yards per drive, points per drive, and
-         plays per drive. After our analysis, we will determine which two metrics
-          tell the most important story and set the graph to show those metrics
-          as default. Readers will be able to select any 2 metrics they wish to
-          compare and see them plotted on our graphic.</br></br>
-
-          <b>3.Win Probability Impact</b></br>
-          We look for player value by looking at his impact on his team’s win
-          percentage probability, utilizing a slope graph. By comparing offense
-          and defense WPP, the slope from defense to offense will indicate how
-          much that given player impacts their team.</br></br>
-
-        To compute our analysis metrics, we rely on the
-        <a href="https://github.com/ryurko/nflscrapR-data" target="_blank">nflscrapR-data</a> dataset,
-        which contains a play by play documentation across the 2017 NFL Season.
-        The author originally scraped all the data off the
-        <a href="https://api.nfl.com/docs/getting-started/index.html" target="_blank">NFL API</a>
-        and joined many datasets together to form this one.
-
+    who we consider MVP candidates in the 2017 NFL Season, and gauge their value
+    on these metrics. It is important to note that in our methodology, we selected
+    metrics for analysis *before* looking at the dataset, and thus aim to reduce
+    any biases we may exhibit. Furthermore, we make this analysis available to
+    *you* the reader, such that you can perform your own analysis. In each
+    section, we will explain our methodology, including how we processed the
+    data. For those who are not as familiar with football but are fans of
+    numerical arguments, we will provide notes like *this* to supplement
+    your knowledge of football as you read this analysis.
   </p>
+
+  <h1 id="h1-section">MVP Candidates</h1></br>
+  <p id="para"> We picked our set of NFL MVP candidates to only include Quarterbacks.
+    This is because QBs inherently have more value in today’s NFL as passing has
+    taken over offensive play calling. Quarterbacks touch the ball on every play,
+    and make the most important decisions that influence his team’s success
+    (audibles, checking the defense and modifying the play, getting the ball
+    from the center to the running back or receiver). Furthermore, 22.5 of the last 30
+    MVP Awards have gone to QBs (0.5 being attributed to Co-MVPs).
+    Those who were fans of Todd Gurley of the
+    LA Rams may contest this statement, but in order to complete a fair assessment
+    of Brady, we will compare him against players who have metrics relevant to Brady,
+    which will only include QBs.
+    Our NFL MVP candidate set includes 12 QBs who were selected by either
+    1) Being initially selected to the Pro Bowl or
+    2) Leading a pass heavy offense (for more than 8 games played). This includes every QB who received votes for the MVP,
+    and thus covers a wide swath of players. We compare (in no particular order):
+  </br></br>
+  1.Tom Brady, NE</br>
+  2. Carson Wentz, PHI</br>
+  3. Roethlisberger, PIT</br>
+  4. Philip Rivers, LAC</br>
+  5. Russell Wilson, SEA</br>
+  6. Drew Brees, NO</br>
+  7. Matt Ryan, ATL</br>
+  8. Case Keenum, MIN</br>
+  9. Cam Newton, CAR</br>
+  10. Jared Goff, LAR</br>
+  11. Alex Smith, KC</br>
+  12. Matt Stafford, DET</br>
+</br>
+
+<h1 id="h1-section">Metrics of Analysis</h1></br>
+We will compare Brady to each of the other 11 QBs and gauge his value on 3 metrics:</br></br>
+<b>1.Effectiveness in Passing the Ball Downfield</b></br>
+This dimension analyzes QB accuracy by looking at completion percentage.
+We look at effectiveness by pass distance, accuracy by down, and accuracy
+by point spread in the game. Each of these graphs highlight the QB’s
+effectiveness based on pass difficulty (distance), short-term difficulty (down),
+and long-term difficulty and pressure (point spread).</br></br>
+
+<b>2.Effectiveness by Drive Efficiency</b></br>
+This metric looks at the efficiency of a QB based on a series of metrics
+including time per possession, yards per drive, points per drive, and
+plays per drive. This evaluates a QB on the quality of the drives they play in
+by looking at speed of scoring, length, and rate of progress.</br></br>
+
+<b>3.Win Probability Impact</b></br>
+We look for player value by looking at his impact on his team’s win
+percentage probability, utilizing a slope graph. By comparing offense
+and defense win probability, the slope from defense to offense will indicate how
+much that given player impacts their team.</br></br>
+
+<h1 id="h1-section">Methodology</h1></br>
+To compute our analysis metrics, we rely on the
+<a href="https://github.com/ryurko/nflscrapR-data" target="_blank">nflscrapR-data</a> dataset,
+which contains a play by play documentation across the 2017 NFL Season.
+The author originally scraped all the data from the
+<a href="https://api.nfl.com/docs/getting-started/index.html" target="_blank">NFL API</a>
+and joined many datasets together to form this one.</br></br>
+
+Quarterbacks who appear in our visualizations are narrowed by the
+number of pass attempts they have across the 2017 NFL Season. We include a QB
+if they have attempted at least 100 passes, as this provides a reasonable body
+of work at around 4 games of playing time. Any quarterback who has not attempted
+ this many passes is not included in our graphs. This narrowed our set of Valid
+ Passers to 45 QBs, who can be seen across every visualization.</br></br>
+
+Our work for this project can be found
+<a href="https://github.com/AGupta15/INFO4310_MVP" target="_blank">here</a>,
+which includes our data preprocessing and graph generation.
+
+</p>
+</div>
 </div>
 
 <!--=========== GRAPH 1 =====================================================-->
-<div class="innerDiv" style="background-color:#F8F8F8;">
-</br></br>
-<h3 id="h3-title">Quarterback Accuracy by Pass Distance</h3>
+<div class="bg">
+  <div class="innerDiv">
+  </br></br>
+  <h3 id="h3-title">Quarterback Accuracy by Pass Distance</h3>
 </br>
 <div class="innerDivCenter">
   <div id="accuracy_by_distance"></div>
@@ -213,11 +229,171 @@ This award is voted on by members of the media, who may be providing a relativel
   data-max-options="2"
   title="Pick quarterbacks to compare"
   ></select>
-  </br></br></br>
-  <div id='accuracy_by_distancekey'>
-  </div>
+</br></br></br>
+<div id='accuracy_by_distancekey'>
+</div>
 
 </div>
+</div>
+
+<div class="innerDiv">
+</br></br>
+<table style="width:100%">
+  <tr>
+    <th>Quarterback</th>
+    <th>Team</th>
+    <th>&lt 0</th>
+    <th>0-10</th>
+    <th>10-20</th>
+    <th>20-30</th>
+    <th>30-40</th>
+    <th>40+</th>
+    <th>Avg Ranking</th>
+  </tr>
+  <tr>
+    <td>Tom Brady</td>
+    <td>NE</td>
+    <td>90.0%</td>
+    <td>69.0%</td>
+    <td><b>62.8%</b></td>
+    <td>50.0%</td>
+    <td>30.8%</td>
+    <td>26.3%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Carson Wentz</td>
+    <td>PHI</td>
+    <td>73.5%</td>
+    <td>65.9%</td>
+    <td>58.6%</td>
+    <td>51.9%</td>
+    <td>27.8%</td>
+    <td>17.6%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Ben Roethlisberger</td>
+    <td>PIT</td>
+    <td>83.1%</td>
+    <td>73.0%</td>
+    <td>57.5%</td>
+    <td>31.8%</td>
+    <td>30.0%</td>
+    <td>18.8%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Philip Rivers</td>
+    <td>LAC</td>
+    <td>73.2%</td>
+    <td>68.2%</td>
+    <td>56.8%</td>
+    <td>51.5%</td>
+    <td>21.4%</td>
+    <td>29.4%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Russell Wilson</td>
+    <td>SEA</td>
+    <td><b>93.1%</b></td>
+    <td>66.7%</td>
+    <td>51.2%</td>
+    <td>40.9%</td>
+    <td>33.3%</td>
+    <td>33.3%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Drew Brees</td>
+    <td>NO</td>
+    <td>87.4%</td>
+    <td>73.7%</td>
+    <td>60.5%</td>
+    <td><b>56.8%</b></td>
+    <td>46.7%</td>
+    <td>50.0%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Matt Ryan</td>
+    <td>ATL</td>
+    <td>86.2%</td>
+    <td>70.3%</td>
+    <td>62.3%</td>
+    <td>37.1%</td>
+    <td>13.3%</td>
+    <td>21.4%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Case Keenum</td>
+    <td>MIN</td>
+    <td>80.2%</td>
+    <td><b>74.9%<b/></td>
+    <td>55.7%</td>
+    <td>40.5%</td>
+    <td>11.1%</td>
+    <td>33.3%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Cam Newton</td>
+    <td>CAR</td>
+    <td>84.3%</td>
+    <td>63.6%</td>
+    <td>46.5%</td>
+    <td>43.8%</td>
+    <td>25.0%</td>
+    <td>10.0%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Jared Goff</td>
+    <td>LAR</td>
+    <td>84.8%</td>
+    <td>64.7%</td>
+    <td>53.9%</td>
+    <td>34.3%</td>
+    <td>50.0%</td>
+    <td>33.3%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Alex Smith</td>
+    <td>KC</td>
+    <td>89.3%</td>
+    <td>68.8%</td>
+    <td>50.7%</td>
+    <td>37.9%</td>
+    <td><b>56.5%</b></td>
+    <td><b>58.3%<b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Matt Stafford</td>
+    <td>DET</td>
+    <td>89.4%</td>
+    <td>66.9%</td>
+    <td>53.3%</td>
+    <td>47.2%</td>
+    <td>40.0%</td>
+    <td>53.8%</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>NFL Average</td>
+    <td>DET</td>
+    <td>82.8%</td>
+    <td>67.0%</td>
+    <td>53.4%</td>
+    <td>36.6%</td>
+    <td>29.9%</td>
+    <td>26.3%</td>
+    <td>N/A</td>
+  </tr>
+</table>
 </div>
 
 <div class="innerDiv">
@@ -243,8 +419,10 @@ This award is voted on by members of the media, who may be providing a relativel
   laborum
 </p>
 </div>
+</div>
 
 <!--====================== GRAPH 2 ==========================================-->
+<div class=no-bg>
 <div class="innerDiv">
 </br></br>
 <h3 id="h3-title">Quarterback Accuracy by Passing Down</h3>
@@ -262,9 +440,9 @@ This award is voted on by members of the media, who may be providing a relativel
   data-max-options="2"
   title="Pick quarterbacks to compare"
   ></select>
-  </br></br></br>
-  <div id='accuracy_by_downkey'>
-  </div>
+</br></br></br>
+<div id='accuracy_by_downkey'>
+</div>
 
 </div>
 </div>
@@ -292,16 +470,18 @@ This award is voted on by members of the media, who may be providing a relativel
   laborum
 </p>
 </div>
+</div>
 
 <!--================================= GRAPH 3 ===============================-->
-<div class=innerDiv>
-</br></br>
-<h3 id="h3-title">Quarterback Accuracy by Point Spread</h3>
-<div class="innerDivAccuracyByPointSpread">
-</br>
-<div class="innerDivCenter">
-  <div id="accuracy_by_point"></div>
-</div>
+<div class="bg">
+  <div class=innerDiv>
+  </br></br>
+  <h3 id="h3-title">Quarterback Accuracy by Point Spread</h3>
+  <div class="innerDivAccuracyByPointSpread">
+  </br>
+  <div class="innerDivCenter">
+    <div id="accuracy_by_point"></div>
+  </div>
 </br>
 <div class="row">
   <div class="col">
@@ -352,10 +532,12 @@ This award is voted on by members of the media, who may be providing a relativel
   laborum
 </p>
 </div>
+</div>
 
-<!-- GRAPH 4 -->
+<!--================================= GRAPH 4 ===============================-->
+<div class="no-bg">
 <div class="innerDiv">
-</br>
+</br></br>
 <h3 id="h3-title">Quarterback Effectiveness by Drive</h3>
 <div class="innerDivCenter">
   <div id="qb_effectiveness"></div>
@@ -412,15 +594,18 @@ title="Pick a point spread ..."
 </p>
 </br>
 </div>
+</div>
 
-<!-- GRAPH 5 -->
-<div class="innerDiv">
-  <h3 id="h3-title">Win Probability Change by Quarterback</h3>
-  <div class="innerDivCenter">
-    <div id="wpa"></div>
-  </div>
-  <div class="innerDiVRight">
-  </br></br></br>
+<!--================================= GRAPH 5 ===============================-->
+<div class="bg">
+  <div class="innerDiv">
+    </br></br>
+    <h3 id="h3-title">Win Probability Change by Quarterback</h3>
+    <div class="innerDivCenter">
+      <div id="wpa"></div>
+    </div>
+    <div class="innerDiVRight">
+    </br></br></br>
     <select class="selectpicker"
     id="wpa_selectpicker"
     multiple
@@ -460,6 +645,37 @@ title="Pick a point spread ..."
 </div>
 </div>
 
+<!--================================= Conclusion ===============================-->
+<div class="no-bg">
+  <div class="innerDiv">
+    </br></br>
+    <h3 id="h3-title">Conclusion</h3>
+  </div>
+  <div class="innerDiv">
+  </br></br>
+  <p id="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est
+    laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est
+    laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est
+    laborum
+  </p>
+  </br>
+  </div>
+</div>
 
 </body>
 </html>

@@ -80,6 +80,12 @@ li span {
   font-weight: 900;
 }
 
+#h1-section {
+  font-family: 'Raleway', sans-serif;
+  font-size: 35px;
+  font-weight: 900;
+}
+
 #h2-title {
   font-family: 'Raleway', sans-serif;
   font-size: 40px;
@@ -100,6 +106,18 @@ li span {
   border-bottom-style: solid;
   width: 100%;
   margin-top: -125px;
+}
+
+.bg {
+  background-color: #F8F8F8;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.no-bg {
+  /* background-color: #F8F8F8; */
+  width: 100%;
+  padding-bottom: 40px;
 }
 
 .innerDivRight {
@@ -339,4 +357,14 @@ li span {
 .navbar-brand img {
   height: 30px;
   width: 30px;
+}
+
+table, th, td {
+    border: 1.5px solid black;
+}
+th, td {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
