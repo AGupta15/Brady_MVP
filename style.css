@@ -11,6 +11,21 @@ body {
   padding-top: 10px;
 }
 
+.infoSVG image {
+  width: 15px;
+  height: 15px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.infoSVG {
+  display: inline-block;
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 15px;
+  height: 15px;
+}
+
 img {
   width: 25px;
   padding: 2px;
