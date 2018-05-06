@@ -96,6 +96,35 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
       averageBins[i].int = d3.round(averageBins[i].int, 1);
       averageBins[i].td = d3.round(averageBins[i].td, 1);
     });
+
+
+    // ranks = []
+    // data.forEach(function(d) {
+    //   var entry = {
+    //     "passer": d.passer,
+    //     "Less0": d.bins[0].percentage,
+    //     "0-10": d.bins[1].percentage,
+    //     "10-20": d.bins[2].percentage,
+    //     "20-30": d.bins[3].percentage,
+    //     "30-40": d.bins[4].percentage,
+    //     "40+": d.bins[5].percentage,
+    //     "Rank": 0
+    //   }
+    //   ranks.push(entry);
+    // });
+    //
+    // ranks.sort(function(x, y){
+    //   d3.ascending(x["Less0"], y["Less0"]);
+    // })
+    //
+    // console.log(ranks);
+
+
+
+
+
+
+
     data.reverse()
     data.push(
       {"passer": "Average",
@@ -176,20 +205,6 @@ function plotAccuracyByDistance(graphType, width, height) {
       .domain([0,400])
       .range([graphHeight, 0]);
 
-    // background image
-
-    /*
-    var backgroundImage = svg
-                .append("svg:image")
-                .attr("xlink:href", "fb.png")
-                .attr("x", "0")
-                .attr("y", "0")
-                .attr("width", "500")
-                .attr("height", "500");
-    */
-
-    // setup x axis
-
     svg
       .append("g")
       .attr("class", "x axis")
@@ -250,23 +265,6 @@ function plotAccuracyByDistance(graphType, width, height) {
       .attr("dy", "12px")
       .style("text-anchor", "middle")
       .text("Total Pass Attempts");
-
-    // add title
-
-    // svg.append("text")
-    //     .attr("x", graphHeight / 2)
-    //     .attr("y", 0 - (margin.top / 2))
-    //     .classed("title", true)
-    //     .text("Quarterback Accuracy by Distance");
-
-
-    // add key
-
-  // svg.append("foreignObject")
-  //   .attr("x", graphHeight - 120 - 10)
-  //   .attr("y", 10)
-  //   .append("xhtml:body")
-  //   .html(keyHtml(data));
 
     d3.selectAll(id + "key")
       .html(distanceKeyHtml(data));
