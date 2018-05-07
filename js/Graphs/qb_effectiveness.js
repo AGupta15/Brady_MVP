@@ -10,7 +10,7 @@ var selectedMetrics = [
       title: "X"
     },
     {
-      value: metrics[1], // default values
+      value: metrics[2], // default values
       id: "_y",
       title: "Y"
     }
@@ -203,6 +203,7 @@ function opacity(d, passers) {
 }
 
 function changeAxis(graphType) {
+  console.log(selectedMetrics[0].value)
 
   x4.domain(d3.extent(graphType.data, d => d[selectedMetrics[0].value]));
   y4.domain(d3.extent(graphType.data, d => d[selectedMetrics[1].value]));
@@ -241,7 +242,7 @@ function format(n) {
 function toolTipHtml(passer) {
   return "<img src=" + teamAttributes[passer.team].icon + ">" +
   "<div id='passer'>" + passer.passer + "</div><div id='team'>" + passer.team + "</div><br>" + d3.round(passer.driveCount) + " Total Drives<br><br>" +
-  format(passer.timeCount) + " Seconds Per Drive <br>" +
+  d3.format(".3r")(passer.timeCount) + " Seconds Per Drive <br>" +
   format(passer.yardCount) + " Yards Per Drive <br>" +
   format(passer.playCount) + " Plays Per Drive <br>" +
   format(passer.pointCount) + " Points Per Drive"

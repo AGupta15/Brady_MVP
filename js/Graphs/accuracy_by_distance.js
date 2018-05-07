@@ -146,7 +146,7 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
     // });
 
 
-    console.log(ranks);
+    //console.log(ranks);
 
 
 
@@ -157,7 +157,7 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
     data.reverse()
     data.push(
       {"passer": "Average",
-        "passerid": data.length + 1,
+        "passerid": data.length,
         "team": "NFL",
         "bins": averageBins
       }
@@ -192,7 +192,8 @@ function plotAccuracyByDistance(graphType, width, height) {
 
     var passer_array = Array.from(passers).sort();
 
-    data = data.filter( function(d) { return passers.has(parseInt(d.passerid))});
+    data = data.filter( function(d) { 
+      return passers.has(parseInt(d.passerid))});
 
     margin = {top: 50, right: 50, bottom: 50, left: 50};
     graphWidth = width - margin.left - margin.right;

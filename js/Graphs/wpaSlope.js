@@ -215,7 +215,6 @@ function replotWPA(graphType){
     .on('mouseout', function() {
       d3.select(this)
       .style("opacity", passers.has(parseInt(passer.passerid)) ? 1 : 0.1)
-      console.log(passers);
       tooltip5.hide();
     })
 

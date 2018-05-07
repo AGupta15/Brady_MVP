@@ -83,9 +83,9 @@ function setData(graphType, data) {
   graphType.data = data;
   // dummy data
   var passers_to_plot = new Set();
-  passers_to_plot.add(0)
-  passers_to_plot.add(1)
-  passers_to_plot.add(2)
+  passers_to_plot.add(0) // Brady
+  passers_to_plot.add(45) // NFL Average
+  passers_to_plot.add(27) // Brees
 
   graphType.passers = passers_to_plot;
 
