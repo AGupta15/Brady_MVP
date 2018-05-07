@@ -87,6 +87,53 @@ function loadAccuracyByDown(graphType, callback) {
         }
       });
 
+      ranks = []
+      data.forEach(function(d) {
+        // var zero = d.passes[0];
+        var oneP = Object.values(d.passes[0])[1].percentage;
+        var twoP = Object.values(d.passes[1])[1].percentage;
+        var threeP = Object.values(d.passes[2])[1].percentage;
+        var fourP = 0
+        try {
+          fourP = Object.values(d.passes[3])[1].percentage;
+        }
+        catch(error){
+          // var fourP = 0
+        }
+        // console.log(d.passes[3])
+        var entry = {
+          "passer": d.passer,
+          "one": oneP,
+          "two": twoP,
+          "three": threeP,
+          "four": fourP,
+          "Rank": 0
+        }
+        ranks.push(entry);
+      });
+
+      ranks.sort(compare0).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      ranks.sort(compare1).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      ranks.sort(compare2).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      ranks.sort(compare3).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"]/4.0
+      }
+      ranks.sort(compare4);
+      console.log(ranks)
+
       data.reverse()
       data.push({
         passer: "Average",
@@ -358,4 +405,42 @@ function toolTipHtml2(passer, down, passes) {
 
 function formatPercent(p) {
   return d3.format(".1%")(p);
+}
+
+function compare0(a,b) {
+  if (a["one"] < b["one"])
+    return -1;
+  if (a["one"] > b["one"])
+    return 1;
+  return 0;
+}
+
+function compare1(a,b) {
+  if (a["two"] < b["two"])
+    return -1;
+  if (a["two"] > b["two"])
+    return 1;
+  return 0;
+}
+function compare2(a,b) {
+  if (a["three"] < b["three"])
+    return -1;
+  if (a["three"] > b["three"])
+    return 1;
+  return 0;
+}
+function compare3(a,b) {
+  if (a["four"] < b["four"])
+    return -1;
+  if (a["four"] > b["four"])
+    return 1;
+  return 0;
+}
+
+function compare4(a,b) {
+  if (a["Rank"] < b["Rank"])
+    return -1;
+  if (a["Rank"] > b["Rank"])
+    return 1;
+  return 0;
 }

@@ -141,12 +141,6 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
       ranks[i]["Rank"] = ranks[i]["Rank"]/6.0
     }
     ranks.sort(compare6);
-    // ranks.forEach(function(rank){
-    //   rank.passer
-    // });
-
-
-    //console.log(ranks);
 
 
 
@@ -192,7 +186,7 @@ function plotAccuracyByDistance(graphType, width, height) {
 
     var passer_array = Array.from(passers).sort();
 
-    data = data.filter( function(d) { 
+    data = data.filter( function(d) {
       return passers.has(parseInt(d.passerid))});
 
     margin = {top: 50, right: 50, bottom: 50, left: 50};

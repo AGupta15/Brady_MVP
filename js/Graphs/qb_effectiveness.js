@@ -30,6 +30,7 @@ function loadQBEffectiveness(graphType, callback) {
         d.playCount = (parseInt(d.playCount) / d.driveCount)
         d.pointCount = (parseInt(d.pointCount) / d.driveCount)
         d.timeCount = (parseInt(d.timeCount) / d.driveCount)
+        d.rank = 0;
         return d
       })
 
@@ -45,6 +46,22 @@ function loadQBEffectiveness(graphType, callback) {
         yardCount: (d3.sum(data, d => d.yardCount) / data.length)
       };
 
+
+
+      data.sort(compare0).reverse();
+      for (i=0; i<data.length; i++){
+        data[i].rank = data[i].rank + (i+1)
+      }
+      data.sort(compare1).reverse();
+      for (i=0; i<data.length; i++){
+        data[i].rank = data[i].rank + (i+1)
+      }
+      for (i=0; i<data.length; i++){
+        data[i].rank= data[i].rank/2.0
+      }
+      data.sort(compare2);
+      console.log(data)
+
       data.reverse()
       data.push(average)
       data.reverse()
@@ -53,7 +70,7 @@ function loadQBEffectiveness(graphType, callback) {
       var tmp = data[1]
       data[1] = data[0]
       data[0] = tmp
-      
+
       setupQBEffectiveness(metrics)
       callback(graphType, data);
     });
@@ -246,4 +263,29 @@ function toolTipHtml(passer) {
   format(passer.yardCount) + " Yards Per Drive <br>" +
   format(passer.playCount) + " Plays Per Drive <br>" +
   format(passer.pointCount) + " Points Per Drive"
+}
+
+
+function compare0(a,b) {
+  if (a.yardCount < b.yardCount)
+    return -1;
+  if (a.yardCount > b.yardCount)
+    return 1;
+  return 0;
+}
+
+function compare1(a,b) {
+  if (a.pointCount < b.pointCount)
+    return -1;
+  if (a.pointCount > b.pointCount)
+    return 1;
+  return 0;
+}
+
+function compare2(a,b) {
+  if (a.rank < b.rank)
+    return -1;
+  if (a.rank > b.rank)
+    return 1;
+  return 0;
 }
