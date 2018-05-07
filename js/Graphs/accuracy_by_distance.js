@@ -98,26 +98,55 @@ var binTicks = ["<0","0-10","10-20","20-30","30-40","40+"]
     });
 
 
-    // ranks = []
-    // data.forEach(function(d) {
-    //   var entry = {
-    //     "passer": d.passer,
-    //     "Less0": d.bins[0].percentage,
-    //     "0-10": d.bins[1].percentage,
-    //     "10-20": d.bins[2].percentage,
-    //     "20-30": d.bins[3].percentage,
-    //     "30-40": d.bins[4].percentage,
-    //     "40+": d.bins[5].percentage,
-    //     "Rank": 0
-    //   }
-    //   ranks.push(entry);
+    ranks = []
+    data.forEach(function(d) {
+      var entry = {
+        "passer": d.passer,
+        "Less0": d.bins[0].percentage,
+        "0-10": d.bins[1].percentage,
+        "10-20": d.bins[2].percentage,
+        "20-30": d.bins[3].percentage,
+        "30-40": d.bins[4].percentage,
+        "40+": d.bins[5].percentage,
+        "Rank": 0
+      }
+      ranks.push(entry);
+    });
+
+    ranks.sort(compare0).reverse();
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+    }
+    ranks.sort(compare1).reverse();
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+    }
+    ranks.sort(compare2).reverse();
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+    }
+    ranks.sort(compare3).reverse();
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+    }
+    ranks.sort(compare4).reverse();
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+    }
+    ranks.sort(compare5).reverse();
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+    }
+    for (i=0; i<ranks.length; i++){
+      ranks[i]["Rank"] = ranks[i]["Rank"]/6.0
+    }
+    ranks.sort(compare6);
+    // ranks.forEach(function(rank){
+    //   rank.passer
     // });
-    //
-    // ranks.sort(function(x, y){
-    //   d3.ascending(x["Less0"], y["Less0"]);
-    // })
-    //
-    // console.log(ranks);
+
+
+    console.log(ranks);
 
 
 
@@ -420,4 +449,58 @@ function toolTipHtml1(passer, i, bins) {
 
 function formatPercent(p) {
   return d3.format(".1%")(p);
+}
+
+function compare0(a,b) {
+  if (a.Less0 < b.Less0)
+    return -1;
+  if (a.Less0 > b.Less0)
+    return 1;
+  return 0;
+}
+
+function compare1(a,b) {
+  if (a["0-10"] < b["0-10"])
+    return -1;
+  if (a["0-10"] > b["0-10"])
+    return 1;
+  return 0;
+}
+function compare2(a,b) {
+  if (a["10-20"] < b["10-20"])
+    return -1;
+  if (a["10-20"] > b["10-20"])
+    return 1;
+  return 0;
+}
+function compare3(a,b) {
+  if (a["20-30"] < b["20-30"])
+    return -1;
+  if (a["20-30"] > b["20-30"])
+    return 1;
+  return 0;
+}
+
+function compare4(a,b) {
+  if (a["30-40"] < b["30-40"])
+    return -1;
+  if (a["30-40"] > b["30-40"])
+    return 1;
+  return 0;
+}
+
+function compare5(a,b) {
+  if (a["40+"] < b["40+"])
+    return -1;
+  if (a["40+"] > b["40+"])
+    return 1;
+  return 0;
+}
+
+function compare6(a,b) {
+  if (a["Rank"] < b["Rank"])
+    return -1;
+  if (a["Rank"] > b["Rank"])
+    return 1;
+  return 0;
 }

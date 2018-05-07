@@ -168,12 +168,7 @@
     of Brady, we will compare him against players who have metrics relevant to Brady,
     which will only include QBs.
     Our NFL MVP candidate set includes 12 QBs who were selected by
-    <!-- either -->
-    <!-- 1)  -->
     Being initially selected to the Pro Bowl.
-    <!-- or -->
-    <!-- 2) Leading a pass heavy offense (for more than 8 games played). This includes every QB who received votes for the MVP, -->
-    <!-- and thus covers a wide swath of players. We compare (in no particular order): -->
   </br></br>
   1.Tom Brady, NE</br>
   2. Carson Wentz, PHI</br>
@@ -181,12 +176,6 @@
   4. Philip Rivers, LAC</br>
   5. Russell Wilson, SEA</br>
   6. Drew Brees, NO</br>
-  <!-- 7. Matt Ryan, ATL</br> -->
-  <!-- 8. Case Keenum, MIN</br> -->
-  <!-- 9. Cam Newton, CAR</br> -->
-  <!-- 10. Jared Goff, LAR</br> -->
-  <!-- 11. Alex Smith, KC</br> -->
-  <!-- 12. Matt Stafford, DET</br> -->
 </br>
 
 <h1 id="h1-section">Metrics of Analysis</h1></br>
@@ -261,26 +250,30 @@ which includes our data preprocessing and graph generation.
 
 <div class="innerDiv">
 </br></br>
-<p id="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum
-</p>
+<p id="para">We begin by analyzing quarterback accuracy by the most obvious
+  metric that can be understood by any viewer of the game: How well does the
+  quarterback perform the further they throw the ball downfield? To break this
+  metric down, we filtered each QB’s passes by pass distance downfield, measured
+   as the distance travelled vertically down the field from the point of throw
+   to the point it was either caught or hit the ground. Then, passes were
+   bucketized into passes that were less than 0 yards downfield (such as a pitch
+    or a screen play), 0-10, 10-20, 20-30, 30-40, and 40+ yards downfield. It is
+     important to note that the majority of a QB’s throws will be under 30 yards,
+      and as such all buckets under 30 yards will have a higher number of passes.
+       To make this distribution visible, we place a “total pass attempts”
+       datapoint on each completion percentage bar so it is clear how many passes
+        were attempted in the computation of the completion percentage.</p>
+
+<p id="para">As with all of the graphs in our analysis, you can select the
+  quarterbacks whom you are interested in analyzing using the dropdown key on
+  the right of the graphic.<p>
+
+<p id="para">For all of the MVP candidates, we list their completion percentages
+   in the table below. We compute an “average ranking” metric in order to gauge
+   how a quarterback rates across all categories against all other valid passers.
+    This will help aid us to understand the ranking of a QB on aggregate, as a
+    2nd place rank in all categories is a much better performance than a single
+    1st place rank and 5 8th place ranks.</p>
 </div>
 
 <div class="innerDiv">
@@ -306,7 +299,7 @@ which includes our data preprocessing and graph generation.
     <td>50.0%</td>
     <td>30.8%</td>
     <td>26.3%</td>
-    <td></td>
+    <td>10.5 (2nd)</td>
   </tr>
   <tr>
     <td>Carson Wentz</td>
@@ -317,7 +310,7 @@ which includes our data preprocessing and graph generation.
     <td>51.9%</td>
     <td>27.8%</td>
     <td>17.6%</td>
-    <td></td>
+    <td>21.17 (18th)</td>
   </tr>
   <tr>
     <td>Ben Roethlisberger</td>
@@ -328,7 +321,7 @@ which includes our data preprocessing and graph generation.
     <td>31.8%</td>
     <td>30.0%</td>
     <td>18.8%</td>
-    <td></td>
+    <td>19.17 (14th)</td>
   </tr>
   <tr>
     <td>Philip Rivers</td>
@@ -339,7 +332,7 @@ which includes our data preprocessing and graph generation.
     <td>51.5%</td>
     <td>21.4%</td>
     <td>29.4%</td>
-    <td></td>
+    <td>21.83 (21st)</td>
   </tr>
   <tr>
     <td>Russell Wilson</td>
@@ -350,7 +343,7 @@ which includes our data preprocessing and graph generation.
     <td>40.9%</td>
     <td>33.3%</td>
     <td>33.3%</td>
-    <td></td>
+    <td>16.5 (9th)</td>
   </tr>
   <tr>
     <td>Drew Brees</td>
@@ -361,7 +354,7 @@ which includes our data preprocessing and graph generation.
     <td><b>56.8%</b></td>
     <td><b>46.7%</b></td>
     <td><b>50.0%</b></td>
-    <td></td>
+    <td>6.17 (1st)</td>
   </tr>
   <tr>
     <td>NFL Average</td>
@@ -379,25 +372,34 @@ which includes our data preprocessing and graph generation.
 
 <div class="innerDiv">
 </br></br>
-<p id="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum
+<p id="para">We see that for passes less than 0 yards in distance, completion
+  percentages are high across the board. However, Russell Wilson of the Seahawks
+  performs the best at 93.1%. Passes in this bucket aren’t necessarily difficult,
+  as screen and pitch plays are meant to be high completion plays by design. If
+   anything, this bucket will only help identify QBs who are unable to complete
+   relatively easy passes. Both Carson Wentz and Philip Rivers have low completion
+   percentages, falling below the NFL Average by almost 10%.<p>
+
+<p id="para">For passes in the short to intermediate range (0-10 and 10-20), Drew
+   Brees and Tom Brady respectively take 1st place. These categories are important
+    considering the volume of passes that are thrown in this range. As can be seen
+     with most QBs on the chart, the highest number of passes that are thrown are
+     between 0-10 yards, with the second most passes thrown from 10-20 yards. These
+     passes aren’t as easy as passes behind the QB (<\0) as defenders clog up
+     throwing lanes and force the QB to anticipate defenders actions.<p>
+
+<p id="para">However, the most difficult passes occur 20+ yards down the field.
+  Here, passes must not only be far downfield, but they must be accurate as receivers
+   and defenders alike have great catching skills. A bad throw can lead to an
+   interception or a big hit on the receiver. As seen in the graph, completion
+   percentages significantly drop in these buckets due to their difficulty, yet
+   Drew Brees easily takes 1st place in the latter 3 categories, beating the NFL
+   average by more than 20% in some spots. It’s clear that Drew Brees is an accurate
+   QB, something that NFL fans have been aware of for the better part of 2 decades,
+   however this shows that Brees is accurate not only in the short game, but can complete
+   throws downfield with accuracy rivaled by few in the league. On aggregate, Brees
+   finishes 1st in Average Rank with 6.17, and Tom Brady giving chase at 2nd place
+   with a score of 10.5.
 </p>
 </div>
 </div>
