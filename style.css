@@ -87,6 +87,7 @@ li span {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   padding-bottom: 20px;
+  line-height: 1.45;
 }
 
 #h1-title {
@@ -382,4 +383,9 @@ th, td {
     padding-right: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
+}
+
+th {
+    background-color: #4E507E;
+    color: white;
 }

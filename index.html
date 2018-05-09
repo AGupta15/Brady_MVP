@@ -228,9 +228,11 @@
   5. Russell Wilson, SEA</br>
   6. Drew Brees, NO</br>
 </br>
-
+</p>
 <h1 id="h1-section">Metrics of Analysis</h1></br>
-We will compare Brady to each of the other 11 QBs and gauge his value on 3 metrics:</br></br>
+<p id="para">
+We will compare Brady to each of the other 11 QBs and gauge his value on 3 metrics:
+</br></br>
 <b>1. Effectiveness</b></br>
 We gauge effectiveness by looking at how successful a QB is at passing the ball
 downfield. This dimension analyzes QB accuracy by looking at completion percentage.
@@ -313,8 +315,10 @@ percentage probability
 , utilizing a slope graph. By comparing offense
 and defense win probability, the slope from defense to offense will indicate how
 much that given player impacts their team.</br></br>
+</p>
 
 <h1 id="h1-section">Methodology</h1></br>
+<p id="para">
 To compute our analysis metrics, we rely on the
 <a href="https://github.com/ryurko/nflscrapR-data" target="_blank">nflscrapR-data</a> dataset,
 which contains a play by play documentation across the 2017 NFL Season.
@@ -344,6 +348,37 @@ which includes our data preprocessing and graph generation.
   <div class="innerDiv">
   </br></br>
   <h3 id="h3-title">Metric 1: Quarterback Accuracy by Pass Distance</h3>
+  </br>
+  <p id="para">
+    We begin by analyzing quarterback accuracy by the most obvious metric that can
+     be understood by any viewer of the game: How well does the quarterback perform
+     the further they throw the ball downfield? To break this metric down, we filtered
+     each QB’s passes by pass distance downfield, measured as the distance travelled
+     vertically down the field from the point of throw to the point it was either
+     caught or hit the ground. Then, we bucketized passes into bins: passes that
+     were less than 0 yards downfield (such as a pitch or a screen play)
+
+      <svg class="infoSVG">
+        <image
+        xlink:href="img/info-button.png"
+        alt="A QB may throw the ball backwards to a teammate. </br>
+        Because there will be no defenders behind the QB at </br>
+        the start of a play, these are considered to be </br>
+        relatively easy passes to complete."/>
+      </svg>
+
+      , 0-10, 10-20, 20-30, 30-40, and 40+ yards downfield. It is important to note
+       that the majority of a QB’s throws will be under 30 yards, and as such all
+       buckets under 30 yards will have a higher number of passes. To make this
+       distribution visible, we place a “total pass attempts” datapoint on each
+       completion percentage bar so it is clear how many passes were attempted in
+       the computation of the completion percentage. It is important to note that
+       a QB with 100% pass completion percentage and 2 total attempts and a QB with
+       90% completion percentage with 20 total attempts should be compared with a
+       grain of salt. Small sample sizes are subject to extremes. </p>
+
+  <p id="para">As with all of the graphs in our analysis, you can select the quarterbacks
+     whom you are interested in analyzing using the dropdown key on the right of the graphic.<p>
 </br>
 <div class="innerDivCenter">
   <div id="accuracy_by_distance"></div>
@@ -367,36 +402,6 @@ which includes our data preprocessing and graph generation.
 
 <div class="innerDiv">
 </br></br>
-<p id="para">
-  We begin by analyzing quarterback accuracy by the most obvious metric that can
-   be understood by any viewer of the game: How well does the quarterback perform
-   the further they throw the ball downfield? To break this metric down, we filtered
-   each QB’s passes by pass distance downfield, measured as the distance travelled
-   vertically down the field from the point of throw to the point it was either
-   caught or hit the ground. Then, we bucketized passes into bins: passes that
-   were less than 0 yards downfield (such as a pitch or a screen play)
-
-    <svg class="infoSVG">
-      <image
-      xlink:href="img/info-button.png"
-      alt="A QB may throw the ball backwards to a teammate. </br>
-      Because there will be no defenders behind the QB at </br>
-      the start of a play, these are considered to be </br>
-      relatively easy passes to complete."/>
-    </svg>
-
-    , 0-10, 10-20, 20-30, 30-40, and 40+ yards downfield. It is important to note
-     that the majority of a QB’s throws will be under 30 yards, and as such all
-     buckets under 30 yards will have a higher number of passes. To make this
-     distribution visible, we place a “total pass attempts” datapoint on each
-     completion percentage bar so it is clear how many passes were attempted in
-     the computation of the completion percentage. It is important to note that
-     a QB with 100% pass completion percentage and 2 total attempts and a QB with
-     90% completion percentage with 20 total attempts should be compared with a
-     grain of salt. Small sample sizes are subject to extremes. </p>
-
-<p id="para">As with all of the graphs in our analysis, you can select the quarterbacks
-   whom you are interested in analyzing using the dropdown key on the right of the graphic.<p>
 
 <p id="para">For all of the MVP candidates, we list their completion percentages
   in the table below. We compute an “average ranking” metric in order to gauge
@@ -421,6 +426,17 @@ which includes our data preprocessing and graph generation.
     <th>Avg Ranking</th>
   </tr>
   <tr>
+    <td>Drew Brees</td>
+    <td>NO</td>
+    <td>87.4%</td>
+    <td><b>73.7%</b></td>
+    <td>60.5%</td>
+    <td><b>56.8%</b></td>
+    <td><b>46.7%</b></td>
+    <td><b>50.0%</b></td>
+    <td>6.2 (1st)</td>
+  </tr>
+  <tr>
     <td>Tom Brady</td>
     <td>NE</td>
     <td>90.0%</td>
@@ -430,39 +446,6 @@ which includes our data preprocessing and graph generation.
     <td>30.8%</td>
     <td>26.3%</td>
     <td>10.5 (2nd)</td>
-  </tr>
-  <tr>
-    <td>Carson Wentz</td>
-    <td>PHI</td>
-    <td>73.5%</td>
-    <td>65.9%</td>
-    <td>58.6%</td>
-    <td>51.9%</td>
-    <td>27.8%</td>
-    <td>17.6%</td>
-    <td>21.17 (18th)</td>
-  </tr>
-  <tr>
-    <td>Ben Roethlisberger</td>
-    <td>PIT</td>
-    <td>83.1%</td>
-    <td>73.0%</td>
-    <td>57.5%</td>
-    <td>31.8%</td>
-    <td>30.0%</td>
-    <td>18.8%</td>
-    <td>19.17 (14th)</td>
-  </tr>
-  <tr>
-    <td>Philip Rivers</td>
-    <td>LAC</td>
-    <td>73.2%</td>
-    <td>68.2%</td>
-    <td>56.8%</td>
-    <td>51.5%</td>
-    <td>21.4%</td>
-    <td>29.4%</td>
-    <td>21.83 (21st)</td>
   </tr>
   <tr>
     <td>Russell Wilson</td>
@@ -476,15 +459,37 @@ which includes our data preprocessing and graph generation.
     <td>16.5 (9th)</td>
   </tr>
   <tr>
-    <td>Drew Brees</td>
-    <td>NO</td>
-    <td>87.4%</td>
-    <td><b>73.7%</b></td>
-    <td>60.5%</td>
-    <td><b>56.8%</b></td>
-    <td><b>46.7%</b></td>
-    <td><b>50.0%</b></td>
-    <td>6.17 (1st)</td>
+    <td>Ben Roethlisberger</td>
+    <td>PIT</td>
+    <td>83.1%</td>
+    <td>73.0%</td>
+    <td>57.5%</td>
+    <td>31.8%</td>
+    <td>30.0%</td>
+    <td>18.8%</td>
+    <td>19.2 (14th)</td>
+  </tr>
+  <tr>
+    <td>Carson Wentz</td>
+    <td>PHI</td>
+    <td>73.5%</td>
+    <td>65.9%</td>
+    <td>58.6%</td>
+    <td>51.9%</td>
+    <td>27.8%</td>
+    <td>17.6%</td>
+    <td>21.2 (18th)</td>
+  </tr>
+  <tr>
+    <td>Philip Rivers</td>
+    <td>LAC</td>
+    <td>73.2%</td>
+    <td>68.2%</td>
+    <td>56.8%</td>
+    <td>51.5%</td>
+    <td>21.4%</td>
+    <td>29.4%</td>
+    <td>21.8 (21st)</td>
   </tr>
   <tr>
     <td>NFL Average</td>
@@ -609,6 +614,12 @@ which includes our data preprocessing and graph generation.
 </br></br>
 <h3 id="h3-title">Metric 2: Quarterback Accuracy by Passing Down</h3>
 </br>
+<p id="para">
+The purpose of looking at completion percentage vs down helps us understand how a QB performs in a micro-level pressure situation. Specifically, throughout the game, a team will face the 4 down count several times, as they progress through the football field. A QB who is more accurate on 3rd down or 4th down, in comparison to earlier downs, performs better when he has to make a play, and pressure is high. If the QB does not complete a pass in these situations, they may not lose the game, but they will either not score any points on that drive, or will settle for fewer points than a touchdown. As such, we look at these numbers for each QB. Note that sample size again matters, and as such a QB who attempts and completes 1 pass on 4th down would have 100% completion accuracy while a QB who attempts 2 passes but completes only 1 has a 50% accuracy. We do not want to reward QBs for having low attempts, and as such we enforce that a QB must have attempted at least 3 passes for each down to appear on the graph, otherwise we do not place a point on the graph for that down.
+</p>
+<p id="para">
+As with the 1st graph, multiple QBs can be selected and compared using the select key on the right of the graph.
+</p>
 <div class="innerDivCenter">
   <div id="accuracy_by_down"></div>
 </div>
@@ -631,16 +642,6 @@ which includes our data preprocessing and graph generation.
 
 <div class="innerDiv">
 </br></br>
-<p id="para">
-The purpose of looking at completion percentage vs down helps us understand how a QB performs in a micro-level pressure situation. Specifically, throughout the game, a team will face the 4 down count several times, as they progress through the football field. A QB who is more accurate on 3rd down or 4th down, in comparison to earlier downs, performs better when he has to make a play, and pressure is high. If the QB does not complete a pass in these situations, they may not lose the game, but they will either not score any points on that drive, or will settle for fewer points than a touchdown. As such, we look at these numbers for each QB. Note that sample size again matters, and as such a QB who attempts and completes 1 pass on 4th down would have 100% completion accuracy while a QB who attempts 2 passes but completes only 1 has a 50% accuracy. We do not want to reward QBs for having low attempts, and as such we enforce that a QB must have attempted at least 3 passes for each down to appear on the graph, otherwise we do not place a point on the graph for that down.
-</p>
-<p id="para">
-As with the 1st graph, multiple QBs can be selected and compared using the select key on the right of the graph.
-</p>
-</div>
-
-<div class="innerDiv">
-</br></br>
 <table style="width:100%">
   <tr>
     <th>Quarterback</th>
@@ -652,13 +653,49 @@ As with the 1st graph, multiple QBs can be selected and compared using the selec
     <th>Avg Ranking</th>
   </tr>
   <tr>
+    <td>Drew Brees</td>
+    <td>NO</td>
+    <td><b>74.0%</b></td>
+    <td><b>73.9%</b></td>
+    <td><b>67.8%</b></td>
+    <td><b>80.0%</b></td>
+    <td>3.3 (1st)</td>
+  </tr>
+  <tr>
     <td>Tom Brady</td>
     <td>NE</td>
     <td>67.8%</td>
     <td>69.4%</td>
     <td>58.7%</td>
     <td><b>80.0%</b></td>
-    <td>10.25 (3rd)</td>
+    <td>10.3 (3rd)</td>
+  </tr>
+  <tr>
+    <td>Ben Roethlisberger</td>
+    <td>PIT</td>
+    <td>70.4%</td>
+    <td>59.7%</td>
+    <td>61.1%</td>
+    <td>N/A</td>
+    <td>13.0 (5th)</td>
+  </tr>
+  <tr>
+    <td>Philip Rivers</td>
+    <td>LAC</td>
+    <td>64.5%</td>
+    <td>62.9%</td>
+    <td>61.0%</td>
+    <td>60.0%</td>
+    <td>17.3 (11th)</td>
+  </tr>
+  <tr>
+    <td>Russell Wilson</td>
+    <td>SEA</td>
+    <td>60.2%</td>
+    <td>67.8%</td>
+    <td>56.7%</td>
+    <td>50.0%</td>
+    <td>21.8 (20th)</td>
   </tr>
   <tr>
     <td>Carson Wentz</td>
@@ -668,42 +705,6 @@ As with the 1st graph, multiple QBs can be selected and compared using the selec
     <td>66.1%</td>
     <td>55.6%</td>
     <td>23.5 (23rd)</td>
-  </tr>
-  <tr>
-    <td>Ben Roethlisberger</td>
-    <td>PIT</td>
-    <td>70.4%</td>
-    <td>59.7%</td>
-    <td>61.1%</td>
-    <td>N/A</td>
-    <td>13 (5th)</td>
-  </tr>
-  <tr>
-    <td>Philip Rivers</td>
-    <td>LAC</td>
-    <td>64.5%</td>
-    <td>62.9%</td>
-    <td>61.0%</td>
-    <td>60.0%</td>
-    <td>17.25 (11th)</td>
-  </tr>
-  <tr>
-    <td>Russell Wilson</td>
-    <td>SEA</td>
-    <td>60.2%</td>
-    <td>67.8%</td>
-    <td>56.7%</td>
-    <td>50.0%</td>
-    <td>21.75 (20th)</td>
-  </tr>
-  <tr>
-    <td>Drew Brees</td>
-    <td>NO</td>
-    <td><b>74.0%</b></td>
-    <td><b>73.9%</b></td>
-    <td><b>67.8%</b></td>
-    <td><b>80.0%</b></td>
-    <td>3.25 (1st)</td>
   </tr>
   <tr>
     <td>NFL Average</td>
@@ -757,6 +758,12 @@ As with the 1st graph, multiple QBs can be selected and compared using the selec
   <div class=innerDiv>
   </br></br>
   <h3 id="h3-title">Metric 3: Quarterback Accuracy by Point Spread</h3>
+</br>
+  <p id="para">Metric 3 provides a more macro-scale perspective on a QB’s performance. In Metric 2, we looked at how a QB performs based on a small scale situation in terms of the down of the current play. But how does a QB perform when the game is close? If the game is within 1 possession of tying or taking the lead, downs matter less because the game may be in the latter portion of the 4th quarter and URGENCY is key. Is a QB more accurate when the game is out of hand, or when the game is close and the QB cannot afford to make a mistake? We analyze a quarterback based on the score point spread at the time of a pass. Specifically, we look at the quarterbacks' team score less the defense team score (how much the QBs team is ahead or behind by) and analyze the completion percentage for each point spread up to 21 points. A positive point spread indicates that the QB’s team is ahead, and a negative point spread indicates they are behind. It is important to note that we do not include a data point if a QB has less than 3 passes for a bucket for the same reasons as graph 2. </br></br>
+
+  In order to use this graph, you can select QBs using the select picker below the graph, and adjust the scale of the graph by the point spread selector below it. For instance if you care about close games, you may select the +/- 7 point option, which will change the graph to only include passes with point spreads within this range.
+
+  </p>
   <div class="innerDivAccuracyByPointSpread">
   </br>
   <div class="innerDivCenter">
@@ -791,15 +798,6 @@ As with the 1st graph, multiple QBs can be selected and compared using the selec
 
 <div class="innerDiv">
 </br></br>
-<p id="para">Metric 3 provides a more macro-scale perspective on a QB’s performance. In Metric 2, we looked at how a QB performs based on a small scale situation in terms of the down of the current play. But how does a QB perform when the game is close? If the game is within 1 possession of tying or taking the lead, downs matter less because the game may be in the latter portion of the 4th quarter and URGENCY is key. Is a QB more accurate when the game is out of hand, or when the game is close and the QB cannot afford to make a mistake? We analyze a quarterback based on the score point spread at the time of a pass. Specifically, we look at the quarterbacks' team score less the defense team score (how much the QBs team is ahead or behind by) and analyze the completion percentage for each point spread up to 21 points. A positive point spread indicates that the QB’s team is ahead, and a negative point spread indicates they are behind. It is important to note that we do not include a data point if a QB has less than 3 passes for a bucket for the same reasons as graph 2. </br></br>
-
-In order to use this graph, you can select QBs using the select picker below the graph, and adjust the scale of the graph by the point spread selector below it. For instance if you care about close games, you may select the +/- 7 point option, which will change the graph to only include passes with point spreads within this range.
-
-</p>
-</div>
-
-<!-- <div class="innerDiv">
-</br></br>
 <table style="width:100%">
   <tr>
     <th>Quarterback</th>
@@ -812,79 +810,80 @@ In order to use this graph, you can select QBs using the select picker below the
     <th>Avg Ranking</th>
   </tr>
   <tr>
-    <td>Tom Brady</td>
-    <td>NE</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>Drew Brees</td>
+    <td>NO</td>
+    <td>71.4%</td>
+    <td><b>73.2%</b></td>
+    <td><b>68.8%</b></td>
+    <td>75.5%</td>
+    <td><b>86.7%</b></td>
+    <td>2.0 (1st)</td>
   </tr>
   <tr>
-    <td>Carson Wentz</td>
-    <td>PHI</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>Tom Brady</td>
+    <td>NE</td>
+    <td><b>72.5%</b></td>
+    <td>65.9%</td>
+    <td>62.6%</td>
+    <td>67.1%</td>
+    <td>54.5%</td>
+    <td>7.7 (3rd)</td>
   </tr>
   <tr>
     <td>Ben Roethlisberger</td>
     <td>PIT</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>71.9%</td>
+    <td>63.1%</td>
+    <td>61.9%</td>
+    <td>61.9%</td>
+    <td>N/A</td>
+    <td>12.7 (8th)</td>
   </tr>
   <tr>
     <td>Philip Rivers</td>
     <td>LAC</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>61.2%</td>
+    <td>62.7%</td>
+    <td>66.1%</td>
+    <td>60.0%</td>
+    <td>58.8%</td>
+    <td>17.7 (17th)</td>
+  </tr>
+  <tr>
+    <td>Carson Wentz</td>
+    <td>PHI</td>
+    <td>62.5%</td>
+    <td>63.3%</td>
+    <td>56.6%</td>
+    <td>50.0%</td>
+    <td>55.6%</td>
+    <td>23.3 (22nd)</td>
   </tr>
   <tr>
     <td>Russell Wilson</td>
     <td>SEA</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>53.3%</td>
+    <td>61.1%</td>
+    <td>66.9%</td>
+    <td><b>92.9%</b></td>
+    <td>47.1%</td>
+    <td>23.6 (23rd)</td>
   </tr>
   <tr>
-    <td>Drew Brees</td>
-    <td>NO</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
     <td>NFL Average</td>
     <td>NFL</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>62.3%</td>
+    <td>61.9%</td>
+    <td>61.0%</td>
+    <td>63.1%</td>
+    <td>63.0%</td>
     <td>N/A</td>
   </tr>
 </table>
-</div> -->
+</div>
 
 <div class="innerDiv">
-<!-- </br></br> -->
+</br></br>
 <p id="para">A comparison looking at the +/- 7 point spread focuses on the range that includes the closest games. When looking at our MVP candidates in this section, we see 2 major outcomes: Carson Wentz has subpar accuracy in comparison to his peers, consistently placing 3rd in almost every point differential. On the other hand, Drew Brees performs highly in many of the close point differentials, highly outplaying his peers in situations where his team is up by 1 through 6 points. Brady’s performance related to his peers is variable, with his accuracy staying roughly constant but his ranking varying from 1st to 3rd. From the looks of this graph, Brees again outplays his opponents and ranks the highest by this metric.
 </p>
 </div>
@@ -895,6 +894,16 @@ In order to use this graph, you can select QBs using the select picker below the
 <div class="innerDiv">
 </br></br>
 <h3 id="h3-title">Metric 4: Quarterback Effectiveness by Drive</h3>
+</br>
+<p id="para">
+  Teams can also be evaluated by their success on drives. A team that is able to score more points quickly outperforms a team that has long drives with each scoring less points. As such, we look to evaluate QBs based on the quality of the drives they lead. In this graph we highlight the time per drive, yards per drive, points per drive, and plays per drive. Each of these metrics can help us see how quickly a team scores (time), how much progress a team makes on each offensive possession (yards), the impact the team has on the score (points), and the number of attempts a team takes on each possession (plays).
+</p>
+<p id="para">
+  To compute the average ranking for this metric, we only take into account yards per drive and points per drive. It is not inherently obvious whether more or less time or plays are preferable, and thus we only use objective scales to rank by (more is clearly better).
+</p>
+<p id="para">
+The graph can be modified by axis, allowing for the selection of a metric to be placed on either the x or y axis. All QB’s are shown, however selecting a QB using the select picker on the right will highlight that QB for easier viewing. Hovering over the corresponding QB’s datapoint will provide further information on the stats used to compute the statistic.
+</p>
 <div class="innerDivCenter">
   <div id="qb_effectiveness"></div>
 </div>
@@ -925,18 +934,9 @@ title="Pick a point spread ..."
 </div>
 </div>
 
-<div class="innerDiv">
-<!-- </br></br> -->
-<p id="para">
-  Teams can also be evaluated by their success on drives. A team that is able to score more points quickly outperforms a team that has long drives with each scoring less points. As such, we look to evaluate QBs based on the quality of the drives they lead. In this graph we highlight the time per drive, yards per drive, points per drive, and plays per drive. Each of these metrics can help us see how quickly a team scores (time), how much progress a team makes on each offensive possession (yards), the impact the team has on the score (points), and the number of attempts a team takes on each possession (plays).
-</p>
-<p id="para">
-  To compute the average ranking for this metric, we only take into account yards per drive and points per drive. It is not inherently obvious whether more or less time or plays are preferable, and thus we only use objective scales to rank by (more is clearly better).
-</p>
-<p id="para">
-The graph can be modified by axis, allowing for the selection of a metric to be placed on either the x or y axis. All QB’s are shown, however selecting a QB using the select picker on the right will highlight that QB for easier viewing. Hovering over the corresponding QB’s datapoint will provide further information on the stats used to compute the statistic.
-</p>
-</div>
+<!-- <div class="innerDiv">
+</br></br>
+</div> -->
 
 <div class="innerDiv">
 </br></br>
@@ -953,25 +953,25 @@ The graph can be modified by axis, allowing for the selection of a metric to be 
   <tr>
     <td>Tom Brady</td>
     <td>NE</td>
-    <td>2:50</td>
+    <td>2:52</td>
     <td><b>45</b></td>
     <td>1.8</td>
     <td>8.9</td>
     <td>3.5 (1st)</td>
   </tr>
   <tr>
-    <td>Carson Wentz</td>
-    <td>PHI</td>
-    <td>3:00</td>
-    <td>40</td>
-    <td><b>2.0</b></td>
-    <td>8.4</td>
-    <td>9.5 (T-9th)</td>
+    <td>Drew Brees</td>
+    <td>NO</td>
+    <td>3:01</td>
+    <td><b>45</b></td>
+    <td>1.5</td>
+    <td>8.3</td>
+    <td>5.0 (2nd)</td>
   </tr>
   <tr>
     <td>Ben Roethlisberger</td>
     <td>PIT</td>
-    <td>3:00</td>
+    <td>3:03</td>
     <td>44</td>
     <td>1.5</td>
     <td>8.7</td>
@@ -980,33 +980,33 @@ The graph can be modified by axis, allowing for the selection of a metric to be 
   <tr>
     <td>Philip Rivers</td>
     <td>LAC</td>
-    <td>2:50</td>
+    <td>2:49</td>
     <td>43</td>
     <td>1.4</td>
     <td>8.3</td>
     <td>8.5 (T-7th)</td>
   </tr>
   <tr>
+    <td>Carson Wentz</td>
+    <td>PHI</td>
+    <td>3:01</td>
+    <td>40</td>
+    <td><b>2.0</b></td>
+    <td>8.4</td>
+    <td>9.5 (T-9th)</td>
+  </tr>
+  <tr>
     <td>Russell Wilson</td>
     <td>SEA</td>
-    <td>2:30</td>
+    <td>2:28</td>
     <td>40</td>
     <td>1.3</td>
     <td>7.8</td>
     <td>17.5 (T-16th)</td>
   </tr>
-  <tr>
-    <td>Drew Brees</td>
-    <td>NO</td>
-    <td>3:00</td>
-    <td><b>45</b></td>
-    <td>1.5</td>
-    <td>8.3</td>
-    <td>5 (2nd)</td>
-  </tr>
     <td>NFL Average</td>
     <td>NFL</td>
-    <td>2:50</td>
+    <td>2:52</td>
     <td>38</td>
     <td>1.2</td>
     <td>8.1</td>
@@ -1029,6 +1029,13 @@ Our MVP candidates are spread widely in this metric. As seen, Brady and Brees le
   <div class="innerDiv">
     </br></br>
     <h3 id="h3-title">Metric 5: Win Probability Change by Quarterback</h3>
+  </br>
+  <p id="para">
+  In our final metric, we look at how a QB impacts his team’s win probability. Scraped from the NFL API, nflscrapR has created models which produce win probabilities before and after each play. We use this win probability to gauge the impact of each QB on his team.
+  </p>
+  <p id="para">
+    The graph highlights the average win probability of a team when they are on defense (left column) versus the win probability of the team when the QB is on the field (right column). A line connects these two points to form a slope graph, indicating whether the win probability goes up or down due to the presence of a QB. Multiple QBs can be selected using the select picker.
+  </p>
     <div class="innerDivCenter">
       <div id="wpa"></div>
     </div>
@@ -1047,24 +1054,30 @@ Our MVP candidates are spread widely in this metric. As seen, Brady and Brees le
   </div>
 </div>
 
-<div class="innerDiv">
+<!-- <div class="innerDiv">
 </br></br>
-<p id="para">
-In our final metric, we look at how a QB impacts his team’s win probability. Scraped from the NFL API, nflscrapR has created models which produce win probabilities before and after each play. We use this win probability to gauge the impact of each QB on his team.
-</p>
-<p id="para">
-  The graph highlights the average win probability of a team when they are on defense (left column) versus the win probability of the team when the QB is on the field (right column). A line connects these two points to form a slope graph, indicating whether the win probability goes up or down due to the presence of a QB. Multiple QBs can be selected using the select picker.
-</p>
 </br>
-</div>
+</div> -->
 
 <div class="innerDiv">
 </br></br>
 <table style="width:100%">
+<thead class="thead-dark">
   <tr>
     <th>Quarterback</th>
     <th>Team</th>
     <th>% Change</th>
+  </tr>
+</thead>
+  <tr>
+    <td>Carson Wentz</td>
+    <td>PHI</td>
+    <td>1.1%</td>
+  </tr>
+  <tr>
+    <td>Russell Wilson</td>
+    <td>SEA</td>
+    <td>-0.4%</td>
   </tr>
   <tr>
     <td>Tom Brady</td>
@@ -1072,9 +1085,9 @@ In our final metric, we look at how a QB impacts his team’s win probability. S
     <td>-0.6%</td>
   </tr>
   <tr>
-    <td>Carson Wentz</td>
-    <td>PHI</td>
-    <td>1.1%</td>
+    <td>Drew Brees</td>
+    <td>NO</td>
+    <td>-1.3%</td>
   </tr>
   <tr>
     <td>Ben Roethlisberger</td>
@@ -1085,16 +1098,6 @@ In our final metric, we look at how a QB impacts his team’s win probability. S
     <td>Philip Rivers</td>
     <td>LAC</td>
     <td>-2.3%</td>
-  </tr>
-  <tr>
-    <td>Russell Wilson</td>
-    <td>SEA</td>
-    <td>-0.4%</td>
-  </tr>
-  <tr>
-    <td>Drew Brees</td>
-    <td>NO</td>
-    <td>-1.3%</td>
   </tr>
   <tr>
     <td>NFL Average</td>
@@ -1131,8 +1134,14 @@ Our analysis finds that this metric provides insights only on the far extreme, s
   </p>
   <p id="para">We note that of our MVP candidates, Carson Wentz did not come close to performing at the NFL MVP caliber level. Although he helped the Eagles go from a 7-9 team in 2016 to a 13-3 team in 2017, a large change in win percentage was not solely due to him, as seen by Philadelphia’s Super Bowl win despite his absence. Russell Wilson also performed average, yielding many double digit rankings.
   </p>
-  <p id="para">We claim that <b>Drew Brees was the true NFL MVP</b> of the 2017 season. There are many reasons why we see that may explain why he did not win the award: The Patriots were the best team in their conference, if not the NFL, and as such Brady was accredited with more influence in their success. Furthermore, Brees has always been known for his passing prowess and the absurd numbers he puts up. However, this season saw his workload scale down with the rise of his running backs Alvin Kamara and Mark Ingram. NFL viewers are used to seeing Brees do more than he did this past season, and as such it appeared that the team relied on him less when in fact he was even more effective at his lower workload. Considering the closeness of Brady and Brees by our analysis, we claim that deciding between these two quarterbacks would have been a tough decision and that either deserved the award.
+  <p id="para">
+    When making a purely statistical argument, it is clear that <b>Drew Brees was the true NFL MVP</b> of the 2017 season. However, as mentioned before, the MVP is not awarded solely based on data, and we hypothesize some more political reasons why Drew Brees did not win the award: The Patriots were the best team in their conference, if not the NFL, and as such Brady was accredited with more influence in their success. Furthermore, Brees has always been known for his passing prowess and his absurd consistency in setting passing records. However, this season saw his workload scale down with the rise of his running backs, Alvin Kamara and Mark Ingram. NFL viewers are used to seeing Brees do more than he did this past season, and as such it appeared that the team relied on him less when in fact he might may have been even more effective at his lower workload.
   </p>
+  <p id="para">
+    The fact that Drew Brees’ dominance was left unnoticed brings into question the current structure of the MVP voting system. Instead of choosing the players who perform the best, the award tends to gravitate towards the players who are “newest” to the scene, considering the candidacy of Carson Wentz who performed below several QBs according to our metrics. By allowing media members to vote for the MVP award, we allow for human biases to interfere with purely numerical arguments for or against a player. Sentiment does not win arguments, but numbers do. And it is for this reason that we call for the NFL MVP voting system to be changed. We propose that the NFL choose 3 metrics that correlate with player impact as we have done in this article and allow for the rankings according to these metrics account for 25% or more of the voting weight. It is only through integration with numbers that we can truly award the “Most Valuable Player” the MVP award.
+    &#9632;
+</p>
+
   </br>
   </div>
 </div>
