@@ -258,7 +258,7 @@ function plotAccuracyByDistance(graphType, width, height) {
         .attr("transform", "translate(" + (graphWidth) + " ,0)")
         .call(
           d3.axisRight(y1)
-          .tickValues(d3.range(0,440,40))
+          .tickValues(d3.range(0,440,80))
           .tickSize(0)
           );
 
