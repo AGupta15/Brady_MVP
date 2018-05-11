@@ -164,7 +164,7 @@ function loadAccuracyByPoint(graphType, callback) {
         ranks[i]["Rank"] = ranks[i]["Rank"]/3.0
       }
       ranks.sort(compare5);
-      console.log(ranks)
+      // console.log(ranks)
 
       // swap brady + nfl average
       var tmp = data[1]
