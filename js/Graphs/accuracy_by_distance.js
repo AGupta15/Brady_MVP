@@ -363,6 +363,8 @@ function replotAccuracyByDistance(graphType) {
     data.push({});
   }
 
+  console.log(data)
+
 
 
   // Plot points
@@ -373,6 +375,7 @@ function replotAccuracyByDistance(graphType) {
         .transition()
         .duration(transitionDuration)
         .style("fill", function(d) {
+          console.log(d, i)
           if(isEmpty(d)) {
             return "white"
           }
@@ -394,7 +397,9 @@ function replotAccuracyByDistance(graphType) {
             return graphHeight;
           }
           return y(d.bins[i].percentage)
-        });
+        })
+        .attr("x", function(d, j) {
+          return x0(bin) + x1(j) });
 
 
         svg
@@ -413,12 +418,15 @@ function replotAccuracyByDistance(graphType) {
             return "none"
           }
           return teamAttributes[d.team].color
-        })
+          })
           .attr("cy", function(d) {
             if(isEmpty(d)) {
               return graphHeight;
             }
             return y1(d.bins[i].total);
+          })
+          .attr("cx", function(d,j) {
+            return x0(bin) + x1(j) + x1.bandwidth() / 2
           });
     });
 }
