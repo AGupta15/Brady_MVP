@@ -31,6 +31,7 @@ img {
   padding: 2px;
 }
 
+
 li {
   font-size: 10px;
 }
@@ -47,6 +48,17 @@ li span {
   display: grid;
   margin-top: 0px !important;
 }
+
+#QBList li {
+  font-size: 15.5px;
+
+}
+
+#QBList li span {
+  font-size: 12px;
+
+}
+
 
 /* SELECT PICKERS */
 
