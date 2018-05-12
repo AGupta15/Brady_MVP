@@ -336,8 +336,8 @@ plays per drive
   alt="Win probability is computed by the models at nflscrapR-data."/>
 </svg>
 
-By comparing offense and defense average win probability (WPA), the change from
-defense WPA to offense WPA may indicate how much that given player impacts their
+By comparing offense and defense average win probability (WP), the change from
+defense WP to offense WP may indicate how much that given player impacts their
 team.
 </p>
 
@@ -1180,7 +1180,17 @@ below the next best QB.
   <p id="para">
   In our final metric, we look at how a QB impacts his team’s win probability.
   Scraped from the NFL API, nflscrapR has created models which produce win
-  probabilities before and after each play. We use this win probability to gauge
+  probabilities before and after each play
+  <svg class="infoSVG">
+    <image
+    xlink:href="img/info-button.png"
+    alt="You can find the nflscrapR model used to calculate win probability 
+     <a href='https://github.com/ryurko/nflscrapR-models/blob/master/build_wp_model.R' target='_blank'>here</a> <br>
+     and some more explanation about win probability in football <br>
+    <a href='http://archive.advancedfootballanalytics.com/2008/08/win-probability.html' target='_blank'>here.</a>
+    "/>
+  </svg>
+  . We use this win probability to gauge
   the impact of each QB on his team.
   </p>
   <p id="para">
@@ -1262,7 +1272,7 @@ below the next best QB.
 Our analysis finds that this metric provides insights only on the extreme performers,
 showing QBs who severely hurt or help their team’s chance of winning. Particularly,
 the NFL average for win probability using the nflscrapR model sits at -1.5%, which
-at first glance would indicate that the average quarterback is a detriment to their team. Most of the QBs on this list are
+at first glance would indicate that the average quarterback is a detriment to their team. The models used to calculate win probability are based on historical data and use various metrics (such as time left, timeouts remaining, current score, field position, ...) to calculate win probability for each play. As such, the models are subject to statistical noise and error. We know most of the QBs on this list are
 highly regarded in the NFL and in general do provide a lift to their team. In fact, the
 only QB with a positive win percentage difference is Carson Wentz, and even
 he has only a 1.1% increase. We believe this is due to the fact that a good quarterback
