@@ -69,7 +69,7 @@ var teamAttributes = {
     "icon": "https://www.seeklogo.net/wp-content/uploads/2015/08/kansas-city-chiefs-logo-vector-download-400x400.jpg"
   },
   "LAC": {
-    "color": "#FFB81C",
+    "color": "#0073CF",
     "icon": "https://www.seeklogo.net/wp-content/uploads/2012/10/san-diego-chargers-logo-vector-400x400.png"
   },
   "LA": {

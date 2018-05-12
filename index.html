@@ -49,7 +49,7 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Brady's Game: The NFL MVP</title>
+  <title>Tom Brady: The Real NFL MVP?</title>
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
@@ -79,7 +79,7 @@
         <a class="navbar-brand" href="#">
           <img alt="Brand" src="img/brady_head.png">
         </a>
-        <p class="navbar-text" style=" font-weight:900;color:white">Brady's Game: The NFL MVP</p>
+        <p class="navbar-text" style=" font-weight:900;color:white">Tom Brady: The Real NFL MVP?</p>
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -103,7 +103,7 @@
         <div class="headerDiv" id="div-border">
         </br></br></br></br></br></br>
         <h1 id="h1-title">
-          The NFL MVP: Brady's To Win?
+          Tom Brady: The Real NFL MVP?
         </h1>
       </br>
       <h3>Although Tom Brady lead the Patriots to the 2017 Super Bowl, data from the season shows that he did not deserve the NFL Most Valuable Player award.</h3>
@@ -126,7 +126,7 @@
     always difficult to recognize who is most responsible for their team’s success.
     The NFL anoints a “Most Valuable Player” at the end of each season to honor the
     player who is perceived to have contributed the most to his team. In 2017, the
-    New England Patriots finished with a league best 13-3 record, and their Quarterback, 
+    New England Patriots finished with a league best 13-3 record, and their Quarterback,
     Tom Brady, was
     <a href="http://bleacherreport.com/articles/2757545-nfl-mvp-2017-18-award-winner-voting-results-and-twitter-reaction"
     >awarded</a>
@@ -225,6 +225,14 @@
     , in order to complete a fair assessment of Brady, we must compare him using
     metrics relevant to Brady, and as such, we can only compare him against QBs.
     Our NFL MVP candidate set includes 6 QBs who were selected to the Pro Bowl
+
+    <svg class="infoSVG">
+      <image
+      xlink:href="img/info-button.png"
+      alt="The Pro Bowl is the NFL's All Star Game. </br>
+      Players are selected by votes from the fans."/>
+    </svg>
+
     this past season.
 
   <ol id="QBList">
@@ -241,7 +249,7 @@
     Los Angeles Chargers <span> LAC </span>
   </li>
   <li><b>Russell Wilson</b><img src="https://www.seeklogo.net/wp-content/uploads/2012/10/seattle-seahawks-logo-vector-400x400.png"><br>
-    Seattle Seahawks <span> SEA <span> 
+    Seattle Seahawks <span> SEA <span>
   </li>
   <li><b>Drew Brees</b><img src="https://www.seeklogo.net/wp-content/uploads/2012/12/new-orleans-saints-logo-vector-400x400.png"><br>
    New Orleans Saints <span> NO </span>
@@ -432,6 +440,8 @@ which includes our data preprocessing and graph generation.
   categories against all other valid passers. We include Average Rank to aid our
   understanding of a QB’s aggregate ranking, as a 2nd place rank in all categories
   is a much better performance than a single 1st place rank and five 8th place ranks.
+  The QB with the top completion percentage amongst MVP candidates for each category
+  is bolded.
 </p>
 </div>
 
@@ -682,7 +692,8 @@ do not place a point on the graph for that down.
 </p>
 <p id="para">
 As with the 1st graph, multiple QBs can be selected and compared using the select
-key on the right of the graph.
+key on the right of the graph. The QB with the top completion percentage amongst
+MVP candidates for each category is bolded.
 </p>
 <div class="innerDivCenter">
   <div id="accuracy_by_down"></div>
@@ -843,6 +854,8 @@ key on the right of the graph.
   the graph, and adjust the scale of the graph by the point spread selector below
   it. For instance, to analyze close games, you may select the +/- 7 point option,
   which will change the graph to only include passes with point spreads within this range.
+  The QB with the top completion percentage amongst MVP candidates for each category
+  is bolded.
   </p>
   <div class="innerDivAccuracyByPointSpread">
   </br>
@@ -1043,7 +1056,8 @@ The graph can be modified by axis, allowing for the selection of a metric to be
 placed on either the x or y axis. All QB’s are shown, however selecting a QB using
 the select picker on the right will highlight that QB for easier viewing. Hovering
 over the corresponding QB’s datapoint will provide further information on the stats
-used to compute the statistic.
+used to compute the statistic. The QB with the top completion percentage amongst
+MVP candidates for each category is bolded.
 </p>
 <div class="innerDivCenter">
   <div id="qb_effectiveness"></div>
@@ -1358,7 +1372,30 @@ the QB is on the field.
       with more influence in their success. Furthermore, Brees has always been
       known for his passing prowess and his absurd consistency in setting passing
       records. However, this season saw his workload scale down with the rise of
-      his running backs, Alvin Kamara and Mark Ingram. NFL viewers are used to
+      his running backs, Alvin Kamara
+
+      <svg class="infoSVG">
+        <image
+        xlink:href="img/info-button.png"
+        alt="
+        Alvin Kamara was drafted by New Orleans in 2017. </br>
+        He won the Offensive Rookie Award for the season, </br>
+        and emerged as one of the best RBs in the league. <a href='https://en.wikipedia.org/wiki/Alvin_Kamara' target='_blank'>Bio</a>"/>
+      </svg>
+
+      and Mark Ingram
+
+      <svg class="infoSVG">
+        <image
+        xlink:href="img/info-button.png"
+        alt="
+        Mark Ingram is a RB for New Orleans. He was drafted </br>
+        in 2011 and has made the Pro Bowl twice in his career. </br>
+        Ingram won the Heisman Award in college, which recognizes </br>
+        the best player in football. <a href='https://en.wikipedia.org/wiki/Mark_Ingram_Jr.' target='_blank'>Bio</a>"/>
+      </svg>
+
+      . NFL viewers are used to
       seeing Brees do more than he did this past season, and as such it appeared
       that the team relied on him less when in fact he may have been even
       more effective at his lower workload.
