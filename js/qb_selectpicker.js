@@ -1,5 +1,12 @@
 function setupPicker(graphType) {
   var data = graphType.data;
+  var passers = graphType.passers;
+
+  // rearrange data so default passers show up at the top
+  endData = data.filter(function(d){return !passers.has(parseInt(d.passerid))})
+  data = data.filter(function(d){return passers.has(parseInt(d.passerid))})
+  data.push.apply(data, endData)
+
   var id = graphType.viz_id + "_selectpicker"; 
   data.forEach(function (d) {
     if(d.passerid != "0") { // remove Tom Brady as option
