@@ -153,10 +153,20 @@
     those who are not as familiar with football but are fans of numerical arguments,
     we will provide notes like this
 
+
+    <embed class="info" 
+        src="img/info-button.svg"
+        width="15px"
+        height="15px"
+        style="position: absolute; color: #3289C7;"
+        type="image/svg+xml">
+    </embed>
     <svg class="infoSVG">
       <image
-      xlink:href="img/info-button.png"
-      alt="This is an example note"/>
+        width="25px"
+        height="25px"
+        alt="This is an example note." 
+        />
     </svg>
 
     to supplement
@@ -1457,9 +1467,9 @@ var infoTooltip = d3.tip()
 
 d3.selectAll(".infoSVG").call(infoTooltip)
 
-d3.selectAll(".infoSVG")
-.selectAll("image")
+d3.selectAll(".info")
 .on('click', function() {
+  console.log("SELECTED")
   var clickedElement = d3.select(this);
   var selected = clickedElement.classed("selected");
   infoTooltip.html(clickedElement.attr("alt"));

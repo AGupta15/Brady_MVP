@@ -26,7 +26,20 @@ body {
   height: 15px;
 }
 
+.infoSVG embed {
+  display: inline-block;
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 15px;
+  height: 15px;
+}
+
 img {
+  width: 25px;
+  padding: 2px;
+}
+
+.info-button {
   width: 25px;
   padding: 2px;
 }
