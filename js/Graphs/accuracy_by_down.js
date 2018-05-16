@@ -132,7 +132,7 @@ function loadAccuracyByDown(graphType, callback) {
         ranks[i]["Rank"] = ranks[i]["Rank"]/4.0
       }
       ranks.sort(compare4);
-      console.log(ranks)
+      // console.log(ranks)
 
       data.reverse()
       data.push({

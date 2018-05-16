@@ -87,6 +87,85 @@ function loadAccuracyByPoint(graphType, callback) {
         "passes": averagePasses})
       data.reverse()
 
+      ranks = []
+      data.forEach(function(d) {
+
+        var s0c = 0.0;
+        var s0a = 0.0;
+        var s7c = 0.0;
+        var s7a = 0.0;
+        var s14c = 0.0;
+        var s14a = 0.0;
+        var s21c = 0.0;
+        var s21a = 0.0;
+        var s22c = 0.0;
+        var s22a = 0.0;
+
+        d.passes.forEach(function(pt){
+          var passes = Object.values(pt);
+          var spread = parseInt(passes[0]);
+          if (Math.abs(spread) > 21){
+            s22a = s22a + passes[1]['total'];
+            s22c = s22c + passes[1]['completed'];
+          }
+          else if (Math.abs(spread) > 14){
+            s21a = s21a + passes[1]['total'];
+            s21c = s21c + passes[1]['completed'];
+          }
+          else if (Math.abs(spread) > 7){
+            s14a = s14a + passes[1]['total'];
+            s14c = s14c + passes[1]['completed'];
+          }
+
+          else if (Math.abs(spread) > 0){
+            s7a = s7a + passes[1]['total'];
+            s7c = s7c + passes[1]['completed'];
+          }
+          else { //0
+            s0a = s0a + passes[1]['total'];
+            s0c = s0c + passes[1]['completed'];
+          }
+        });
+
+        // console.log(d.passes[3])
+        var entry = {
+          "passer": d.passer,
+          "z0": s0c/s0a,
+          "z7": s7c/s7a,
+          "z14": s14c/s14a,
+          "z21": s21c/s21a,
+          "z22": s22c/s22a,
+          "Rank": 0
+        }
+        ranks.push(entry);
+      });
+
+      ranks.sort(function(a,b) { return a.z0 - b.z0; }).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      ranks.sort(function(a,b) { return a.z7 - b.z7; }).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      ranks.sort(function(a,b) { return a.z14 - b.z14; }).reverse();
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      }
+      // ranks.sort(function(a,b) { return a.z21 - b.z21; }).reverse();
+      // for (i=0; i<ranks.length; i++){
+      //   ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      // }
+      // ranks.sort(function(a,b) { return a.z22 - b.z22; }).reverse();
+      // for (i=0; i<ranks.length; i++){
+      //   ranks[i]["Rank"] = ranks[i]["Rank"] + (i+1)
+      // }
+      for (i=0; i<ranks.length; i++){
+        ranks[i]["Rank"] = ranks[i]["Rank"]/3.0
+      }
+      ranks.sort(compare5);
+      // console.log(ranks)
+
       // swap brady + nfl average
       var tmp = data[1]
       data[1] = data[0]
@@ -414,4 +493,50 @@ function tooltip3Html(passer, pointSpread, passes) {
   passes.total + " Total Attempts <br>" +
   passes.td + (passes.passer == "Average" ? " Total" : "") + " Touchdowns <br>" +
   passes.int + (passes.passer == "Average" ? " Total" : "") + " Interceptions"
+}
+
+function compare0(a,b) {
+  if (a["0"] < b["0"])
+    return -1;
+  if (a["0"] > b["0"])
+    return 1;
+  return 0;
+}
+
+function compare1(a,b) {
+  if (a["B7"] < b["B7"])
+    return -1;
+  if (a["B7"] > b["B7"])
+    return 1;
+  return 0;
+}
+function compare2(a,b) {
+  if (a["B14"] < b["B14"])
+    return -1;
+  if (a["B14"] > b["B14"])
+    return 1;
+  return 0;
+}
+function compare3(a,b) {
+  if (a["B21"] < b["B21"])
+    return -1;
+  if (a["B21"] > b["B21"])
+    return 1;
+  return 0;
+}
+
+function compare4(a,b) {
+  if (a["B22"] < b["B22"])
+    return -1;
+  if (a["B22"] > b["B22"])
+    return 1;
+  return 0;
+}
+
+function compare5(a,b) {
+  if (a["Rank"] < b["Rank"])
+    return -1;
+  if (a["Rank"] > b["Rank"])
+    return 1;
+  return 0;
 }

@@ -60,7 +60,7 @@ function loadQBEffectiveness(graphType, callback) {
         data[i].rank= data[i].rank/2.0
       }
       data.sort(compare2);
-      console.log(data)
+      // console.log(data)
 
       data.reverse()
       data.push(average)

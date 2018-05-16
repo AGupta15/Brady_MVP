@@ -31,6 +31,7 @@ img {
   padding: 2px;
 }
 
+
 li {
   font-size: 10px;
 }
@@ -47,6 +48,17 @@ li span {
   display: grid;
   margin-top: 0px !important;
 }
+
+#QBList li {
+  font-size: 15.5px;
+
+}
+
+#QBList li span {
+  font-size: 12px;
+
+}
+
 
 /* SELECT PICKERS */
 
@@ -85,13 +97,14 @@ li span {
 
 #para {
   font-family: 'Roboto', sans-serif;
-  font-size: 15px;
+  font-size: 15.5px;
   padding-bottom: 20px;
+  line-height: 1.45;
 }
 
 #h1-title {
   font-family: 'Raleway', sans-serif;
-  font-size: 55px;
+  font-size: 51px;
   font-weight: 900;
 }
 
@@ -341,6 +354,7 @@ li span {
 
 .headerDiv{
   max-width: 750px;
+  padding-top: 60px;
 
 }
 
@@ -382,4 +396,9 @@ th, td {
     padding-right: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
+}
+
+th {
+    background-color: #4E507E;
+    color: white;
 }
